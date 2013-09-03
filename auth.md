@@ -1,4 +1,4 @@
-title: Authencitate & Authorizate
+title: Auth API
 
 О чем данный документ
 =====================
