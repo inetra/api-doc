@@ -1,4 +1,6 @@
 title: Users Data Merge API
+version: 1.0
+status: черновик
 
 О чем данный документ
 ==================

@@ -1,4 +1,7 @@
 title: Tracking API
+version: 1.0
+server-version: 1.0
+status: в бою
 
 Общее описание
 ==============
