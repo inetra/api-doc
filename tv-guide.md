@@ -49,13 +49,13 @@ API реализует интерфейс для получения информ
 -----------|----------------------------------|-----------------------|-------
 `rr`       | `WIDTHxHEIGHT`                   | отсутствует           | предпочтительное разрешение логотипа канала
 `filter`   | идентификаторы каналов через `,` | пусто                 | фильтр списка каналов
-`full_info`| `true` или `false`               | |
+`detailed` | `true` или `false`               | `false`               | передача полной информации о каналах
 
 Формат ответа: сообщение `ChannelsList`.
 
 Отсутствие фильтра означает передачу информации обо всех каналах.
 
-В данном методе гарантируется передача (при `full_info=false`):
+В данном методе гарантируется передача (при `detailed=false`):
 
 - названия телеканала
 - идентификатора телеканала (в том числе строкового)
@@ -153,23 +153,19 @@ API реализует интерфейс для получения информ
 ## Channel — Описание канала
 
 	message Channel {
-	  optional uint32 channelId = 1;
-	  optional string title = 2;
-	  optional string description = 3;
-	  optional string logoURL = 5;
-	 
-	  optional string URL = 6;
-	  
-	  optional Telecast currentTelecast = 9;
-	 
-	  optional string alias = 10;
-	  optional uint32 ageRestriction = 12;
-
       message ScheduleInfo {
         optional uint64 from = 1;
         optional uint64 to = 2;
       }
-	  optional ScheduleInfo scheduleInfo = 14;
+	  optional uint32 channelId = 1;
+	  optional string title = 2;
+	  optional string description = 3;
+	  optional string logoURL = 4;
+	  optional string URL = 5;
+	  optional Telecast currentTelecast = 6;
+	  optional string alias = 7;
+	  optional uint32 ageRestriction = 8;
+	  optional ScheduleInfo scheduleInfo = 9;
 	}
 
 Замечания:
@@ -189,7 +185,7 @@ API реализует интерфейс для получения информ
 	message Schedule {
 	  optional string channelId = 1;
 	 
-	  repeated Telecast telecastsList = 2;
+	  repeated Telecast schedule = 2;
 	}
 
 ## ChannelsList — Список каналов
@@ -207,11 +203,13 @@ API реализует интерфейс для получения информ
 1. API предназначено только для получения информации о каналах
 	- удалены адреса источников вещания каналов
 	- удалены источники записей телепередач
-2. Время передается в едином стиле
-3. Упрощена передача информации о наличии расписания канала
-4. <span style="color:#f00">TODO</span>:
+2. XML изъят из обращения
+3. Время передается в едином стиле
+4. Упрощена передача информации о наличии расписания канала
+5. <span style="color:#f00">TODO</span>:
 	- Метод получения списка всех телепередач
 	- Метод получения выпусков телепередачи по идентификатору телепередачи
+	- Добавить поиск телепередач и выпусков телепередач
 
 Изменения в версии 2.1
 ----------------------
