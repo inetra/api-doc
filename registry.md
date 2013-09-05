@@ -174,7 +174,7 @@ knownInfo — информация от пользователя
 Форматы сообщений
 =================
 
-# WhereAmI — Где я [whereami-message]
+## WhereAmI — Где я [whereami-message]
 
 	message WhereAmI {
 	  optional ContractorInfo contractor = 1;
