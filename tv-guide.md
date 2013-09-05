@@ -141,7 +141,7 @@ API реализует интерфейс для получения списка
 
 - `timezone` задается в секундах относительно GMT.
 
-TVShow — Телепередача (<span style="color:#0f0">новое в 2.1</span>)
+## TVShow — Телепередача (<span style="color:#0f0">новое в 2.1</span>)
 
 	message TVShow {
 	  optional uint32 id = 1;
