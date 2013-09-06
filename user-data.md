@@ -1,7 +1,7 @@
 title: User Data API
 quotes language: french
 version: 1.0
-status: черновик
+status: чистовик
 
 Общее описание
 ==============
