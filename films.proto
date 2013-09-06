@@ -1,0 +1,73 @@
+option optimize_for = LITE_RUNTIME;
+
+package FilmsApiV3;
+
+message FilterValue {
+    optional string value_name = 1;
+    optional string readable_name = 2;
+    optional bool default_value = 3;
+    optional bool disable_filter = 4;
+}
+ 
+message MenuItem {
+    optional fixed32 id = 1;
+    optional string title = 2;
+    repeated MenuItem subitems = 3;
+    optional string filter_name = 4;
+    optional string filter_value = 5;
+    optional int32 filter_type = 6;
+    repeated FilterValue values= 7;
+}
+ 
+message Menu {
+    repeated MenuItem items = 1;
+}
+ 
+message MediaPart {
+    optional int64 id = 1;
+    optional string title = 2;
+    optional string magnet = 3;
+    optional fixed64 size = 4;
+    optional int32 duration_seconds = 5;
+}
+ 
+message Rating {
+    optional int32 id = 1;
+    optional string title = 2;
+    optional int32 votes = 3;
+    optional float rating = 4;
+    optional float max_rating = 5;
+}
+
+message Tag {
+    optional int64 tag_id = 1;
+    optional string title = 2;
+}
+
+message TagGroups {
+    repeated Tag directors = 1;
+    repeated Tag actors = 2;
+}
+
+message CatalogueItem {
+    optional int64 id = 1;
+    optional string title = 2;
+    optional string description = 3;
+    optional string poster_url = 4;
+    optional int32 year = 5;
+    repeated MediaPart media_parts = 6;
+    repeated MediaPart trailers = 7;
+    repeated Rating ratings = 8;
+    repeated CatalogueItem similar_items = 9;
+    optional string high_definition_poster_url = 10;
+    optional bool play_media_parts_one_after_another = 11 [default = false];
+    optional TagGroups tag_groups = 12;
+}
+
+message CataloguePart {
+    repeated CatalogueItem items = 1;
+    optional int32 items_skipped = 2;
+    optional int64 expires = 3;
+    optional int32 ttl = 4; 
+}
+
