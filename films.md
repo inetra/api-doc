@@ -304,7 +304,7 @@ API каталога фильмов состоит из нескольких RPC
 
 Спецификация [размещена в git][films.proto].
 
-[films.proto]: films.proto
+[films.proto]: films.proto?h=dev
 
 # Рекомендации по реализации API на PHP
 
