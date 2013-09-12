@@ -28,7 +28,7 @@ API каталога фильмов предназначен для прилож
 Принятые решения
 ----------------
 
-В качестве основного средства упаковки сообщений (вместо XML) выбрана библиотека Google  Protocol Buffers. Она позволяет решить сразу несколько из заявленных целей:
+В качестве основного средства упаковки сообщений (вместо XML) выбрана библиотека Google Protocol Buffers. Она позволяет решить сразу несколько из заявленных целей:
 
 - уменьшить накладные расходы на генерацию/декодирование сообщения
 - уменьшить расходы на разработку генератора/парсера сообщения
@@ -110,37 +110,29 @@ API каталога фильмов состоит из нескольких RPC
 
 ### Описание формата сообщений
 
-	// тип фильтра 
-	enum FilterType {
-	    SINGLE_VALUE = 0;	// фиксированный фильтр с одним значением
-	    MULTIPLE_VALUE = 1; // множественный фильтр с несколькими вариантами значений
-	    USER_VALUE = 2;	// значение этого фильтра задаётся пользователем (например, поисковая строка)
-	}
-	
-	// контейнер рубрик
-	message Menu {
-	    repeated Filter items = 1;			// основные рубрики 
-	    repeated Filter specialItems = 2;		// специальные (вспомогательные) рубрики (например, "Поиск")
-	}
-	
-	// рубрика (фильтр)
-	message Filter {
-	    optional fixed32 id = 1;			// идентификатор фильтра
-	    optional string title = 2;			// отображаемое пользователю название пункта меню
-	    repeated Filter subitems = 3;		// список вложенных подрубрик
-	    optional string parameter_name = 4;		// имя параметра для вызова list
-	    optional string parameter_value = 5;	// значение параметра для вызова list 
-	    optional FilterType filter_type = 6 [default = SINGLE_VALUE];		// тип фильтра
-	    optional FilterParameter parameters = 7;	// параметры фильтра
-	}
-		
-	// параметр фильтра
-	message FilterParameter {
-	    optional string parameter_value = 1;	// значение параметра в запросе list
-	    optional string readable_value = 2;         // 
-	    optional bool isDefault = 3;
+	message FilterValue {
+	    optional string value_name = 1;
+	    optional string readable_name = 2;
+	    optional bool default_value = 3;
 	    optional bool disable_filter = 4;
 	}
+ 
+	// рубрика меню (фильтр)
+	message MenuItem {
+	    optional fixed32 id = 1;
+	    optional string title = 2;		// название рубрики
+	    repeated MenuItem subitems = 3;	// подрубрики
+	    optional string filter_name = 4;	// имя фильтра для передачи в параметрах GET-запроса
+	    optional string filter_value = 5;   // значение фильтра для передачи в параметрах GET-запроса
+	    optional int32 filter_type = 6;	// тип фильтра: 0 - фиксированный
+	    repeated FilterValue values= 7;	// возможные значения для множественного фильтра
+	}
+ 
+	// контейнер рубрик
+	message Menu {
+	    repeated MenuItem items = 1;
+	}
+
 
 ### Пример вызова:
 
@@ -201,6 +193,7 @@ API каталога фильмов состоит из нескольких RPC
 
 - `skip` - cмещение в фильтрованном подмножестве: `skip=n`, если отсутствует `n = 0`
 - `quantity` - желаемое количество элементов: `quantity=n`, если отсуствует выбирается `n`, подходящее для указанного клиента
+- `search` - используется для поиска элементов каталога по названию
 
 ### Описание формата сообщений
 
