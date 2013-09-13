@@ -52,51 +52,26 @@ API работает по протоколу HTTP, корень доступа �
 Методы
 ======
 
-## Получение списка каналов
+## Получение списка элементов каталога
 
-Запрос: `channels`.
+Запрос: `list`.
 
- параметр  | формат                           | значение по умолчанию | смысл
------------|----------------------------------|-----------------------|-------
-`logo_size`| `WIDTHxHEIGHT`                   | отсутствует           | предпочтительное разрешение логотипа канала
-`filter`   | идентификаторы каналов через `,` | пусто                 | список идентификаторов запрашиваемых каналов
-`detailed` | `true` или `false`               | `false`               | передача полной информации о каналах
-`quantity` | `число`                          | отсутствует           | максимальное количество возвращаемых каналов в списке
-`skip`     | `число`                          | `0`                   | количество каналов, которое надо пропустить при выдаче
+ параметр   | формат         | по умолчанию | смысл
+------------|----------------|--------------|-------
+`t`         | `число`        | отсутствует  | тип выдаваемых элементов каталога
+`resolution`| `WIDTHxHEIGHT` | отсутствует  | предпочтительное разрешение изображений
+`ids`       | числа через `,`| пусто        | список идентификаторов запрашиваемых элементов
+`detailed`  | `true` `false` | `false`      | передача полной информации об элементе каталога
+`from `     | `число`        | отсутствует  | фильтр по времени
+`to`        | `число`        | отсутствует  | фильтр по времени
+`quantity`  | `число`        | отсутствует  | максимальное количество элементов в выдаче
+`skip`      | `число`        | `0`          | смещение элементов в выдаче
 
-Формат ответа: сообщение `ChannelsList`.
+Формат ответа: сообщение `CataloguePart`.
 
-Отсутствие параметра `filter` означает передачу информации обо всех каналах.
+Отсутствие параметра `ids` означает передачу информации обо всех каналах.
 
-В данном методе гарантируется передача (при `detailed=false`):
-
-- названия телеканала
-- идентификатора телеканала (в том числе строкового)
-- URL логотипа канала
-- возрастного ограничения
-- наличие расписания для канала
-
-## Получение списка выпусков телепередач
-
-Запрос: `telecasts_list`.
-
- параметр | формат  | по умолчанию | значение
-----------|---------|--------------|----------
-`channel` | `число` | отсутствует  | идентификатор канала
-`from`    | `число` | отсутствует  | время начала запрашиваемого расписания
-`to`      | `число` | отсутствует  | время окончания запрашиваемого расписания
-`quantity`| `число` | отсутствует  | максимальное количество выпусков в выдаче
-`skip`    | `число` | `0`          | количество выпусков, которые надо пропустить в выдаче
-
-Вместо или вместе с перечисленными выше параметрами могут быть переданы дополнительные параметры, полученные из фильтра выбранного меню рубрикатора.
-
-Формат ответа: сообщение `TelecastsList`.
-
-## Получение информации о выпуске телепередачи по его идентификатору
-
-Запрос: `telecast/<id>`.
-
-Формат ответа: сообщение `Telecast`.
+В данном методе гарантируется передача (при `detailed=false`): <span style="color:#f00">TODO</span>
 
 ## Запрос меню–рубрикатора
 
@@ -105,8 +80,6 @@ API работает по протоколу HTTP, корень доступа �
 Формат ответа: сообщение `Menu`.
 
 Полученный рубрикатор меню следует отображать в приложениях отдельно от списка каналов. Фильтр, полученный в результате выбора пункта меню необходимо передавать параметрами к методу получения списка выпусков телепередач.
-
-<span style="color:#f00">ПОДУМАТЬ</span>: что насчет рубрикатора для каналов? для телепередач?
 
 # Описания форматов способом Google Protocol Buffers
 
@@ -154,110 +127,61 @@ API работает по протоколу HTTP, корень доступа �
 
 [films-api-v3]: films.md?h=dev
 
-## TVShow — Телепередача
+## CatalogueItem — элемент каталога
 
-	message TVShow {
-	  optional uint32 id = 1;
-	  optional string title = 2;
-	  optional string description = 3;
-	  repeated uint32 channels_id = 4;
-	  optional uint32 age_restriction = 5;
-	  optional string url = 6;
-	}
-	 
-	message TVShowList {
-	  repeated TVShow tvshows = 1;
-	  optional int32 total_count = 2;
-	  optional int32 items_skipped = 3 [default = 0];
-	}
-
-Замечания:
-
-- `id` — идентификатор телепередачи
-- `title` — название телепередачи
-- `description` — описание телепередачи
-- `channels_id` — список идентификаторов каналов, на которых выходят выпуски телепередачи
-- `age_restriction` — возрастное ограничение телепередачи
-- `url` — адрес страницы телепередачи в интернете
-
-## Telecast — Описание выпуска телепередачи
-
-	message Telecast {
-	  optional uint64 id = 1;
-	  optional string title = 2;
-	  optional string description = 3;
-	  optional uint64 date = 4;
-	  optional uint32 duration = 5;
-	 
-	  message TelecastImage {
-	    enum Profile {
-	      IMAGE = 0;
-	      PREVIEW = 1;
-	      MAIN = 2;
-	    }
-	    optional Profile profile = 1;
-	    optional uint32 width = 2;
-	    optional uint32 height = 3;
-	    optional string location = 4;
-	  }
-	 
-	  repeated TelecastImage telecast_images = 7;
-	  optional uint32 tvshow_id = 10;
-	  optional uint32 channel_id = 11;
-	  optional uint32 age_restriction = 12;
+	message Rating {
+	    optional int32 id = 1;
+	    optional string title = 2;
+	    optional int32 votes = 3;
+	    optional float rating = 4;
+	    optional float max_rating = 5;
 	}
 	
-	message TelecastsList {
-	  repeated Telecast telecasts = 1;
-	  optional int64 total_count = 2;
-	  optional int64 items_skipped = 3 [default = 0];
+	message Tag {
+	    optional int64 tag_id = 1;
+	    optional string title = 2;
 	}
 
-Замечания:
+	enum CatalogueItemType {
+	  option allow_alias = true;
+	  FILM = 0;
+	  CHANNEL = 1;
+	  TVSHOW = 2;
+	  TELECAST = 3;
+	}
 
-- `id` — идентификатор выпуска телепередачи
-- `title` — название выпуска
-- `description` — описание выпуска
-- `date` — время выхода выпуска
-- `duration` — продолжительность (в секундах)
-- `telecast_images` — изображения для телепередачи
-- `tvshow_id` — идентификатор телепередачи
-- `channel_id` — идентификатор канала выпуска телепередачи
-- `age_restriction` — возрастное ограничение для выпуска телепередачи
-
-## Channel — Описание канала
-
-	message Channel {
-      message ScheduleAvailabilityDates {
-        optional uint64 from = 1;
-        optional uint64 to = 2;
-      }
-	  optional uint32 id = 1;
+	message CatalogueItem {
+	  optional int64 id = 1;
 	  optional string title = 2;
 	  optional string description = 3;
-	  optional string logo_url = 4;
-	  optional string url = 5;
-	  optional Telecast current_telecast = 6;
-	  optional uint32 age_restriction = 7;
-	  optional ScheduleAvailabilityDates schedule_availability_dates = 8;
+	  optional string url = 4;
+	  
+	  repeated CatalogueItem similar_items = 9;
+	  
+	  optional CatalogueItemType type = 13;
+	  optional uint32 age_restriction;
+	  
+	  // для канала
+	  optional string logo_url;
+	  optional int64 telecast_id; // идентификатор текущей телепередачи
+	  optional int64 schedule_from;
+	  optional int64 schedule_to;
+	  
+	  // для выпуска телепередачи
+	  optional int64 channel_id;
+	  optional int64 tvshow_id;
+	  optional uint64 date;
+	  optional uint32 duration;
+	  
 	}
 	
-	message ChannelsList {
-	  repeated Channel channels = 1;
-	  optional int32 total_count = 2;
-	  optional int32 items_skipped = 3 [default = 0];
+	message CataloguePart {
+	  repeated CatalogueItem items = 1;
+	  optional int32 items_skipped = 2;
+	  optional int64 expires = 3;
+	  optional int32 ttl = 4;
+	  optional int32 total_count = 5;
 	}
-
-Замечания:
-
-- `id` — числовой идентификатор канала
-- `title` — название
-- `description` — описание канала
-- `logo_url` — URL логотипа канала
-- `url` — ссылка на сайт канала в интернете
-- `current_telecast` — текущая телепередача
-- `age_restriction` — возрастное ограничение для канала
-- `schedule_availability_dates` — информация о временном периоде наличия расписания телепередач канала
 
 История версий
 ==============
