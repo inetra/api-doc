@@ -15,7 +15,7 @@ API подразумевает доступ только аутентифици�
 
 В следствие чего данное API должно быть доступно только по HTTPS. Формат запроса:
 
-	https://<path_to_api>/<api_version>/<method>?token=<token>&format=<format>[&params]
+	https://<path_to_api>/<api_version>/<method>.<format>?token=<token>[&params]
 
 Где:
 
