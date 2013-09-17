@@ -105,6 +105,7 @@ API работает по протоколу HTTP, корень доступа �
 	enum CatalogueItemType {
 	  option allow_alias = true;
 	  FILM = 0;
+	  RIP = 3;
 	  CHANNEL = 1;
 	  TVSHOW = 2;
 	  TELECAST = 3;
@@ -132,7 +133,7 @@ API работает по протоколу HTTP, корень доступа �
 	  optional int64 schedule_from = 16;
 	  optional int64 schedule_to = 17;
 	  
-	  // для выпуска телепередачи
+	  // для выпуска телепередачи или рипа фильма
 	  optional int64 channel_id = 18;
 	  optional int64 tvshow_id = 19;
 	  optional uint64 date = 20;
