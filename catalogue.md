@@ -166,7 +166,7 @@ API каталога состоит из нескольких RPC-запросо
 
 ### Пример вызова:
 
-	http://api.cn.ru/path_to_api/menu.json?api-version=3&client=nv101&client-version=fs_nv101_121203
+	http://api.cn.ru/path_to_api/menu.json?client=nv101&client-version=fs_nv101_121203
 
 ### Пример ответа:
 
@@ -234,6 +234,8 @@ API каталога состоит из нескольких RPC-запросо
 `t`         | `число`        |              | идентификатор территории из [Регистратуры][registry-api]
 [Дополнительные параметры]
 
+[registry-api]: registry.md
+
 ### Ограничение списка по количеству элементов и пропуск элементов
 
 Параметры `quantity` и `skip` зарезервированы для ограничения порции данных списка.
@@ -259,11 +261,11 @@ API каталога состоит из нескольких RPC-запросо
 
 Вызов для получения списка *фильмов* с жанром *детектив*.
 
-	http://www.cn.ru/path_to_api/list?type=films&genre=detective&api-version=3&client=nv101&client-version=fs_nv101_121203
+	http://www.cn.ru/path_to_api/list?type=films&genre=detective&client=nv101&client-version=fs_nv101_121203
 
 Вызов с параметром `search` для поиска по названию элемента каталога.
 
-	http://www.cn.ru/path_to_api/list?search=house&api-version=3&client=nv101&client-version=fs_nv101_121203
+	http://www.cn.ru/path_to_api/list?search=house&client=nv101&client-version=fs_nv101_121203
 
 ### Пример ответа
 
@@ -374,7 +376,7 @@ API каталога состоит из нескольких RPC-запросо
 
 ### Пример вызова
 
-	http://www.cn.ru/path_to_api/item/13401147&api-version=3&client=nv101&client-version=fs_nv101_121203
+	http://www.cn.ru/path_to_api/item/13401147?client=nv101&client-version=fs_nv101_121203
 
 ### Пример ответа
 
@@ -388,9 +390,9 @@ API каталога состоит из нескольких RPC-запросо
 
 # Спецификация API для Protocol Buffers
 
-Спецификация [размещена в git][films.proto].
+Спецификация [размещена в git][catalogue.proto].
 
-[films.proto]: films.proto?h=WEBDEV-6465
+[catalogue.proto]: catalogue.proto?h=WEBDEV-6465
 
 # Рекомендации по реализации API на PHP
 
