@@ -108,25 +108,28 @@ API каталога состоит из следующих RPC-запросов
 
 ## Виды элементов каталога
 
-Каталог представляет собой иерархическую структуру, в которой содержатся элементы следующих типов:
+Каталог представлен множеством элементов, каждый из которых может включать в себя другие. Тогда этот элемент называется родительским по отношению к вложенным, а они, по отношению к нему — дочерними.
+
+Виды элементов каталога:
 
  код | значение
 -----|----------
-`0`  | фильм или телесериал
-`1`  | сезон телесериала
-`2`  | серия
+`0`  | группа элементов
+`1`  | фильм, телесериал или телепередача
+`2`  | серия или выпуск телепередачи
 `3`  | телевизионный канал
-`4`  | телепередача
-`5`  | сезон телепередачи
-`6`  | выпуск телепередачи
+`4`  | трейлер
 
-Не каждый элемент может быть дочерним относительно другого:
+С помощью вложенности элементов каталога реализуется:
 
-- У телевизионных каналов, фильмов (телесериалов) и телепередач не бывает родительских элементов
-- Для сезонов телесериалов родительским является сериал
-- Для сезонов телепередач — телепередачи
-- Для серий — фильмы и сезоны телесериалов
-- Для выпусков телепередач — каналы
+1. Расписание эфира вещания для канала. Расписание телепередач (элементов с кодом 2) является списком дочерних элементов для канала (элемента с кодом 1).
+2. Серии у телесериала.
+3. Сезоны телесериала.
+4. Трейлеры фильма.
+
+Также в описании каждого элемента содержится информация, можно ли получить для него список источников вещания (с помощью [Media Locator API][media-locator-api-ref]).
+
+[media-locator-api-ref]: media-locator.md?h=WEBDEV-6533
 
 ## rubricator — Запрос меню-рубрикатора
 
@@ -155,7 +158,8 @@ API каталога состоит из следующих RPC-запросов
 `to`        | `число`        | отсутствует  | по времени завершения
 `search`    | `строка`       | отсутствует  | по названию
 `tag`       | `число`        | отсутствует  | по тэгу
-`parent_id` | `число`        | отсутствует  | по родителю
+`parent_id` | `число`        | отсутствует  | по идентификатору родителя
+`child_id`  | `число`        | отсутствует  | по идентификатору потомка
 `t`         | `число`        |              | идентификатор территории из [Регистратуры][registry-api][^default-territory]
 Представление данных ||||
 `logo_res`  | `WIDTHxHEIGHT` | отсутствует  | желаемое разрешение постеров
@@ -179,57 +183,7 @@ API каталога состоит из следующих RPC-запросов
 
 	/item.<method>/<id>
 	
-Равносилен запросу
-
-	/list.<method>?id=<id>&detailed=true
-
-###Описание формата сообщений
-
-	message CatalogueItem {
-	    optional int64 id = 1;
-	    optional string title = 2;
-	    optional string description = 3;
-	    optional string standar_definition_poster_url = 4;
-	    optional int32 year = 5;
-	    repeated MediaPart media_parts = 6;         // *
-	    repeated MediaPart trailers = 7;           // *
-	    repeated Rating ratings = 8;               // *
-	    repeated CatalogueItem similar_items = 9;   // *
-	    optional string high_definition_poster_url = 10;
-	    optional bool playMediaPartsOneAfterAnother = 11 [default = false];
-	    optional TagGroups tag_groups = 12;
-	    optional CatalogueItemType type = 13;
-	    optional uint32 age_restriction = 14;
-	  
-	    // для канала
-	    optional int64 telecast_id = 15;
-	    optional int64 schedule_from = 16;
-	    optional int64 schedule_to = 17;
-	  
-	    // для выпуска телепередачи или рипа фильма
-	    optional int64 channel_id = 18;
-	    optional int64 tvshow_id = 19;
-	    optional uint64 date = 20;
-	    optional uint32 duration = 21;
-	}
-	
-Замечания[^2]:
-
-- Сообщение `CatalogueItem` является генерализованным элементом медийного каталога и может представлять собой:
-	- карточку фильма, `type=0`
-	- телеканал, `type=1`
-		- `logo_url` — URL логотипа канала в разрешении `logo_res`
-		- `telecast_id` — идентификатор выпуска телепередачи, которая транслируется на данный момент
-		- `schedule_from`, `schedule_to` — информация о временном диапазоне, в котором для телеканала доступно расписание выпусков телепередач
-	- телепередачу как сущность, `type=2`, без привязки ко времени или каналу
-	- выпуск телепередачи, `type=3`, с привязкой к каналу и времени выхода
-		- `channel_id` — идентификатор канала выпуска телепередачи
-		- `tvshow_id` — идентификатор телепередачи
-		- `date` — время начала выпуска телепередачи, в UTC
-		- `duration` — продолжительность выпуска, в секундах
-- параметр `age_restriction` отвечает за минимальный разрешенный возраст для просмотра элемента
-
-[^2]: Замена требуется для параметра `playMediaPartsOneAfterAnother`, для этого добавить признак номеров серий
+Формат ответа: сообщение `CatalogueItem` со всеми заполненными полями (как в методе `list` с параметром `detailed=true`).
 
 # Спецификация API для Protocol Buffers
 
@@ -274,7 +228,7 @@ API каталога состоит из следующих RPC-запросов
 ## CataloguePart
 
 	message CataloguePart {
-	   repeated CatalogueItem items = 1;
+	    repeated CatalogueItem items = 1;
 	    optional int32 total_count = 5;
 	    optional int32 items_skipped = 2 [default = 0];
 
@@ -293,31 +247,67 @@ API каталога состоит из следующих RPC-запросов
 
 	enum CatalogueItemType {
 	    option allow_alias = true;
-	    FILM = 0;
-	    SERIAL = 0;
-	    SERIAL_SEASON = 1;
-	    SEASON_SERIE = 2;
+	    GROUP = 0;
+
+	    FILM = 1;
+	    SERIAL = 1;
+	    TVSHOW = 1;
+
+	    SERIE = 2;
+	    TELECAST = 2;
+
 	    TV_CHANNEL = 3;
-	    TVSHOW = 4;
-	    TVSHOW_SEASON = 5;
-	    TELECAST = 6;
+
+	    TRAILER = 4;
 	}
 
 	message CatalogueItem {
 	    optional int64 id = 1;
+	    optional CatalogueItemType type = 13;
+	    optional bool has_children = 14;
+	    optional bool can_have_media_sources = 15;
 	    optional string title = 2;
+	    optional string logo_url = 4;
+
 	    optional string description = 3;
-	    optional string poster_url = 4;
-	    optional int32 year = 5;
-	    repeated MediaPart media_parts = 6;
-	    repeated MediaPart trailers = 7;
 	    repeated Rating ratings = 8;
 	    repeated CatalogueItem similar_items = 9;
-	    optional string high_definition_poster_url = 10;
 	    optional TagGroups tag_groups = 12;
+	    optional uint32 age_restriction = 15;
+	    optional uint64 date = 16;
+	    optional uint32 duration = 17;
+	    repeated string snapshots = 18;
+	    optional int32 serial_number = 19;
+
+	    // channel specific
+	    optional int64 current_telecast_id = 20;
 	}
 
-### Rating
+Замечания:
+
+- Сообщение `CatalogueItem` является генерализованным элементом медийного каталога, для разных видов которого заполняются различные поля.
+- Общие поля для всех элементов:
+	- `id` — уникальный (в рамках каталога) числовой идентификатор
+	- `type` — вид элемента
+	- `title` — название
+	- `description` — описание
+	- `logo_url` — ссылка на логотип элемента, в разрешении `logo_res`
+	- `ratings` — рейтинги, [см. описание Rating][Rating-message]
+	- `similar_items` — похожие элементы
+	- `tag_groups` — тэги, [см. описание TagGroup][TagGroup-message]
+	- `has_children` — признак наличия дочерних элементов
+	- `can_have_media_sources` — признак возможного наличия источники вещания
+	- `age_restriction` — возрастное ограничение
+	- `date` — дата выхода, в секундах относительно UTC
+	- `duration` — продолжительность, в секундах
+	- `snapshots` — список ссылок на стоп–кадры, в разрешении `ss_res`
+	- `serial_number` — порядковый номер в родительском элементе (номер сезона или серии)
+- Специфика для элементов вида "канал телевидения":
+	- наличие дочерних элементов `has_children` равносильно наличию расписания телепередач
+	- `current_telecast_id` — идентификатор телепередачи, которая на данный момент транслируется на канале
+- При запросе не детализированной информации выдаются лишь следующие поля (если есть): `id`, `type`, `title`, `logo_url`, `has_children`, `can_have_media_sources`, `current_telecast_id`
+
+### Rating [Rating-message]
 
 	message Rating {
 	    optional int32 id = 1;
@@ -334,7 +324,7 @@ API каталога состоит из следующих RPC-запросов
 - `max_rating` — максимальный рейтинг для системы оценок
 - `rating` — текущая оценка
 
-### Tag, TagGroup
+### Tag, TagGroup [TagGroup-message]
 
 	message Tag {
 	    optional int64 id = 1;
@@ -351,6 +341,11 @@ API каталога состоит из следующих RPC-запросов
 Замечания:
 
 - `Tag::title` — название тэга, отображаемое пользователю
+- поля `TagGroups`:
+	- `directors` — режиссеры
+	- `actors` — актеры
+	- `countries` — страны
+	- `genres` — драматургические жанры
 
 # Изменения относительно Films API и предыдущих версий TV API
 
