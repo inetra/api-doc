@@ -54,7 +54,7 @@ API подразумевает доступ только аутентифици�
 
 Формат ответа: сообщение `CatalogueItemLocationsInfo`[^fn-repeated_locations] [^fn-metainfo-todo]
 
-	enum LocationType {
+	enum UriType {
 	  option allow_alias = true;
 	  MAGNET = 0;
 	  HTTP = 1;
@@ -64,18 +64,52 @@ API подразумевает доступ только аутентифици�
 	  RTSP = 4;
 	}
 	
-	message CatalogueItemLocation {
-	  optional LocationType type = 1;
-	  repeated string locations = 2;
+	message Location {
+	  optional UriType type = 1;
+	  optional string uri = 2;
+	  optional float usage_probability = 3; // for load balancing
 	}
 	
-	message CatalogueItemLocationInfo {
+	enum TrackType {
+	  VIDEO = 0;
+	  AUDIO = 1;
+	  SUBTITLE = 2;
+	}
+	
+	message TrackInfo {
+	  optional int64 id = 1;
+	  optional TrackType type = 2;
+	  optional int32 codec_id = 3; // from MediaInfo
+	  optional int32 language = 4; // ISO code
+	  optional int32 duration = 5; // in seconds
+	  optional int32 bitrate = 6; // in bytes per second
+	  optional Location locations = 7;
+	  // for video
+	  optional int32 width = 8; // in pixels
+	  optional int32 height = 9; // in pixels
+	  // for audio
+	  optional int32 channel_count = 10;
+	}
+	
+	message MediaPart {
+	  repeated TrackInfo tracks = 1;
+	  repeated Location locations = 2; // load balance
+	}
+	
+	message Rip {
+	  optional int64 id = 1;
+	  repeated MediaParts parts = 2; // multipart source
+	  repeated string snapshots = 3; // for quality comparison
+	}
+	
+	message CatalogueItemRipInfo {
 	  optional int64 catalogue_item_id = 1;
-	  repeated CatalogueItemLocation locations = 2;
+	  repeated Rip rips = 2;
+	  optional int32 error = 3;
 	}
 	
-	message CatalogueItemLocationsInfo {
-	  repeated CatalogueItemLocationInfo locations_info = 1;
+	message CatalogueItemLocationsReply {
+	  repeated CatalogueItemRipInfo rip_info = 1;
 	}
 
 Отсутствие в ответе информации по запрошенному id следует интерпретировать как «информация для указанного id не найдена».
