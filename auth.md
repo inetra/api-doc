@@ -49,7 +49,7 @@ server-version: 1.0
 
 Параметры к запросам передаются методом GET, их значения экранируются стандартным URI кодированием. Таким образом, обращение к API строится по схеме:
 
-	https://api.cn.ru/auth/<method>?[param1=value1& ... paramN=valueN]
+	https://api.cn.ru/auth/1/<method>?[param1=value1& ... paramN=valueN]
 
 Где `<method>` — имя метода (например, `UserCredentials` или `PidCode`), а `param1`, `paramN` — параметры.
 
