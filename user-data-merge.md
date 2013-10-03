@@ -136,23 +136,23 @@ API работает по протоколу HTTPS для сокрытия пе�
 Поэтому слияние множества атрибутов равносильно слиянию значений атрибутов источника в элемент–получатель.
 
 1. Для всех атрибутов элемента–источника:
-2. Если атрибут с данным `protobuf_numbered_tag` отсутствует в получателе, то сохранить его в получателе без изменений
-3. Иначе,
-	1. Если атрибут является многозначным, то произвести слияние значений данного атрибута
-	2. Иначе, если принято решение принимать решение конфликтов в пользу источника, записать значение атрибута источника в атрибут получателя
+	2. Если атрибут с данным `protobuf_numbered_tag` отсутствует в получателе, то сохранить его в получателе без изменений
+	3. Иначе,
+		1. Если атрибут является многозначным, то произвести слияние значений данного атрибута
+		2. Иначе, если принято решение принимать решение конфликтов в пользу источника, записать значение атрибута источника в атрибут получателя
 
 	merge_attributes(dst, src, dst_is_winner) {
 	  for (protobuf_numbered_tag in src) {
 	    if (!(protobuf_numbered_tag in dst)) {
 	      dst[protobuf_numbered_tag] = src[protobuf_numbered_tag];
-		} else {
-		  if (AttributeDescription[protobuf_numbered_tag].multivalue) {
-		    merge_values(dst[protobuf_numbered_tag], src[protobuf_numbered_tag]);
-		  } else {
-		    if (dst_is_winner) {
-		      dst[protobuf_numbered_tag] = src[protobuf_numbered_tag];
-		    }
-		  }
+	    } else {
+	      if (AttributeDescription[protobuf_numbered_tag].multivalue) {
+	        merge_values(dst[protobuf_numbered_tag], src[protobuf_numbered_tag]);
+	      } else {
+	        if (dst_is_winner) {
+	          dst[protobuf_numbered_tag] = src[protobuf_numbered_tag];
+	        }
+	      }
 	    }
 	  }
 	}
