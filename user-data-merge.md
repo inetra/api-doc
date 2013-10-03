@@ -82,7 +82,7 @@ API работает по протоколу HTTPS для сокрытия пе�
 	      }
 	    }
 	  }
-	  merge_elements(dst.root, src.root, resolve_hint === 'their');
+	  merge_elements(dst.root, src.root, resolve_hint === 'mine');
 	  return true;
 	}
 
