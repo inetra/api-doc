@@ -79,11 +79,17 @@ API подразумевает доступ только аутентифици�
 
 ## Rip — информация о рипе
 
+	message RipDefinition {
+	  SD = 0;
+	  HD = 1;
+	  3D = 2;
+	}
+
 	message Rip {
 	  optional int64 id = 1;
 	  repeated RipPart parts = 2;
 	  repeated string snapshots = 3;
-	  optional RipDefinition definition
+	  optional RipDefinition definition = 4;
 	}
 
 Замечания:
@@ -91,6 +97,7 @@ API подразумевает доступ только аутентифици�
 - `id` — идентификатор рипа
 - `parts` — информация о частях рипа, передается в том же порядке, в котором должны быть показаны при воспроизведении
 - `snapshots` — массив, содержащий ссылки (URL) на стоп–кадры рипа
+- `definition` — качество рипа
 
 ## RipPart — часть рипа
 
