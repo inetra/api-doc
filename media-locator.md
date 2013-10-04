@@ -7,7 +7,7 @@ status: черновик
 
 Данный документ создан для унификации способов получения информации о местах расположения контента из медийных каталогов, таких, как каталог фильмов или расписание выпусков телепередач канала.
 
-Логика взаимодействия клиентского ПО, серверов Регистратуры и серверов Оператора-вещателя подразумевает согласованность идентификаторов выпусков телепрограмм (далее в тексте – id). В настоящем документе не описывается механизм согласования идентификаторов.
+Логика взаимодействия клиентского ПО, серверов Регистратуры и серверов Оператора-вещателя подразумевает согласованность идентификаторов выпусков телепрограмм, фильмов, серий сериалов и т.д. (далее в тексте – идентификаторы элементов медийного каталога). В настоящем документе не описывается механизм согласования идентификаторов.
 
 # Взаимодействие с API
 
@@ -51,26 +51,20 @@ API подразумевает доступ только аутентифици�
 
 Формат ответа: сообщение `SourcesReply`.
 
+Если токен доступа передан недействительный, то HTTP код ответа — 401, иначе — всегда 200.
+
 Замечания:
 
-- Ответы возвращаются в том же порядке, в котором был составлен запрос
-- Каждый из ответов `SourceReply` содержит либо атрибут `rips`, описывающий список доступных источников, либо `error`, содержащий код ошибки
-- Следует отличать две ситуации:
-	- массив `rips` содержится в ответе, но пустой — означает, что для элемента каталога с идентификатором `catalogue_item_id` нет источников вещания
-	- массив `rips` отсутствует в ответе — означает, что элемент не найден или случилась другая ошибка. В таком случае поле `error` содержит код ошибки 
+- Отсутствие в ответе элемента `SourceReply` с запрошенным `catalogue_item_id` означает отсутствие информации об элементе каталога с указанным идентификатором
+- Отсутствие в сообщении `SourceReply` поля `rips` или отсутствие элементов в нем означает присутствие элемента каталога с указанным идентификатором, но отсутствие рипов для него
 
 # Описание сообщений
 
 ## SourcesReply — ответ на метод sources
 	
-	enum SourceError {
-	  NOT_FOUND = 404;
-	}
-	
 	message SourceReply {
 	  optional int64 catalogue_item_id = 1;
 	  repeated Rip rips = 2;
-	  optional int32 error = 3;
 	}
 	
 	message SourcesReply {
@@ -82,7 +76,12 @@ API подразумевает доступ только аутентифици�
 	message RipDefinition {
 	  SD = 0;
 	  HD = 1;
-	  3D = 2;
+	}
+
+	enum RipStatus {
+	  ACCESS_ALLOWED = 200;
+	  PAYMENT_REQUIRED = 402;
+	  ACCESS_DENIED = 403;
 	}
 
 	message Rip {
@@ -90,6 +89,7 @@ API подразумевает доступ только аутентифици�
 	  repeated RipPart parts = 2;
 	  repeated string snapshots = 3;
 	  optional RipDefinition definition = 4;
+	  optional RipStatus status = 5 [default = ACCESS_ALLOWED];
 	}
 
 Замечания:
@@ -97,7 +97,8 @@ API подразумевает доступ только аутентифици�
 - `id` — идентификатор рипа
 - `parts` — информация о частях рипа, передается в том же порядке, в котором должны быть показаны при воспроизведении
 - `snapshots` — массив, содержащий ссылки (URL) на стоп–кадры рипа
-- `definition` — качество рипа
+- `definition` — качество рипа (SD, HD)
+- `status` — статус доступности рипа (доступны сразу либо все части, либо ни одной)
 
 ## RipPart — часть рипа
 
@@ -118,15 +119,15 @@ API подразумевает доступ только аутентифици�
 ## ContainerInfo — информация о контейнере
 
 	message ContainerInfo {
-		optional int32 format = 1;
-		optional int32 codec_id = 2;
-		repeated TrackInfo tracks = 3;
+	  optional string format = 1;
+	  optional string format_profile = 2;
+	  repeated TrackInfo tracks = 3;
 	}
 
 Замечания:
 
-- `format` — идентификатор формата контейнера, из библиотеки MediaInfo[^constants-from-mediainfo]
-- `codec_id` — идентификатор кодека, из библиотеки MediaInfo[^constants-from-mediainfo]
+- `format` — формат контейнера, из библиотеки MediaInfo
+- `format_profile` — профиль формата контейнера, из библиотеки MediaInfo
 - `tracks` — информация о дорожках контейнера
 
 ## TrackInfo — информация о дорожке
@@ -139,23 +140,27 @@ API подразумевает доступ только аутентифици�
 	
 	message TrackInfo {
 	  optional TrackType type = 1;
-	  optional int32 codec_id = 2;
-	  optional string language = 3;
-	  optional uint32 duration = 4;
-	  optional uint32 bitrate = 5;
-	  optional Location locations = 6;
+	  optional string codec = 2;
+	  optional string format = 3;
+	  optional string format_profile = 4;
+	  optional string language = 5;
+	  optional uint32 duration = 6;
+	  optional uint32 bitrate = 7;
+	  optional Location locations = 8;
 	  // for video
-	  optional uint32 width = 7;
-	  optional uint32 height = 8;
-	  optional float fps = 9;
+	  optional uint32 width = 9;
+	  optional uint32 height = 10;
+	  optional float fps = 11;
 	  // for audio
-	  optional int32 channel_count = 10;
+	  optional int32 channel_count = 12;
 	}
 
 Замечания:
 
 - `type` — тип дорожки: видео, аудио или субтитры
-- `codec_id` — идентификатор кодека, из библиотеки MediaInfo[^constants-from-mediainfo]
+- `codec` — кодек, из библиотеки MediaInfo
+- `format` — формат дорожки, из библиотеки MediaInfo
+- `format_profile` — профиль формата дорожки, из библиотеки MediaInfo
 - `language` — код язык дорожки по стандарту [ISO 639-1][wiki-iso-639-1]
 - `duration` — продолжительность дорожки, в секундах
 - `bitrate` — битрейт дорожки
@@ -183,4 +188,6 @@ API подразумевает доступ только аутентифици�
 
 Например, имеются следующие источники вещания с весами 0, 1, 2, 3 и 4, то вероятность использования каждого из них будет 0, 0.1, 0.2, 0.3 и 0.4, соответственно.
 
-[^constants-from-mediainfo]: найти ссылку на константы библиотеки MediaInfo
+# Ожидайте в следующих версиях
+
+- Фильтрацию источников вещания рипов по различным условиям
