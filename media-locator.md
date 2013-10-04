@@ -1,7 +1,7 @@
 title: Media Locator API
 quotes language: french
 version: 1.0
-status: черновик
+status: чистовик
 
 # Введение
 
