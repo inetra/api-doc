@@ -5,12 +5,9 @@ status: черновик
 
 # Введение
 
-Данный документ создан для унификации способов получения информации о местах расположения контента из медийных каталогов, таких, как каталог фильмов или расписание выпусков телепередач канала[^fn-todo_streaming].
+Данный документ создан для унификации способов получения информации о местах расположения контента из медийных каталогов, таких, как каталог фильмов или расписание выпусков телепередач канала.
 
 Логика взаимодействия клиентского ПО, серверов Регистратуры и серверов Оператора-вещателя подразумевает согласованность идентификаторов выпусков телепрограмм (далее в тексте – id). В настоящем документе не описывается механизм согласования идентификаторов.
-
-[^fn-todo_streaming]:<span style="color:#f00">TODO Q1</span>: находится ли в рамках данного API получение информации об источниках вещания эфиров телеканалов провайдера? Стоит ли поддерживать что-то кроме M3U и XSPF?   
-<span style="color:#080">TODO A1</span>: предлагаю (пока) НЕ вносить в этот документ информацию об адресах вещания телеканалов. Возможно, когда-нибудь потом.
 
 # Взаимодействие с API
 
@@ -26,50 +23,107 @@ API подразумевает доступ только аутентифици�
 - `api_version` — мажорная версия API (должна быть равна `1`)
 - `path_to_elem` — путь до элемента, над которым производится действие
 - `method` — метод, который производится над элементом
-- `token` — токен доступа, полученный на сервере аутентификации пользователя и авторизации приложения
+- `token` — токен доступа, полученный с помощью [Auth API][auth-api-ref]
 - `format` — формат упаковки данных
+
+[auth-api-ref]: auth.md
 
 Формат упаковки параметров в теле ответа (или в теле запроса) может быть одним из:
 
-- `json` — JSON;
-- `protobuf` — Google Protocol Buffers.
+- `json` — JSON
+- `protobuf` — Google Protocol Buffers
 
 Значения всех параметров перед передачей серверу необходимо кодировать для предотвращения неоднозначной интерпретации так, как это рекомендуется в [RFC3986].
 
 Коды ответов сервера *должны* соответствовать стандартным кодам HTTP-ответов для соответствующих ситуаций. Если по запросу не найдено никакой информации, сервер *должен* вернуть нормальный (код 200) пустой ответ.
 
-
 [RFC3986]: http://tools.ietf.org/html/rfc3986
 
 # Методы
 
-## locations - Получение ссылок на контент
+## sources - Получение ссылок на источники вещания элементов каталога
 
-| Наименование | Значение по-умолчанию | Описание |
-|:------------:|:---------------------:|----------|
-|`id`          | нет                   | Список логических идентификаторов элементов каталога. Необязательный, однако его отсутствие приведёт к пустому ответу сервера. |
-[Дополнительные параметры][tbl-locations-params]
+ Параметр | Значение по умолчанию | Описание 
+----------|-----------------------|----------
+`id`      | отсутствует           | Список логических идентификаторов элементов каталога (через запятую)
 
-Замечание: Важно не путать элемент медийного каталога, например, выпуск телепередачи (Issue), и экземпляр записи или фильма (Rip). Используемые в настоящем API идентификаторы id являются элементами каталога.
+Важно не путать элемент медийного каталога, например, выпуск телепередачи (telecast), и экземпляр записи выпуска телепередачи или фильма (rip). В параметре `id` передается список идентификаторов элементов каталога.
 
-Формат ответа: сообщение `CatalogueItemLocationsInfo`[^fn-repeated_locations] [^fn-metainfo-todo]
+Формат ответа: сообщение `SourcesReply`[^fn-repeated_locations] [^fn-metainfo-todo]
 
-	enum UriType {
-	  option allow_alias = true;
-	  MAGNET = 0;
-	  HTTP = 1;
-	  HLS = 2;
-	  UDP_MULTICAST = 3;
-	  UDP = 3;
-	  RTSP = 4;
+Замечания:
+
+- Ответы возвращаются в том же порядке, в котором был составлен запрос
+- Каждый из ответов `SourceReply` содержит либо атрибут `rips`, описывающий список доступных источников, либо `error`, содержащий код ошибки
+- Следует отличать две ситуации:
+	- массив `rips` содержится в ответе, но пустой — означает, что для элемента каталога с идентификатором `catalogue_item_id` нет источников вещания
+	- массив `rips` отсутствует в ответе — означает, что элемент не найден или случилась другая ошибка. В таком случае поле `error` содержит код ошибки 
+
+# Описание сообщений
+
+## SourcesReply — ответ на метод sources
+	
+	enum SourceError {
+	  NOT_FOUND = 404;
 	}
 	
-	message Location {
-	  optional UriType type = 1;
-	  optional string uri = 2;
-	  optional float usage_probability = 3; // for load balancing
+	message SourceReply {
+	  optional int64 catalogue_item_id = 1;
+	  repeated Rip rips = 2;
+	  optional int32 error = 3;
 	}
 	
+	message SourcesReply {
+	  repeated SourceReply replies = 1;
+	}
+
+## Rip — информация о рипе
+
+	message Rip {
+	  optional int64 id = 1;
+	  repeated RipPart parts = 2;
+	  repeated string snapshots = 3;
+	  optional RipDefinition definition
+	}
+
+Замечания:
+
+- `id` — идентификатор рипа
+- `parts` — информация о частях рипа, передается в том же порядке, в котором должны быть показаны при воспроизведении
+- `snapshots` — массив, содержащий ссылки (URL) на стоп–кадры рипа
+
+## RipPart — часть рипа
+
+	message RipPart {
+	  optional ContainerInfo container_info = 1;
+	  repeated Location locations = 2;
+	  optional uint32 start_position = 3 [default = 0];
+	  optional uint32 end_position = 4;
+	}
+
+Замечания:
+
+- `contaiter_info` — описание контейнера
+- `locations` — описание источников вещания части рипа. Несколько источников может быть передано для осуществления балансировки нагрузки
+- `start_position` — время в секундах, с которого необходимо начинать воспроизведение части рипа. Если отсутствует, воспроизведение начинать с начала
+- `end_position` — время в секундах, на котором необходимо останавливать воспроизведение части рипа. Если отсутствует, воспроизведение производить до конца всех дорожек
+
+## ContainerInfo — информация о контейнере
+
+	message ContainerInfo {
+		optional int32 format = 1;
+		optional int32 codec_id = 2;
+		repeated TrackInfo tracks = 3;
+	}
+
+Замечания:
+
+- `format` — идентификатор формата контейнера, из библиотеки MediaInfo[^constants-from-mediainfo]
+- `codec_id` — идентификатор кодека, из библиотеки MediaInfo[^constants-from-mediainfo]
+- `tracks` — информация о дорожках контейнера
+
+## TrackInfo — информация о дорожке
+
 	enum TrackType {
 	  VIDEO = 0;
 	  AUDIO = 1;
@@ -77,47 +131,49 @@ API подразумевает доступ только аутентифици�
 	}
 	
 	message TrackInfo {
-	  optional int64 id = 1;
-	  optional TrackType type = 2;
-	  optional int32 codec_id = 3; // from MediaInfo
-	  optional int32 language = 4; // ISO code
-	  optional int32 duration = 5; // in seconds
-	  optional int32 bitrate = 6; // in bytes per second
-	  optional Location locations = 7;
+	  optional TrackType type = 1;
+	  optional int32 codec_id = 2;
+	  optional string language = 3;
+	  optional uint32 duration = 4;
+	  optional uint32 bitrate = 5;
+	  optional Location locations = 6;
 	  // for video
-	  optional int32 width = 8; // in pixels
-	  optional int32 height = 9; // in pixels
+	  optional uint32 width = 7;
+	  optional uint32 height = 8;
+	  optional float fps = 9;
 	  // for audio
 	  optional int32 channel_count = 10;
 	}
-	
-	message MediaPart {
-	  repeated TrackInfo tracks = 1;
-	  repeated Location locations = 2; // load balance
-	}
-	
-	message Rip {
-	  optional int64 id = 1;
-	  repeated MediaParts parts = 2; // multipart source
-	  repeated string snapshots = 3; // for quality comparison
-	}
-	
-	message CatalogueItemRipInfo {
-	  optional int64 catalogue_item_id = 1;
-	  repeated Rip rips = 2;
-	  optional int32 error = 3;
-	}
-	
-	message CatalogueItemLocationsReply {
-	  repeated CatalogueItemRipInfo rip_info = 1;
+
+Замечания:
+
+- `type` — тип дорожки: видео, аудио или субтитры
+- `codec_id` — идентификатор кодека, из библиотеки MediaInfo[^constants-from-mediainfo]
+- `language` — код язык дорожки по стандарту [ISO 639-1][wiki-iso-639-1]
+- `duration` — продолжительность дорожки, в секундах
+- `bitrate` — битрейт дорожки
+- `locations` — список альтернативных источников вещания дорожки
+- для видеодорожек:
+	- `width` — ширина изображения, в пикселях
+	- `height` — высота изображения, в пикселях
+	- `fps` — количество кадров в секунду
+- для аудиодорожек:
+	- `channel_count` — количество каналов
+
+[wiki-iso-639-1]: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+
+## Location — источник вещания
+
+	message Location {
+	  optional string uri = 1;
+	  optional uint32 usage_weight = 2;
 	}
 
-Отсутствие в ответе информации по запрошенному id следует интерпретировать как «информация для указанного id не найдена».
-В текущей версии API все другие ошибки ответов по конкретным id предлагается интерпретировать как «информация для указанного id не найдена»[^fn-errors-todo].
+Замечания:
 
-[^fn-repeated_locations]: Требует уточнение интерпретации *множественных* адресов для одного элемента в сообщении `CatalogueItemLocation`.  
-Не описано поведение клиента при наличии в ответе множественных сообщений CatalogueItemLocationInfo с совпадающим catalogue_item_id.
+- `uri` — URI источника вещания
+- `usage_weight` — вес источника вещания, используется клиентом для определения вероятности использования источника вещания. Вероятность использования указанного URI равна весу источника, деленного на сумму всех источников вещания
 
-[^fn-metainfo-todo]: Предлагаю внести необязательную дополнительную метаинформацию для экземпляра произведения (rip), для облегчения выбора экземпляра для воспроизведения на стороне клиента. По аналогии с другими API, где указывается размер картинки, кодек и т.п..
+Например, имеются следующие источники вещания с весами 0, 1, 2, 3 и 4, то вероятность использования каждого из них будет 0, 0.1, 0.2, 0.3 и 0.4, соответственно.
 
-[^fn-errors-todo]: TODO: В последующих версиях API можно определить перечень ответов для типичных ошибок сервера, таких, как нет информации, недостаточно прав, неверный формат запроса и т.п..
+[^constants-from-mediainfo]: найти ссылку на константы библиотеки MediaInfo
