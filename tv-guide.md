@@ -3,7 +3,6 @@ version: 2.2
 server-version: 2.0
 status: поддерживается
 quotes language: french
-jira-ticket: TVREC-57
 
 # Цель и смысл
 
