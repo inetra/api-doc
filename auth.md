@@ -128,7 +128,7 @@ HTTP код ответа может быть:
 
 Запрос
 
-	GET /auth/UserCredentials?grant_type=anonymous&client_id=91801674-777e-4edd-aacc-1911c7262115&client_secret=3WzahKEFZqhm3GpowLAsS4&uid=8911215c-04b9-46f8-a2af-6116b7e352f1 HTTP/1.1
+	GET /auth/1/UserCredentials?grant_type=anonymous&client_id=91801674-777e-4edd-aacc-1911c7262115&client_secret=3WzahKEFZqhm3GpowLAsS4&uid=8911215c-04b9-46f8-a2af-6116b7e352f1 HTTP/1.1
 	Host: api.cn.ru
 
 Ответ
@@ -164,7 +164,7 @@ HTTP код ответа может быть:
 
 Запрос
 
-	GET /auth/PinCode?token=2YotnFZFEjr1zCsicMWpAA HTTP/1.1
+	GET /auth/1/PinCode?token=2YotnFZFEjr1zCsicMWpAA HTTP/1.1
 	Host: api.cn.ru
 
 Ответ
