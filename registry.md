@@ -278,8 +278,8 @@ API возвращает результат работы в HTTP–коде и �
 	}
 
 	message APIVersion {
-	  optional uint32 majorVersion = 1;
-	  optional uint32 minorVersion = 2;
+	  optional uint32 major_version = 1;
+	  optional uint32 minor_version = 2;
 	  optional string url = 3;
 	  optional string params = 4;
 	}
@@ -325,6 +325,12 @@ API возвращает результат работы в HTTP–коде и �
 - `parent_territory_id` — идентификатор родительской территории (если задана, то должна присутствовать в Регистратуре)
 - `iptv_playlist_address` — адрес списка каналов оператора связи
 - `uid` — идентификатор устройства пользователя, с которого совершен запрос
+
+## Диаграмма классов
+
+![Диаграмма классов][registry-classes-diagramm]
+
+[registry-classes-diagramm]: ../plain/registry-classes.png
 
 ## Представления списков элементов
 
