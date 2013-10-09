@@ -26,6 +26,28 @@ jira-ticket: WEBDEV-6642
 3. В случае обнаружения аномального количества запросов к Регистратуре вместо корректных ответов может вернуться пустой ответ, с кодом статуса ответа `429 Too Many Requests`. При этом сервер может сообщить, через какое количество времени можно получить корректный ответ в заголовке `Retry-After` (время указывается в секундах).
 4. В случае повторения запросов время получения корректного ответа может быть увеличено.
 
+# Сервисы контрагентов
+
+ Код | Описание сервиса
+-----|----------
+ `0` | [Медийный каталог][catalogue-api-ref]
+ `1` | Адреса вещания телеканалов провайдера, в `m3u` или `xspf`
+ `3` | Файлообменная сеть Пирс
+ `5` | [Отправка уведомлений][notification-api-ref]
+ `6` | [Трекинг событий][tracking-api-ref]
+ `7` | [Сервис аутентификации и авторизации][aa-api-ref]
+ `8` | [Пользовательские данные][user-data-api-ref]
+ `9` | [Слияние пользовательских данных][user-data-merge-api-ref]
+`10` | [Источники вещания элементов медиа каталога][media-locator-api-ref]
+
+[aa-api-ref]: auth.md
+[catalogue-api-ref]: catalogue.md
+[media-locator-api-ref]: media-locator.md
+[notification-api-ref]: notification.md
+[tracking-api-ref]: tracking.md
+[user-data-api-ref]: user-data.md
+[user-data-merge-api-ref]: user-data-merge.md
+
 # Взаимодействие с API
 
 Корневой адрес API — `http://api.cn.ru/registry/3/`. Формат ответа зависит от суффикса запроса:
@@ -48,6 +70,305 @@ API возвращает результат работы в HTTP–коде и �
 
 # Методы
 
+## Общие параметры для получения списков элементов
+
+ параметр  | значение
+-----------|----------
+`quantity` | максимальное количество элементов в выдаче
+`skip`     | количество пропущенных элементов в выдаче
+
+## territories
+
+фильтры:
+
+- по идентификатору
+- по идентификатору объемлющей территории
+- по имени
+
+## contractors
+
+фильтры:
+
+- по IP адресу
+- по предоставлению сервисов
+- по
+
+## services
+
+фильтры:
+
+- по типу
+- по идентификатору территории
+
+## known_info
+
+Формат запроса: сообщение [`KnownInfo`][knowninfo-message].
+
+Запрос передается методом POST в формате, соответствующем суффиксу запроса.
+
+Запрос используется для новых контрагентов, информации о которых нет в Регистратуре, а также для сбора данных от пользователей о неверных результатах определения контрагента и территорий.  Данная информация сохраняется на сервере и используется в качестве справочной при создании нового контрагента на основе данных, введенных пользователем. Во время сохранения информации в базе данных также фиксируется IP адрес источника запроса, а также информация из RIPE на момент запроса.
+
+Идентификатор устройства пользователя позволяет модератору Регистратуры отделять запросы одного и того же пользователя в случае преднамеренной отправки множества данных и/или информационного мусора.
+
+# Варианты использования
+
+## Что мне доступно?
+
+1. Запрос списка сервисов
+	1. фильтр по типу сервиса
+2. Запрос информации о территории
+	1. фильтр по идентификатору территории (автомат)
+3. Запрос информации о контрагенте
+	1. фильтр по идентификатору контрагента (автомат)
+
+## Здесь вам не тут!
+
+### Выбор территории из древовидного списка
+
+1. Запрос списка территорий
+	1. фильтр по идентификатору объемлющей территории
+2. Надо знать, есть ли вложенные территории
+
+### Поиск территории по имени
+
+1. Запрос списка территорий
+	1. фильтр по имени
+	2. фильтр по предоставляемому сервису (телевидение)
+2. Отображение вложенности найденной территории с заданным уровнем
+
+## Построение фаервола на ноде хаба
+
+1. Запрос информации о территории
+	1. фильтр по идентификатору территории (автомат)
+2. Запрос списка контрагентов
+	1. фильтр по предоставляемому сервису «файлообменная сеть Пирс»
+3. Запрос списка сервисов полученного списка контрагентов
+	1. фильтр по определенной на первом шаге территории
+	2. фильтр по предоставляемому сервису «Интернет»
+
+## Определение в media locator доступности magnet–ссылок
+
+1. Запрос информации о сервисах
+	1. фильтр по IP адресу
+	2. фильтр по типу сервиса «файлообменная сеть Пирс»
+
+## Определение приложением стоимости передачи данных
+
+1. Запрос информации о ареалах контрагента
+2. Запрос информации об контрагентах ареала
+	1. фильтр по идентификатору ареала
+
+
+# Форматы ответов
+
+## Territory
+
+	message Territory {
+	  optional uint64 id = 1;
+	  optional string name = 2;
+	  optional uint64 parent_id = 3;
+	  optional bool is_leaf = 4;
+	  optional Territory parent = 5;
+	}
+	 
+Замечания:
+
+- `id` — идентификатор территории
+- `name` — название территории
+- информация об объемлющей территории может быть задана двумя сопособами:
+	- `parent_id` — идентификатор объемлющей территории
+	- `parent` — полное описание объемлющей территории
+- `is_leaf` — признак того, что элемент является конечным в иерархии (не содержит дочерних территорий).
+
+## Contractor
+
+	message Contractor {	  
+	  optional uint64 id = 1;
+	  optional string name = 2;
+	  repeated ContractorImage images = 3;
+	  optional string brand_name = 4;
+	  optional string private_office_url = 5;
+	  repeated uint64 territories = 6;
+	  repeated uint64 areas = 7;
+	}
+
+Замечания:
+
+- `id` — идентификатор контрагента
+- `name` — юридическое именование контрагента (например, "ООО Вымпелком")
+- `images` — доступные [изображения логотипа контрагента][ContractorImage]
+- `brand_name` — имя бренда контрагента (например, "Билайн")
+- `private_office_url` — адрес личного кабинета пользователя (для открытия в браузере)
+- `territories` — список территорий присутствия контрагента
+
+## ContractorImage
+
+	message ContractorImage {
+	  enum SizeType {
+	    LARGE = 0;
+	    SMALL = 1;
+	  }
+
+	  enum OSType {
+	    option allow_alias = true;
+	    IOS = 0;
+	    ANDROID = 1;
+	    WINDOWS = 2;
+	    LINUX = 3;
+	    OSX = 4;
+	  }
+
+	  enum PlatformType {
+	    DESKTOP = 0;
+	    MOBILE = 1;
+	    TV = 2;
+	    WEB = 3;
+	  }
+
+	  enum DeviceType {
+	    option allow_alias = true;
+	    PHONE = 0;
+	    TABLET = 1;
+	    PAD = 1;
+	  }
+
+	  enum ScreenDensity {
+	    option allow_alias = true;
+	    LOW = 0;
+	    MEDIUM = 1;
+	    NORMAL = 1;
+	    HIGH = 2;
+	    RETINA = 2;
+	    EXTRA_HIGH = 3;
+	  }
+
+	  optional SizeType size_type = 1;
+	  optional OSType os_type = 2;
+	  optional uint32 width = 3;
+	  optional uint32 height = 4;
+	  optional string url = 5;
+	  optional PlatformType platform_type = 6;
+	  optional DeviceType device_type = 7;
+	  optional ScreenDensity screen_density = 8;
+	}
+
+Тип изображения логотипа контрагента нужен для возможности применять максимально подходящее изображение в соответствии с типовым дизайном приложения на конкретной платформе/ОС/устройстве. Сервер на основании информации о платформе клиента может принять решение о выдаче неполного списка изображений логотипов. Алгоритм выбора подходящего изображения, применимый для сервера и клиента:
+
+1. Если известна об использовании нативного приложения под ОС `os_type` (`IOS`, `OSX`, `WINDOWS` и другие), включить в список выдачи изображения всех размеров с этим признаком
+2. Если известен тип платформы `platform_type` (`DESKTOP`, `TV`, `MOBILE`), включить в список выдачи изображения всех размеров с этим признаком
+3. Если известен тип устройства `device_type` (`PHONE`, `TABLET`), включить в список изображения всех размеров с этим признаком
+4. Если набор размеров изображений в списке выдачи ещё неполон, и если известно об использовании браузера (`platform_type=WEB`), включить в список изображения всех размеров с этим признаком
+5. Если набор размеров изображений в списке выдачи ещё неполон, и существует изображение с незаполненным полями (`os_type`, `platform_type`, `device_type`), включить в список изображений всех размеров без этих признаков
+6. Приоритет использования изображений на клиенте: используется первое найденное в списке изображение нужного размера.
+
+## Service — описание сервиса
+
+	enum ServiceType {
+	  CATALOGUE = 0;
+	  IPTV = 1;
+	  PEERS = 3;
+	  NOTIFICATION = 5;
+	  TRACKING = 6;
+	  AUTH = 7;
+	  USER_DATA = 8;
+	  USER_DATA_MERGE = 9;
+	  MEDIA_LOCATOR = 10;
+	  PINGER = 11;
+	  INTERNET = 12;
+	}
+
+	message APIVersion {
+	  optional uint32 majorVersion = 1;
+	  optional uint32 minorVersion = 2;
+	  optional string url = 3;
+	  optional string params = 4;
+	}
+
+	message Service {
+	  optional uint64 id = 1;
+	  optional ServiceType type = 2;
+	  optional uint64 contractor_id = 3;
+	  repeated uint64 territories = 6;
+	  optional string name = 4;
+	  repeated APIVersion api_versions = 5;
+	}
+
+Замечания:
+
+- `type` — код типа сервиса
+- `contractor_id` — идентификатор контрагента, предоставляющего сервис
+- `territories` — список идентификаторов территорий, на которых контрагент предоставляет сервис
+- `name` — название сервиса
+- `api_versions` — доступные программные интерфейсы сервиса:
+	- `APIVersion::majorVersion`, `APIVersion::minorVersion` — версия
+	- `APIVersion::url` — расположение сервиса
+	- `APIVersion::params` задает дополнительные обязательные параметры для указанного API
+
+## KnownInfo
+
+	message KnownInfo {
+	  optional uint64 contractor_id = 1;
+	  optional string contractor_name = 2;
+	  optional uint64 territory_id = 3;
+	  optional string territory_name = 4;
+	  optional uint64 parent_territory_id = 5;
+	  optional string iptv_playlist_url = 6;
+	  optional string uid = 7;
+	}
+
+Замечания:
+
+- `contractor_id` — идентификатор контрагента известный нам и выбранный пользователем
+- `contractor_name` — название контрагента (оператора связи)
+- `territory_id` — идентификатор территории известный нам и выбранный пользователем
+- `territory_name` — название территории
+- `parent_territory_id` — идентификатор родительской территории (если задана, то должна присутствовать в Регистратуре)
+- `iptv_playlist_address` — адрес списка каналов оператора связи
+- `uid` — идентификатор устройства пользователя, с которого совершен запрос
+
+## Представления списков элементов
+
+### TerritoryList
+
+	message TerritoryList {
+	  repeated Territory territories = 1;
+	  optional uint64 skipped = 2;
+	  optional uint64 total_count = 3;
+	}
+
+### ContractorList
+
+	message ContractorList {
+	  repeated Contractor contractors = 1;
+	  optional uint64 skipped = 2;
+	  optional uint64 total_count = 3;
+	}
+
+### AreaList
+
+	message AreaList {
+	  repeated Area areas = 1;
+	  optional uint64 skipped = 2;
+	  optional uint64 total_count = 3;
+	}
+
+### ServiceList
+
+	message ServiceList {
+		repeated Service services = 1;
+		optional uint64 skipped = 2;
+		optional uint64 total_count = 3;
+	}
+
+
+
+
+
+
+
+
+
+
 ## whereami — где я
 
 Возвращает информацию о месторасположении клиента: его интернет–провайдере и территории.
@@ -63,10 +384,6 @@ API возвращает результат работы в HTTP–коде и �
 `territory`  | автоматически определенный | идентификатор территории
 `contractor` | автоматически определенный | идентификатор оператора
 `types`      | пусто                      | список запрашиваемых типов сервисов
-`quantity`   | 15                         | максимальное количество сервисов в выдаче[^services-quantity-max-limit]
-`skip`       | 0                          | количество пропущенных сервисов в сортированной выдаче
-
-[^services-quantity-max-limit]: количество сервисов в одном ответе не может превышать: 100 при отсутствующих параметрах `territory` и `contractor` и 10 — если хотя бы один из них задан.
 
 Если заданы дополнительные параметры, возвращается список сервисов, предоставляемых на территории с идентификатором `territory` и/или в сети провайдера с идентификатором контрагента `contrator`.
 
@@ -94,16 +411,6 @@ API возвращает результат работы в HTTP–коде и �
 
 - Начиная с версии 2.6 Registry API при запросе можно добавить дополнительный фильтр, указывающий на то, что в выдаче списка территорий будут присутствовать только те территории, на которых предоставляются запрашиваемые сервисы. При этом, если сервис предоставляется не в самой территории, а только в ее подтерритории, она также будет присутствовать в выдаче. Например, сервис `peers` предоставляется на территории России. Но в выдаче всех территорий, на которых предоставляется этот сервис есть территория "Весь мир", так как в нее входит территория "Россия", но отсутствует "Америка"
 - Начиная с версии 2.8 Registry API с помощью данного запроса можно получить не только идентификатор родительской территории, но и всю информацию о всех родительских территориях, если их вложенность не превышает параметра `parents`
-
-## neighborhood — информация о соседних ареалах
-
- параметр    | значение по умолчанию      | значение
--------------|----------------------------|----------
-`area`       | автоматически определенный | идентификатор ареала
-`quantity`   | 10                         | максимальное количество ареалов в выдаче
-`skip`       | 0                          | количество пропущенных ареалов в выдаче
-
-Формат ответа: сообщение [`AreaList`][area-message].
 
 ## prefixes — IP префиксы контрагента
 
@@ -139,96 +446,9 @@ API возвращает результат работы в HTTP–коде и �
 
 - Начиная с версии 2.6 API можно производить поиск по имени контрагента, а также (аналогично получению списка территорий) получать список только контрагентов, которым предоставляются указанные сервисы
 
-## knownInfo — информация от пользователя
-
-Формат запроса: сообщение [`KnownInfo`][knowninfo-message].
-
-Запрос передается методом POST в формате, соответствующем суффиксу запроса.
-
-Запрос используется для новых контрагентов, информации о которых нет в Регистратуре, а также для сбора данных от пользователей о неверных результатах определения контрагента и территорий.  Данная информация сохраняется на сервере и используется в качестве справочной при создании нового контрагента на основе данных, введенных пользователем. Во время сохранения информации в базе данных также фиксируется IP адрес источника запроса, а также информация из RIPE на момент запроса.
-
-Идентификатор устройства пользователя позволяет модератору Регистратуры отделять запросы одного и того же пользователя в случае преднамеренной отправки множества данных и/или информационного мусора.
-
 # Форматы сообщений
 
-## WhereAmI — Где я [whereami-message]
-
-	message WhereAmI {
-	  optional ContractorInfo contractor = 1;
-	  repeated TerritoryInfo territories = 2;
-	  optional string ipAddress = 5;
-	} 
-
-Замечания:
-
-- `contrator` — описание интернет–провайдера абонента
-- `territories` — список территорий, которым принадлежит IP адрес клиента
-- `ipAddress` — строковое представление IP адреса клиента, IPv4 или IPv6
-
-## Service — описание сервиса
-
-	enum ServiceType {
-	  CATALOGUE = 0;
-	  IPTV = 1;
-	  NOTIFICATION = 5;
-	  TRACKING = 6;
-	  AUTH = 7;
-	  USER_DATA = 8;
-	  USER_DATA_MERGE = 9;
-	  MEDIA_LOCATOR = 10;
-	}
-
-	message APIVersion {
-	  optional uint32 majorVersion = 1;
-	  optional uint32 minorVersion = 2;
-	  optional string location = 3;
-	  optional string params = 4;
-	}
-
-	message Service {
-	  optional uint64 id = 1;
-	  optional ServiceType type = 2;
-	  optional uint32 contractor_id = 3;
-	  optional string name = 4;
-	  repeated APIVersion api_versions = 5;
-	}
-
-Замечания:
-
-- `APIVersion::params` задает дополнительные обязательные параметры для указанного API
-- `type` — код (для JSON и XML представлений — строковый идентификатор) сервиса
-- `contractor_id` — идентификатор контрагента, предоставляющего сервис
-- `name` — название сервиса
-- `api_versions` — доступные версии API сервиса
-
-### Сервисы контрагентов
-
- Код | Описание сервиса
------|----------
- `0` | [Медийный каталог][catalogue-api-ref]
- `1` | Адреса вещания телеканалов провайдера, в `m3u` или `xspf`
- `5` | [Отправка уведомлений][notification-api-ref]
- `6` | [Трекинг событий][tracking-api-ref]
- `7` | [Сервис аутентификации и авторизации][aa-api-ref]
- `8` | [Пользовательские данные][user-data-api-ref]
- `9` | [Слияние пользовательских данных][user-data-merge-api-ref]
-`10` | [Источники вещания элементов медиа каталога][media-locator-api-ref]
-
-[aa-api-ref]: auth.md
-[catalogue-api-ref]: catalogue.md
-[media-locator-api-ref]: media-locator.md
-[notification-api-ref]: notification.md
-[tracking-api-ref]: tracking.md
-[user-data-api-ref]: user-data.md
-[user-data-merge-api-ref]: user-data-merge.md
-
 ## ServiceList — список сервисов [service-list-message]
-
-	message ServiceList {
-		repeated Service services = 1;
-		optional uint64 skipped = 2;
-		optional uint64 total_count = 3;
-	}
 
 Замечания:
 
@@ -237,103 +457,7 @@ API возвращает результат работы в HTTP–коде и �
 
 ## ContractorInfo, ContractorList — информация о контрагенте [contractorinfo-message]
 
-	message ContractorInfo {
-	  message ContractorImage {
-	    enum SizeType {
-	      LARGE = 0;
-	      SMALL = 1;
-	    }
-	  
-	    enum OSType {
-	      option allow_alias = true;
-	      IOS = 0;
-	      ANDROID = 1;
-	      WINDOWS = 2;
-	      LINUX = 3;
-	      OSX = 4;
-	    }
-	    
-	    enum PlatformType {
-	      DESKTOP = 0;
-	      MOBILE = 1;
-	      TV = 2;
-	      WEB = 3;
-	    }
-	    
-	    enum DeviceType {
-	      option allow_alias = true;
-	      PHONE = 0;
-	      TABLET = 1;
-	      PAD = 1;
-	    }
-	    
-	    enum ScreenDensity {
-	      option allow_alias = true;
-	      LOW = 0;
-	      MEDIUM = 1;
-	      NORMAL = 1;
-	      HIGH = 2;
-	      RETINA = 2;
-	      EXTRA_HIGH = 3;
-	    }
-	    
-	    optional SizeType size_type = 1;
-	    optional OSType os_type = 2;
-	    optional uint32 width = 3;
-	    optional uint32 height = 4;
-	    optional string url = 5;
-	    optional PlatformType platform_type = 6;
-	    optional DeviceType device_type = 7;
-	    optional ScreenDensity screen_density = 8;
-	  }
-	  
-	  optional uint64 id = 1;
-	  optional string name = 2;
-	  repeated ContractorImage images = 3;
-	  optional string brand_name = 4;
-	  optional string private_office_url = 5;
-	}
 	 
-	message ContractorList {
-	  repeated ContractorInfo contractors = 1;
-	  optional uint64 skipped = 2;
-	  optional uint64 total_count = 3;
-	}
-
-Замечания:
-
-- `ContractorInfo::name` — юридическое именование контрагента (например, "ООО Вымпелком")
-- `ContractorInfo::brand_name` — имя бренда контрагента (например, "Билайн")
-- `ContractorInfo::private_office_url` — адрес личного кабинета пользователя (для открытия в браузере)
-- Тип изображения логотипа контрагента нужен для возможности применять максимально подходящее изображение в соответствии с типовым дизайном приложения на конкретной платформе/ОС/устройстве. Сервер на основании информации о платформе клиента может принять решение о выдаче неполного списка изображений логотипов. Алгоритм выбора подходящего изображения, применимый для сервера и клиента:
-	1. Если известна об использовании нативного приложения под ОС `os_type` (`IOS`, `OSX`, `WINDOWS` и другие), включить в список выдачи изображения всех размеров с этим признаком
-	2. Если известен тип платформы `platform_type` (`DESKTOP`, `TV`, `MOBILE`), включить в список выдачи изображения всех размеров с этим признаком
-	3. Если известен тип устройства `device_type` (`PHONE`, `TABLET`), включить в список изображения всех размеров с этим признаком
-	4. Если набор размеров изображений в списке выдачи ещё неполон, и если известно об использовании браузера (`platform_type=WEB`), включить в список изображения всех размеров с этим признаком
-	5. Если набор размеров изображений в списке выдачи ещё неполон, и существует изображение с незаполненным полями (`os_type`, `platform_type`, `device_type`), включить в список изображений всех размеров без этих признаков
-	6. Приоритет использования изображений на клиенте: используется первое найденное в списке изображение нужного размера.
-
-## TerritoryInfo, TerritoryList — информация о территории [territoryinfo-message]
-
-	message TerritoryInfo {
-	  optional uint64 territory_id = 1;
-	  optional string name = 2;
-	  optional uint64 parent_id = 3;
-	  optional bool is_leaf = 4;
-	  optional TerritoryInfo parent = 5;
-	}
-	 
-	message TerritoryList {
-	  repeated TerritoryInfo territories = 1;
-	  optional uint64 skipped = 2;
-	  optional uint64 total_count = 3;
-	}
-
-Замечания:
-
-- `TerritoryInfo::parent` — иерархия родительских территорий с заданной глубиной
-- `TerritoryInfo::is_leaf` — признак того, что элемент является конечным в иерархии (не содержит дочерних территорий).
-
 ## Area, AreaList — список ареалов [area-message]
 
 	message Area {
@@ -342,12 +466,6 @@ API возвращает результат работы в HTTP–коде и �
 	  optional uint32 cost = 3;
 	}
 
-	message AreaList {
-	  repeated Area areas = 1;
-	  optional uint64 skipped = 2;
-	  optional uint64 total_count = 3;
-	}
-	  
 Замечания:
 
 - `Area::areaId` — идентификатор ареала
@@ -356,19 +474,7 @@ API возвращает результат работы в HTTP–коде и �
 
 ## Prefix, PrefixList — список IP–префиксов [prefixlist-message]
 
-	message Prefix {
-	  optional string CIDR = 1;
-	  optional string NAT = 2;
-	  optional bool peersAccess = 3;
-	  optional ContractorInfo contractor = 4;
-	  repeated TerritoryInfo territories = 5;
-	}
 
-	message PrefixList {
-	  repeated Prefix prefixes = 1;
-	  optional int64 skipped = 2;
-	  optional int64 total_count = 3;
-	}
 
 Замечания:
 
@@ -377,28 +483,6 @@ API возвращает результат работы в HTTP–коде и �
 - Параметр `peersAccess` отвечает за наличие доступа в Пирс абонентам указанного префикса
 - `contractor` — информация о контрагенте префикса. Гарантируется передача только идентификатора контрагента
 - `territories` — территории, за которыми закреплен префикс. Гарантируется передача только идентификатора территории. Если за префиксом не закреплена территория, возвращается список территорий контрагента
-
-## KnownInfo — информация от пользователя [knowninfo-message]
-
-	message KnownInfo {
-	  optional uint32 contractor_id = 1;
-	  optional string contractor_name = 2;
-	  optional uint32 territory_id = 3;
-	  optional string territory_name = 4;
-	  optional uint32 parent_territory_id = 5;
-	  optional string iptv_playlist_url = 6;
-	  optional string uid = 7;
-	}
-
-Замечания:
-
-- `contractor_id` — идентификатор контрагента известный нам и выбранный пользователем
-- `contractor_name` — название контрагента (оператора связи)
-- `territory_id` — идентификатор территории известный нам и выбранный пользователем
-- `territory_name` — название территории
-- `parent_territory_id` — идентификатор родительской территории (если задана, то должна присутствовать в Регистратуре)
-- `iptv_playlist_address` — адрес списка каналов оператора связи
-- `uid` — идентификатор устройства пользователя, с которого совершен запрос
 
 # История версий
 
