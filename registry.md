@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.9
+version: 2.10
 server-version: 2.8
 status: в бою
 
@@ -51,6 +51,8 @@ API возвращает результат работы в HTTP–коде и �
  `7` | `auth`            | Аутентификация пользователя и авторизация приложения (<span style="color:#0f0">новое в 2.9</span>) | Инетра | [Auth API] | |
  `8` | `user_data`       | Данные пользователя (<span style="color:#0f0">новое в 2.9</span>) | Инетра | [User Data API] | |	 
  `9` | `user_data_merge` | Слияние пользовательских данных (<span style="color:#0f0">новое в 2.9</span>) | Инетра | [User Data Merge API] | |
+`10` | `media_locator`   | Нахождение источников вещания (<span style="color:#0f0">новое в 2.10</span>) | Инетра и партнеры | [Media Locator API] | |
+`11` | `pinger`          | HTTP pinger (<span style="color:#0f0">новое в 2.10</span>) | Кто угодно | HTTP | С помощью данного API контрагент может определять активность приложений в своей сети. Приложение периодически отправляет запросы на адрес, указанный в `location`.
 
 [Auth API]: auth.md
 [Registry API]: #
@@ -215,12 +217,15 @@ knownInfo — информация от пользователя
 	    AUTH = 7 [(CN.string_value) = "auth"];
 	    DATA = 8 [(CN.string_value) = "data"];
 	    USERS_MERGE = 9 [(CN.string_value) = "users_merge"];
+		MEDIA_LOCATOR = 10 [(CN.string_value) = "media_locator"];
+		PINGER = 11 [(CN.string_value) = "pinger"];
 	  }
 	 
 	  optional Type type = 1;
 	  optional ContractorInfo contractor = 2;
 	  optional string name = 3;
 	  repeated APIVersion apiVersions = 4;
+	  optional uint32 pingInterval = 5;
 	}
 
 Замечания:
@@ -233,6 +238,7 @@ knownInfo — информация от пользователя
 	- `Service.contractor` — контрагент, предоставляющий услугу
 	- `Service.name` — название сервиса
 	- `Service.apiVersions` — доступные версии API сервиса
+	- `Service.pingInterval` - интервал времени между двумя запросами (заполняется только для сервиса `PINGER`)
 - `WhereAmI.ipAddress` — строковое представление IP адреса клиента, IPv4 или IPv6 (<span style="color:#0f0">новое в 2.7</span>)
 
 ## ContractorInfo, ContractorList — информация о контрагенте [contractorinfo-message]
@@ -472,3 +478,8 @@ knownInfo — информация от пользователя
 ----------------------
 
 - Добавлены дополнительные сервисы (коды с `7` по `9`).
+
+Изменения в версии 2.10
+----------------------
+
+- Добавлены дополнительные сервисы (Media Locator и Pinger)
