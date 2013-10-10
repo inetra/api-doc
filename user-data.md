@@ -1,7 +1,8 @@
 title: User Data API
 quotes language: french
-version: 1.1
-status: чистовик
+version: 1.1.1
+server-version: 1.1
+status: поддерживается
 
 # Общее описание
 
