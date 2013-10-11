@@ -330,7 +330,7 @@ API возвращает результат работы в HTTP–коде и �
 
 ![Диаграмма классов][registry-classes-diagramm]
 
-[registry-classes-diagramm]: ../plain/registry-classes.png?h=WEBDEV-6642-registry-3
+[registry-classes-diagramm]: registry-classes.png?p=plain&h=WEBDEV-6642-registry-3
 
 ## Представления списков элементов
 
