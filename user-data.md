@@ -1,6 +1,6 @@
 title: User Data API
 quotes language: french
-version: 1.1.2
+version: 1.1.3
 server-version: 1.1
 status: поддерживается
 
@@ -472,7 +472,7 @@ API работает по протоколу HTTPS (передаваемые д�
 	      'value_type': 1,
 	      'mandatory': true,
 	      'multivalue': false,
-	      'protobuf_numbered_tag': 4,
+	      'protobuf_numbered_tag': 5,
 	      'read_only': true
 	    }
 	  ]
@@ -748,3 +748,7 @@ Eltex NV100/101   | 6
 - Внесены уточнения по методам `modify` и `delete`
 - В базовый класс добавлены атрибуты `ctime` и `mtime`
 - В описание атрибута добавлено поле `read_only`
+
+### Изменения в версии 1.1.3
+
+- Исправлена опечатка в нумерации атрибута `mtime`
