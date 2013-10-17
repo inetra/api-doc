@@ -78,7 +78,7 @@ API подразумевает доступ только аутентифици�
 
 ## Rip — информация о рипе
 
-	message RipDefinition {
+	enum RipDefinition {
 	  SD = 0;
 	  HD = 1;
 	}
@@ -151,7 +151,7 @@ API подразумевает доступ только аутентифици�
 	  optional string language = 5;
 	  optional uint32 duration = 6;
 	  optional uint32 bitrate = 7;
-	  optional Location locations = 8;
+	  repeated Location locations = 8;
 	  // for video
 	  optional uint32 width = 9;
 	  optional uint32 height = 10;
