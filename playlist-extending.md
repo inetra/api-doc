@@ -11,7 +11,7 @@ status: в разработке
 
 Атрибуты каналов:
 
-- Идентификатор канала(доступен в [TV Guide API]: tv-guide.md)
+- Идентификатор канала(доступен в [TV Guide API](tv-guide.md))
 - Признак наличия записей
 - Признак доступности канала: allowed, forbidden, payable
 - Тип источника: HLS, Multicast
@@ -50,17 +50,17 @@ status: в разработке
 	#EXT-CN-VERSION:2
 	
 	#EXTINF:-1 group-title="Эфир", Первый канал
-	#EXT-CN-CHANNEL-INFO: channel-id=10338245 access=allowed|forbidden|payable
-	#EXT-CN-STREAM-INFO: definition=SD type=multicast recordable=true
+	#EXT-CN-CHANNEL-INFO: channel-id=10338245 access=allowed recordable=true
+	#EXT-CN-STREAM-INFO: definition=SD type=multicast
 	udp://@239.1.15.1:1234
 
 	#EXTINF:-1 cn-id=10338258, Россия 1
-	#EXT-CN-CHANNEL-INFO: channel-id= 10338258 access=allowed|forbidden|payable
+	#EXT-CN-CHANNEL-INFO: channel-id= 10338258 access=allowed
 	udp://@239.1.15.2:1234
 
 TODO:
 
-- Описать директивы и атрибуты
+- Описать директивы и атрибуты(значения по умолчанию, если атрибут отсутствует)
 - Описать версию 1
 
 
