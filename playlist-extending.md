@@ -16,6 +16,7 @@ status: в разработке
 - Признак доступности канала: allowed, forbidden, payable
 - Тип источника: HLS, Multicast
 - Разрешение источника: SD, HD, FullHD, 4D
+- Соотношение сторон: 4:3, 16:9, 16:10
 
 Существующие расширения плейлистов подразумеваются первой версией, при этом версия явно указываться не должна.
 
@@ -51,7 +52,7 @@ status: в разработке
 	
 	#EXTINF:-1 group-title="Эфир", Первый канал
 	#EXT-CN-CHANNEL-INFO: channel-id=10338245 access=allowed recordable=true
-	#EXT-CN-STREAM-INFO: definition=SD type=multicast
+	#EXT-CN-STREAM-INFO: definition=SD type=multicast aspect-ratio=4:3
 	udp://@239.1.15.1:1234
 
 	#EXTINF:-1 cn-id=10338258, Россия 1
