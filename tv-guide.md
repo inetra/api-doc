@@ -1,5 +1,5 @@
 title: TV Guide & Peers.TV API
-version: 2.3.1
+version: 2.4
 server-version: 2.1
 status: поддерживается
 quotes language: french
@@ -345,6 +345,8 @@ TV Guide предоставляет меньше информации. Так, �
 	  optional bool access = 11 [default = true, deprecated = true];
 	  optional uint32 ageRestriction = 12;
 	  optional bool hasSchedule = 13;
+	  
+	  optional uint32 storage_hours = 14;
 	}
 
 Замечания:
@@ -362,6 +364,7 @@ TV Guide предоставляет меньше информации. Так, �
 - `access` — признак доступности эфира канала пользователю <span style="color:#f00">\[только в Peers.TV\]</span>
 - `ageRestriction` — возрастное ограничение для канала (<span style="color:#0f0">новое в 2.1</span>)
 - `hasSchedule` — наличие расписания для канала (передается тогда, когда передача подробной информации о канале не нужна, <span style="color:#0f0">новое в 2.1</span>)
+- `storage_hours` — количество часов, которое хранятся файлы выпусков телепередач после записи. Время хранения может отличаться на разных территориях для разных каналов (<span style="color:#0f0">новое в 2.4</span>) <span style="color:#f00">\[только в Peers.TV\]</span>
 
 ## Schedule — Расписание для канала
 
@@ -426,3 +429,7 @@ TV Guide предоставляет меньше информации. Так, �
 
 1. Уточнено использование API в рамках веб–служб TV Guide и Peers.TV
 2. Поле `access` для канала помечено устаревшим
+
+## Изменения в версии 2.4
+
+1. Добавлен атрибут `storage_hours` для канала, отражающий время хранения записей выпусков телепередач на серверах сервиса Peers.TV
