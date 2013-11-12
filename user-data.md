@@ -1,6 +1,6 @@
 title: User Data API
 quotes language: french
-version: 1.1.4
+version: 1.2
 server-version: 1.1
 status: поддерживается
 
@@ -513,8 +513,6 @@ API работает по протоколу HTTPS (передаваемые д�
 	  optional int64 platform = 101;
 	  // версия устройства
 	  optional string version = 102;
-	  // токен для отправки push-уведомлений
-	  optional string push_token = 114;
 	}
 
 `platform` может принимать следующие значения:
@@ -538,6 +536,8 @@ Eltex NV100/101   | 6
 	  optional string title = 103;
 	  // идентификатор устройства, под управлением которого работает приложения
 	  optional string device_id = 104;
+	  // токен для отправки push-уведомлений
+	  optional string push_token = 114;
 	  // версия приложения
 	  optional string version = 120;
 	}
@@ -756,3 +756,7 @@ Eltex NV100/101   | 6
 ### Изменения в версии 1.1.4
 
 - Из класса `application` убран атрибут `client_id`, добавлен `version`
+
+### Изменения в версии 1.2
+
+- `push_token` перенесен из класса `device` в класс `application`
