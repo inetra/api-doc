@@ -44,7 +44,7 @@ status: в разработке
 
 **Mime-type**: audio/x-mpegurl
 
-### Директивы:
+## Директивы:
 
 - EXTINF
 - EXT-CN-VERSION
@@ -128,7 +128,7 @@ status: в разработке
 
 **Mime-type**: application/xspf+xml
 
-### Теги
+## Теги
 - cn:version
 - cn:channel-id
 - cn:access
