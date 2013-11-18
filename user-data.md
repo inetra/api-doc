@@ -1,6 +1,6 @@
 title: User Data API
 quotes language: french
-version: 1.3.1
+version: 1.3.2
 server-version: 1.1
 status: поддерживается
 
@@ -830,4 +830,7 @@ Eltex NV100/101   | 6
 ### Изменения в версии 1.3.1
 
 - Исправлена ошибка кодирования атрибута `platform_version` в классе `device`
+
+### Изменения в версии 1.3.2
+
 - Добавлены примеры построения фильтров
