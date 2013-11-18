@@ -1,6 +1,6 @@
 title: User Data API
 quotes language: french
-version: 1.3
+version: 1.3.1
 server-version: 1.1
 status: поддерживается
 
@@ -787,3 +787,7 @@ Eltex NV100/101   | 6
 - Добавлены кросс-ссылки на примеры использования классов
 - Атрибут `version` класса `device` заменен двумя атрибутами `model_name`, `model_version`
 - Добавлены атрибуты `platform_version` для класса `device`
+
+### Изменения в версии 1.3.1
+
+- Исправлена ошибка кодирования атрибута `platform_version` в классе `device`
