@@ -515,7 +515,7 @@ API работает по протоколу HTTPS (передаваемые д�
 	  // операционная система, под управлением которой работает устройство
 	  optional int64 platform = 101;
 	  // версия операционной системы
-	  optional string platform_version
+	  optional string platform_version = 102;
 
 	  // название модели устройства
 	  optional string model_name = 122;
