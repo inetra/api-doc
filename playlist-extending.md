@@ -1,28 +1,42 @@
 title: Playlist extending rules
-version: 0.1.0
+version: 0.2.0
 status: в разработке
 
 # Правила расширения плейлистов
 
-Плейлист и любой элемент плейлиста может содержать служебную информацию.
-Плейлист должен соответствовать стандарту и как следствие должен быть непротиворечивым и совместимым со сторонними плеерами.
-
 Данный документ описывает правила расширения плейлистов формата M3U и XSPF для поддержки расширенных атрибутов при описании списка каналов.
 
-Атрибуты каналов:
+## Общее описание
+
+Основной целью расширения форматов плейлистов является внесение дополнительной информации, способной улучшить взаимодействие пользователя с приложением.
+
+Плейлист может быть расширен на двух уровнях:
+
+- на уровне плейлиста. В этом случае расширение может применяться как к плейлисту, так и ко всем элементам плейлиста
+- на уровне элемента плейлиста. Расширение применяется только к элементу
+
+Расширение плейлиста на затрагивает совместимость с большинством известных проигрывателей, таких как VLC, и должно соответствовать известным стандартам.
+
+### Атрибуты каналов
 
 - Идентификатор канала(доступен в [TV Guide API](tv-guide.md))
 - Признак наличия записей
-- Признак доступности канала: allowed, forbidden, payable
-- Тип источника: HLS, Multicast
-- Разрешение источника: SD, HD, FullHD, 4D
+- Признак доступности канала: `allowed`, `forbidden`, `payable`
+- Разрешение источника: `SD`, `HD`, `FullHD`, `4D`, 720x576
 - Соотношение сторон: 4:3, 16:9, 16:10
 
-Существующие расширения плейлистов подразумеваются первой версией, при этом версия явно указываться не должна.
+### Версионирование
 
-ТОDO:
+Существующие расширения плейлистов подразумеваются первой версией, при этом версия явно указываться не должна. 
 
-- подумать над передачей HTTP-заголовка с рекомендацией о формировании плейлиста, например, передавая название профиля и/или тип устройства. Абстрактный пример заголовка: **CN-Supported-Profile: mobile-1203fn**
+### Интеграция со сторонними системами генерации плейлистов
+
+При обращении за плейлистом рекомендуется устанавливать HTTP-заголовок `User-Agent` . Данный заголовок может быть использован при генерации плейлиста.
+
+Пример задания заголовка User-Agent
+
+	Peers.TV/3.2.1 (iOS/3.2.1; iPad/5,1;) Darwin/14.0.0
+
 
 # Формат M3U
 
@@ -32,37 +46,79 @@ status: в разработке
 
 ### Директивы:
 
+- EXTINF
 - EXT-CN-VERSION
 - EXT-CN-CHANNEL-INFO
 - EXT-CN-STREAM-INFO
 
+### EXTINF
 
-Пример указания идентификатора канала в плейлисте(<span style="color:#f00">Устарело в версии 2</span>):
+Описывает длительность и название элемента плейлиста.
 
+название     | значение по умолчанию| смысл
+------------------|-------------------|-------------
+`channel-id`  | 0 | Идентификатор канала, доступен в [TV Guide API](tv-guide.md) (<span style="color:#f00">Устарело в версии 2</span>)
+
+### EXT-CN-VERSION
+
+Данная директива задает версию плейлиста. Если не указана, то подразумевается версия 1.
+
+### EXT-CN-CHANNEL-INFO
+
+Директива описывает информацию о канале. Доступна с версии 2.
+
+Параметры:
+
+название     | значение по умолчанию| смысл
+------------------|-------------------|-------------
+`channel-id`  | 0 | Идентификатор канала(доступен в [TV Guide API](tv-guide.md))
+`access`       | `allowed` | Условия доступа к каналу
+`recordable` | `false`     |  Наличие записей для данного канала
+
+Значения параметра `access`:
+
+- `allowed`. Канал доступен для просмотра.
+- `forbidden`. Доступ к каналу запрещен.
+- `payable`. На канал может быть оформлена подписка.
+
+
+### EXT-CN-STREAM-INFO
+
+Директива описывает канал. Доступна с версии 2.
+
+Параметры
+
+название     | значение по умолчанию| смысл
+------------------|-------------------|-------------
+`definition `| отсутствует | Идентифицирует разрешение источника. 
+`aspect-ratio`| отсутствует| Идентифицирует соотношение сторон, например 4:3.
+
+Параметр `definition` может быть задан:
+
+- константой: SD, HD, FullHD, 4D 
+- в формате `ширина` x `высота`. 720x576
+
+## Примеры формирования плейлиста 
+
+### Версия 2
+	#EXTM3U
+	#EXT-CN-VERSION:2
+	
+	#EXTINF:-1, Первый канал
+	#EXT-CN-CHANNEL-INFO: channel-id=10338245 access=allowed recordable=true
+	#EXT-CN-STREAM-INFO: definition=SD aspect-ratio=4:3
+	udp://@239.1.15.1:1234
+
+	#EXTINF:-1, Россия 1
+	#EXT-CN-CHANNEL-INFO: channel-id=10338258 access=allowed
+	udp://@239.1.15.2:1234
+
+### Версия 1
 	#EXTM3U
 	#EXTINF:-1 cn-id=10338245 group-title="Эфир", Первый канал
 	udp://@239.1.15.1:1234
 	#EXTINF:-1 cn-id=10338258, Россия 1
 	udp://@239.1.15.2:1234
-
-Пример, сформированного плейлиста в формате M3U(версия 2) 
-
-	#EXTM3U
-	#EXT-CN-VERSION:2
-	
-	#EXTINF:-1 group-title="Эфир", Первый канал
-	#EXT-CN-CHANNEL-INFO: channel-id=10338245 access=allowed recordable=true
-	#EXT-CN-STREAM-INFO: definition=SD type=multicast aspect-ratio=4:3
-	udp://@239.1.15.1:1234
-
-	#EXTINF:-1 cn-id=10338258, Россия 1
-	#EXT-CN-CHANNEL-INFO: channel-id= 10338258 access=allowed
-	udp://@239.1.15.2:1234
-
-TODO:
-
-- Описать директивы и атрибуты(значения по умолчанию, если атрибут отсутствует)
-- Описать версию 1
 
 
 
@@ -80,7 +136,39 @@ TODO:
 - cn:stream-type
 - cn:recordable
 
-Пример  XSPF-плейлиста с указанием идентификатора канала(<span style="color:#f00">Устарело в версии 2</span>):
+## Пример формирования плейлистов
+
+### Версия 2[^fn-vlc-support]
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
+		<extension application="http://www.cn.ru">
+			<cn:version>2</cn:version>
+		</extension>
+		<title>Телевидение Электронного города</title>
+		<trackList>
+			<track>
+				<location>udp://@239.1.15.1:1234</location>
+				<title>Первый</title>
+				<extension application="http://www.cn.ru">
+					<cn:channel-id>10338245</cn:channel-id>
+					<cn:access>allowed</cn:access>
+					<cn:definition>SD</cn:definition>
+				</extension>
+			</track>
+			<track>
+				<location>udp://@239.1.15.2:1234</location>
+				<title>Россия 1</title>
+				<extension application="http://www.cn.ru">
+					<cn:channel-id> 10338258</cn:channel-id>
+					<cn:access>forbidden</cn:access>
+					<cn:definition>SD</cn:definition>
+				</extension>
+			</track>
+		</trackList>
+	</playlist>
+
+### Версия 1
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
@@ -104,45 +192,12 @@ TODO:
 	</playlist>
 
 
-Пример, сформированного плейлиста в формате XSPF(версия 2) :
-
-	<?xml version="1.0" encoding="UTF-8"?>
-	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
-		<extension application="http://www.cn.ru">
-			<cn:version>2</cn:version>
-		</extension>
-		<title>Телевидение Электронного города</title>
-		<trackList>
-			<track>
-				<location>udp://@239.1.15.1:1234</location>
-				<title>Первый</title>
-				<extension application="http://www.cn.ru">
-					<cn:channel-id>10338245</cn:channel-id>
-					<cn:access>allowed</cn:access>
-					<cn:definition>SD</cn:definition>
-					<cn:stream-type>multicast</cn:stream-type>
-				</extension>
-			</track>
-			<track>
-				<location>udp://@239.1.15.2:1234</location>
-				<title>Россия 1</title>
-				<extension application="http://www.cn.ru">
-					<cn:channel-id> 10338258</cn:channel-id>
-					<cn:access>forbidden</cn:access>
-					<cn:definition>SD</cn:definition>
-					<cn:stream-type>multicast</cn:stream-type>
-				</extension>
-			</track>
-		</trackList>
-	</playlist>
-
 
 TODO:
 
 - описать расширение плейлиста[^fn-vlc-support]
 - Описать расширение элемента плейлиста
 - Описать теги, используемые в первой версии
-- Разобраться с доменами тегов(cn:id)
 - Заменить домен cn, чтобы избежать возможных коллизий
 
 
