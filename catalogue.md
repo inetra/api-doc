@@ -209,16 +209,6 @@ API каталога состоит из следующих RPC-запросов
 
 Формат ответа: сообщение `CataloguePart`.
 
-Пример запроса:
-
-	list.json?type=0&client=nv101&client-version=fs_nv101_121203
-
-где задано 3 параметра:
-
-- `type` со значением `0`
-- `client` со значением `nv101`
-- `clien-version` со значением `fs_nv101_121203`
-
 
 ## item — Запрос детальной информации об элементе каталога
 
@@ -274,10 +264,9 @@ API каталога состоит из следующих RPC-запросов
 	    repeated MenuItem subitems = 3;
 	    optional IntString filter_name = 4;
 	    optional string filter_value = 5;
-	    optional int32 filter_type = 6;
-	    repeated FilterValue values = 7;
-	    optional MenuItemType type = 8;
-	    optional MenuItemSense sense = 9;
+	    repeated FilterValue values = 6;
+	    optional MenuItemType type = 7;
+	    optional MenuItemSense sense = 8;
 	}
 	 
 	message Menu {
