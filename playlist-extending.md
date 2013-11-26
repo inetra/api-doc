@@ -24,6 +24,7 @@ status: в разработке
 - Признак доступности канала: `allowed`, `forbidden`, `payable`
 - Разрешение источника: `SD`, `HD`, `FullHD`, `4D`, 720x576
 - Соотношение сторон: 4:3, 16:9, 16:10
+- Признак потока: только аудио.
 
 ### Версионирование
 
@@ -55,9 +56,9 @@ status: в разработке
 
 Описывает длительность и название элемента плейлиста.
 
-название     | значение по умолчанию| смысл
-------------------|-------------------|-------------
-`cn-id`  | 0 | Идентификатор канала, доступен в [TV Guide API](tv-guide.md) (<span style="color:#f00">Устарело в версии 2</span>)
+название     | по умолчанию | смысл
+-------------|--------------|-------------
+`cn-id`      | 0            | Идентификатор канала, доступен в [TV Guide API](tv-guide.md) (<span style="color:#f00">Устарело в версии 2</span>)
 
 ### EXT-CN-VERSION
 
@@ -84,14 +85,15 @@ status: в разработке
 
 ### EXT-CN-STREAM-INFO
 
-Директива описывает канал. Доступна с версии 2.
+Директива описывает свойства медиа-потока. Доступна с версии 2.
 
 Параметры
 
-название     | значение по умолчанию| смысл
-------------------|-------------------|-------------
-`definition `| отсутствует | Идентифицирует разрешение источника.
-`aspect-ratio`| отсутствует| Идентифицирует соотношение сторон, например 4:3.
+название      | по умолчанию | смысл
+--------------|--------------|-------------
+`definition ` | отсутствует  | Идентифицирует разрешение источника.
+`aspect-ratio`| отсутствует  | Идентифицирует соотношение сторон, например 4:3.
+`audio-only`  | `false`      | Идентифицирует отсутствие видео-дорожке в потоке
 
 Параметр `definition` может быть задан:
 
@@ -130,6 +132,16 @@ status: в разработке
 
 ## Теги
 
+- cn:channel-id
+- cn:version
+- cn:access
+- cn:definition
+- cn:aspect-ratio
+- cn:audio-only
+- cn:recordable
+
+### Устаревшие теги
+
 Версия 1:
 
 - cn:id
@@ -137,14 +149,12 @@ status: в разработке
 - cn:records
 - cn:location
 
-Версия 2:
+Расширение для приставок Eltex:
 
-- cn:version
-- cn:channel-id
-- cn:access
-- cn:definition
-- cn:stream-type
-- cn:recordable
+- cn:tv-channel-definition
+- cn:tv-channel-status
+- cn:tv-channel-subscription
+
 
 ## Примеры формирования плейлиста
 
@@ -158,10 +168,11 @@ status: в разработке
 		<title>Телевидение Электронного города</title>
 		<trackList>
 			<track>
-				<location>udp://@239.1.15.1:1234</location>
+				<location>http://hls.cn.ru/streaming/1kanal/tvrec/playlist.m3u8</location>
 				<title>Первый</title>
 				<extension application="http://www.cn.ru">
 					<cn:channel-id>10338245</cn:channel-id>
+					<cn:recordable>true</cn:recordable>
 					<cn:access>allowed</cn:access>
 					<cn:definition>SD</cn:definition>
 				</extension>
@@ -171,6 +182,7 @@ status: в разработке
 				<title>Россия 1</title>
 				<extension application="http://www.cn.ru">
 					<cn:channel-id> 10338258</cn:channel-id>
+					<cn:recordable>false</cn:recordable>
 					<cn:access>forbidden</cn:access>
 					<cn:definition>SD</cn:definition>
 				</extension>
@@ -189,18 +201,34 @@ status: в разработке
 				<title>Первый</title>
 				<extension application="http://www.cn.ru">
 					<cn:id>10338245</cn:id>
-				</extension>
-			</track>
-			<track>
-				<location>udp://@239.1.15.2:1234</location>
-				<title>Россия 1</title>
-				<extension application="http://www.cn.ru">
-					<cn:id>10338258</cn:id>
+					<cn:link>http://www.cn.ru/tv/program/1kanal/</cn:link>
+					<cn:records>1</cn:records>
+					<cn:location type="hls">http://hls.cn.ru/streaming/1kanal/tvrec/playlist.m3u8</cn:location>
 				</extension>
 			</track>
 		</trackList>
 	</playlist>
 
+### Версия 1 (Eltex)
+
+	<?xml version="1.0" encoding="UTF-8"?>
+		<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
+		<title>Телевидение Электронного города</title>
+		<trackList>
+			<track>
+				<location>udp://@239.1.10.23:1234</location>
+				<title>Первый HD</title>
+				<image>http://www.cn.ru/data/illustrations/ills/2013/08/01/24494/24494403.png</image>
+				<psfile>2812</psfile>
+				<extension application="http://www.cn.ru/">
+					<cn:id>21381677</cn:id>
+					<cn:tv-channel-definition>HD</cn:tv-channel-definition>
+					<cn:tv-channel-status>LAUNCHED</cn:tv-channel-status>
+					<cn:tv-channel-subscription>SUBSCRIBED</cn:tv-channel-subscription>
+				</extension>
+			</track>
+		</trackList>
+	</playlist>
 
 
 TODO:
