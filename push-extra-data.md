@@ -126,6 +126,7 @@ status: черновик
 		"aps": {
 			"alert" : "We've recorded an amazing telecast special for you."
 		},
+
 		"pdid": 123,
 		"type": 3,
 		"catalogItem": 120394723
@@ -137,6 +138,7 @@ status: черновик
 		"aps": {
 			"alert" : "Please check for new updates!"
 		},
+
 		"pdid": 124,
 		"type": 1
 	}
