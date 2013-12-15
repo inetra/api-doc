@@ -367,21 +367,20 @@ Cуществуют следующие стандартные параметры
 	    optional string logo_url = 5;
 
 	    optional bool has_children = 6;
-	    optional bool can_have_media_sources = 7;
 
-	    optional uint64 date = 8;
-	    optional uint32 duration = 9;
-	    optional uint32 age_restriction = 10;
+	    optional uint64 date = 7;
+	    optional uint32 duration = 8;
+	    optional uint32 age_restriction = 9;
 
-	    repeated Rating ratings = 11;
-	    repeated CatalogueItem similar_items = 12;
-	    optional TagGroups tag_groups = 13;
+	    repeated Rating ratings = 10;
+	    repeated CatalogueItem similar_items = 11;
+	    optional TagGroups tag_groups = 12;
 
-	    repeated string snapshots = 14;
-	    optional int32 serial_number = 15;
+	    repeated string snapshots = 13;
+	    optional int32 serial_number = 14;
 
 	    // channel specific
-	    optional int64 current_telecast_id = 16;
+	    optional int64 current_telecast_id = 15;
 	}
 
 Замечания:
@@ -394,7 +393,6 @@ Cуществуют следующие стандартные параметры
 	- `description` — описание
 	- `logo_url` — ссылка на логотип элемента, в разрешении `logo_res`
 	- `has_children` — признак наличия дочерних элементов
-	- `can_have_media_sources` — признак возможного наличия источника вещания
 	- `date` — дата выхода, в секундах относительно UTC
 	- `duration` — продолжительность, в секундах
 	- `age_restriction` — возрастное ограничение
