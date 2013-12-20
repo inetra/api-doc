@@ -180,7 +180,7 @@ jira-ticket: TVREC-70
 
 ## Примеры формирования плейлиста
 
-### Версия 2
+**Версия 2:**
 
 	#EXTM3U
 	#EXT-CN-VERSION:2
@@ -194,7 +194,7 @@ jira-ticket: TVREC-70
 	#EXT-CN-CHANNEL-INFO: channel-id=10338258 access=allowed
 	udp://@239.1.15.2:1234
 
-### Версия 1
+**Версия 1:**
 
 	#EXTM3U
 	#EXTINF:-1 cn-id=10338245 group-title="Эфир", Первый канал
@@ -277,7 +277,7 @@ jira-ticket: TVREC-70
 
 Доступен с версии 2.
 
-## Устаревшие теги:
+## Устаревшие теги
 
 - Версия 1
 	- cn:id
@@ -333,7 +333,7 @@ jira-ticket: TVREC-70
 
 ## Примеры формирования плейлиста
 
-**Версия 2**[^fn-vlc-support]
+**Версия 2:**[^fn-vlc-support]
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
@@ -365,7 +365,7 @@ jira-ticket: TVREC-70
 		</trackList>
 	</playlist>
 
-**Версия 1**
+**Версия 1:**
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
@@ -384,7 +384,7 @@ jira-ticket: TVREC-70
 		</trackList>
 	</playlist>
 
-**Версия для приставок Eltex ("Электронный Город")**
+**Версия для приставок Eltex ("Электронный Город"):**
 
 	<?xml version="1.0" encoding="UTF-8"?>
 		<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
