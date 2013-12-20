@@ -205,11 +205,14 @@ jira-ticket: TVREC-70
 
 # Формат XSPF
 
-Расширение плейлиста[^fn-domain-name] осуществляется на основе документации [стандарта XSPF](http://www.xspf.org/xspf-v1.html).
+Расширение плейлиста осуществляется на основе документации [стандарта XSPF](http://www.xspf.org/xspf-v1.html). Стандарт XSPF позволяет описывать отдельно расширения плейлиста и элементов плейлиста. Расширение содержит набор тегов, находящихся в пространстве имен `cn`. Пространство имен должно быть указано соответствующим атрибутом в корневом элементе `playlist` формата XSPF.
+
+Пример задания пространства имен `cn`:
+
+	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
+
 
 **Mime-type**: application/xspf+xml
-
-[^fn-domain-name]: Описать использование домена имен cn для всех расширений, указать о возможности расширения как плейлиста, так и каждого элемента. Указать как должно быть оформлено пространство имен и расширения.
 
 ## Теги
 
@@ -330,7 +333,7 @@ jira-ticket: TVREC-70
 
 ## Примеры формирования плейлиста
 
-### Версия 2[^fn-vlc-support]
+**Версия 2**[^fn-vlc-support]
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
@@ -362,7 +365,7 @@ jira-ticket: TVREC-70
 		</trackList>
 	</playlist>
 
-### Версия 1
+**Версия 1**
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
@@ -381,7 +384,7 @@ jira-ticket: TVREC-70
 		</trackList>
 	</playlist>
 
-### Версия 1 (Eltex)
+**Версия для приставок Eltex ("Электронный Город")**
 
 	<?xml version="1.0" encoding="UTF-8"?>
 		<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
