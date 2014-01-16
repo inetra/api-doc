@@ -357,37 +357,37 @@ cn:tv-channel-subscription|`строка`
 
 ## Примеры формирования плейлиста
 
-**Версия 2:**[^fn-vlc-support]
+**Версия 2:**
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
-		<extension application="http://www.cn.ru">
-			<cn:version>2</cn:version>
-		</extension>
-		<title>Телевидение Электронного города</title>
-		<trackList>
-			<track>
-				<location>http://hls.cn.ru/streaming/1kanal/tvrec/playlist.m3u8</location>
-				<title>Первый</title>
-				<extension application="http://www.cn.ru">
-					<cn:channel-id>10338245</cn:channel-id>
-					<cn:channel-recordable>true</cn:recordable>
-					<cn:channel-access>allowed</cn:access>
-					<cn:stream-definition>SD</cn:definition>
-				</extension>
-			</track>
-			<track>
-				<location>udp://@239.1.15.2:1234</location>
-				<title>Россия 1</title>
-				<extension application="http://www.cn.ru">
-					<cn:channel-id> 10338258</cn:channel-id>
-					<cn:channel-recordable>false</cn:recordable>
-					<cn:channel-access>forbidden</cn:access>
-					<cn:stream-definition>SD</cn:definition>
-				</extension>
-			</track>
-		</trackList>
-	</playlist>
+    <extension application="http://www.cn.ru">
+        <cn:version>2</cn:version>
+    </extension>
+    <title>Телевидение Электронного города</title>
+    <trackList>
+        <track>
+            <location>http://hls.cn.ru/streaming/1kanal/tvrec/playlist.m3u8</location>
+            <title>Первый</title>
+            <extension application="http://www.cn.ru">
+                <cn:channel-id>10338245</cn:channel-id>
+                <cn:channel-recordable>true</cn:channel-recordable>
+                <cn:channel-access>allowed</cn:channel-access>
+                <cn:stream-definition>SD</cn:stream-definition>
+            </extension>
+        </track>
+        <track>
+            <location>udp://@239.1.15.2:1234</location>
+            <title>Россия 1</title>
+            <extension application="http://www.cn.ru">
+                <cn:channel-id> 10338258</cn:channel-id>
+                <cn:channel-recordable>false</cn:channel-recordable>
+                <cn:channel-access>forbidden</cn:channel-access>
+                <cn:stream-definition>SD</cn:stream-definition>
+            </extension>
+        </track>
+    </trackList>
+</playlist>
 
 **Версия 1:**
 
@@ -437,6 +437,4 @@ cn:tv-channel-subscription|`строка`
 - Описание номера аудио-дорожки, которая должна быть выбрана по умолчанию.
 
 [TVREC-72]: https://drug/ijira/browse/TVREC-72
-
-[^fn-vlc-support]: По неизвестной причине плеер VLC не поддерживает описание расширения тега playlist в начале плейлиста, но с точки зрения реализации это был бы правильный выбор. Для совместимости с уже выпущенными версиями необходимо рассмотреть возможность описания расширений тега playlist в конце плейлиста.
 
