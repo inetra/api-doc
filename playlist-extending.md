@@ -124,7 +124,7 @@ jira-ticket: TVREC-70
 
 Формат директивы:
 
-	#EXT-CN-CHANNEL-INFO:<version>
+	#EXT-CN-VERSION:<version>
 
 где:
 
