@@ -398,6 +398,12 @@ Cуществуют следующие стандартные параметры
 	    TRAILER = 4;
 	}
 
+	enum CatalogueItemOutState {
+		OUT = 0;
+		LIVE = 1;
+		FUTURE = 2;
+	}
+
 	message CatalogueItem {
 	    optional int64 id = 1;
 	    optional CatalogueItemType type = 2;
@@ -420,8 +426,7 @@ Cуществуют следующие стандартные параметры
 	    repeated string snapshots = 14;
 	    optional int32 serial_number = 15;
 
-	    // TV telecast specific
-	    optional bool is_on_air = 16;
+		optional CatalogueItemOutState out_state = 16;
 	}
 
 Замечания:
@@ -443,9 +448,9 @@ Cуществуют следующие стандартные параметры
 	- `tag_groups` — тэги, [см. описание TagGroup][TagGroup-message]
 	- `snapshots` — список ссылок на стоп–кадры, в разрешении `ss_res`
 	- `serial_number` — порядковый номер в родительском элементе (номер сезона или серии)
+	- `out_state` — состояние выхода элемента каталога, например,  вышел в прокат, в эфире.
 - Специфика для элементов вида "канал телевидения":
 	- наличие дочерних элементов `has_children` равносильно наличию расписания телепередач
-	- `is_on_air` — признак нахождения выпуска передачи "в эфире".
 
 [^fn-snaphosts]: Спорный момент с предоставлением снапшотов для медийных элементов при помощи Catalogue API.
 
