@@ -395,7 +395,7 @@ Cуществуют следующие стандартные параметры
 
 [catalogue.proto]: catalogue.proto?h=WEBDEV-6465
 
-## FilterParam, Collection, CollectionSelector, CollectionList [^fn-paging-info]
+## FilterParam, Collection, CollectionSelector, CollectionList
 
 	enum PresentationType {
 	  SEARCHABLE = 1;
@@ -452,7 +452,6 @@ Cуществуют следующие стандартные параметры
 	- `CollectionSelector.is_default` — значение по умолчанию;
 	- `CollectionSelector.filter` — параметры для фильтрации.
 
-[^fn-paging-info]: Сообщение MenuItem *должно* поддерживать доп. информацию о постарничной выдаче (order, quantity, skip), чтобы при принудительном ограничении длины ответа клиент мог запросить недостающую информацию. <= Устарело
 
 ## CataloguePart
 
