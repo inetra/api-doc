@@ -423,11 +423,7 @@ Cуществуют следующие стандартные параметры
 
 # Спецификация API для Protocol Buffers
 
-Спецификация одним файлом [размещена в git][catalogue.proto].
-
-[catalogue.proto]: catalogue.proto?h=WEBDEV-6465
-
-## FilterParam, Collection, Selector, CollectionList
+## FilterParam, Collection, Selector, CollectionList — рубрикатор
 
 	enum PresentationType {
 	  SEARCHABLE = 1;
@@ -477,7 +473,7 @@ Cуществуют следующие стандартные параметры
 	- `Selector.filter` — параметры для фильтрации.
 
 
-## CataloguePart
+## CataloguePart — выборка из медиа-каталога
 
 	message CataloguePart {
 	  repeated CatalogueItem items = 1;
@@ -495,7 +491,7 @@ Cуществуют следующие стандартные параметры
 - `items_skipped` — количество пропущенных элементов в выдаче;
 - Поля `expires` и `ttl` задают время в секундах, абсолютное (в UTC) и относительное, соответственно, в течение которого приложение может кэшировать ответ сервера. Эти два поля **не должны** присутствовать в ответе одновременно.
 
-## CatalogueItem
+## CatalogueItem — элемент каталога
 
 	enum CatalogueItemType {
 	    option allow_alias = true;
@@ -558,7 +554,7 @@ Cуществуют следующие стандартные параметры
 	- `age_restriction` — возрастное ограничение;
 	- `ratings` — рейтинги, [см. описание Rating][Rating-message];
 	- `similar_items` — похожие элементы;
-	- `tag_groups` — тэги, [см. описание TagGroup][TagGroup-message];
+	- `tag_groups` — теги, [см. описание TagGroup][TagGroup-message];
 	- `serial_number` — порядковый номер в родительском элементе (номер сезона или серии);
 	- `out_state` — состояние выхода элемента каталога, например,  вышел в прокат, в эфире.
 - Специфика для элементов вида "канал телевидения":
@@ -581,7 +577,7 @@ Cуществуют следующие стандартные параметры
 - `max_rating` — максимальный рейтинг для системы оценок;
 - `rating` — текущая оценка.
 
-### Tag, TagGroup [TagGroup-message]
+### Tag, TagGroup [TagGroup-message] — тег, группа тегов
 
 	message Tag {
 	    optional int64 id = 1;
@@ -597,7 +593,7 @@ Cуществуют следующие стандартные параметры
 
 Замечания:
 
-- `Tag.title` — название тэга, отображаемое пользователю;
+- `Tag.title` — название тега, отображаемое пользователю;
 - поля `TagGroups`:
 	- `directors` — режиссеры;
 	- `actors` — актеры;
