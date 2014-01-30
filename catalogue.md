@@ -87,7 +87,7 @@ Media Catalogue API предназначен для получения спра�
 	- Аниме
 	- Сортировка \[ по дате | по рейтингу | по популярности \]
 
-### Виды коллекций [collection-type]
+### Отображение коллекций [collection-type]
 
 При отображении коллекция, содержащая вложенные подколлекции, **должна быть** отображена как есть (без отображения элементов самой коллекции). В случае отсутствия подколлекций **должны быть** отображены элементы самой коллекции.
 
@@ -97,16 +97,6 @@ Media Catalogue API предназначен для получения спра�
 - `EMBEDDED` — необходимо отобразить элементы коллекции.
 
 Коллекция с типом отображения `EMBEDDED` **не может** включать вложенные подколлекции. Изменяемые фильтры текущей коллекции также влияют на вложенные коллекции с типом отображения `EMBEDDED`.
-
-### Смыслы коллекций [collection-sense]
-
-Каждая коллекция может обладать собственной семантикой, которая в приложении может быть использована для перемещения данной коллекции в отдельный элемент интерфейса.
-
-Возможные смыслы:
-
-- `Featured` — рекомендованные. Подборка контента редакцией каталога.
-- `New` — новинки.
-- `Popular` — популярное.
 
 ## Рубрикатор [rubricator]
 
@@ -209,7 +199,6 @@ API может поддерживать несколько представле�
 	  "items": [{
 	    "id": 1,
 	    "title": "Популярное",
-	    "sense": 3,
 	    "icon_url": "http://icons.peers.tv/catalogue/1/21238472.png",
 	    "filters": [{
 	        "name": "type",
@@ -445,12 +434,6 @@ Cуществуют следующие стандартные параметры
 	  EMBEDDED = 2;
 	}
 
-	enum PresentationSense {
-	  FEATURED = 1;
-	  NEW = 2;
-	  POPULAR = 3;
-	}
-
 	message FilterParam {
 	  optional string name = 1;
 	  optional string value = 2;
@@ -466,13 +449,12 @@ Cуществуют следующие стандартные параметры
 	  optional fixed32 id = 1;
 	  optional string title = 2;
 	  optional PresentationType type = 3;
-	  optional PresentationSense sense = 4;
 
-	  optional string icon_url = 5;
+	  optional string icon_url = 4;
 
-	  repeated Collection collections = 6;
-	  repeated FilterParam filters = 7;
-	  repeated Selector selectors = 8;
+	  repeated Collection collections = 5;
+	  repeated FilterParam filters = 6;
+	  repeated Selector selectors = 7;
 	}
 
 	message CollectionList {
@@ -485,7 +467,6 @@ Cуществуют следующие стандартные параметры
 - `title` — локализованное название рубрики
 - `icon_url` — адрес до изображения, используемого в качестве иконки для пункта меню
 - `type` — [вид пункта меню][collection-type];
-- `sense` — [смысл пункта меню][collection-sense];
 - `collections` — вложенные коллекции;
 - `filters` — параметры для формирования данной коллекции:
 	- `FilterParam.name` — название фильтра;
