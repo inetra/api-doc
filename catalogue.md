@@ -472,6 +472,31 @@ Cуществуют следующие стандартные параметры
 	- `Selector.is_default` — значение по умолчанию;
 	- `Selector.filter` — параметры для фильтрации.
 
+<span style="color:#f00">mirror</span>: предлагаю упростить до следующей схемы:
+
+	FilterValue = {
+		// отображаемое имя
+		string title
+		// передаваемое значение
+		string value
+		// отображать выбранным по умолчанию
+		bool default
+	}
+
+	MenuItemType = FIXED | SELECT | MULTISELECT | SEARCH | THEMATIC | CUSTOM
+
+	MenuItem = {
+		int id
+		string title
+		FilterValue[] values // только для type == SELECT или MULTISELECT
+		MenuItem[] submenu
+
+		MenuItemType type
+		// путь до элементов в User Data API
+		string user_data_path
+	}
+
+	Menu = MenuItem[]
 
 ## CataloguePart — выборка из медиа-каталога
 
