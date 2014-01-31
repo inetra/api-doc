@@ -483,12 +483,14 @@ Cуществуют следующие стандартные параметры
 		bool default
 	}
 
-	MenuItemType = FIXED | SELECT | MULTISELECT | SEARCH | THEMATIC | CUSTOM
+	MenuItemType = FIXED | SELECT | MULTISELECT | SEARCH
 
 	MenuItem = {
 		int id
 		string title
-		FilterValue[] values // только для type == SELECT или MULTISELECT
+		// только для type == SELECT или MULTISELECT
+		FilterValue[] values
+		// только для type == FIXED
 		MenuItem[] submenu
 
 		MenuItemType type
@@ -497,6 +499,12 @@ Cуществуют следующие стандартные параметры
 	}
 
 	Menu = MenuItem[]
+
+При выборе пункта меню отправляется запрос `list` с параметром `menu=<menu_item_id>` и (для пунктов меню, у которых `type` != `FIXED`) `value`:
+
+- `SELECT` допускает только одно из значений `value` из массива `values`
+- `MULTISELECT` допускает любое количество значений `value` из массива `values`, объединенные символом `,`
+- `SEARCH` допускает любой пользовательский ввод
 
 ## CataloguePart — выборка из медиа-каталога
 
