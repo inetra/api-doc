@@ -118,7 +118,7 @@ Media Catalogue API предназначен для получения спра�
 
 ![Пример интерфейса][rubricator-iphone]
 
-[rubricator-iphone]: rubricator-iphone.png?p=plain
+[rubricator-iphone]: rubricator-iphone.png?p=plain&h=catalogue
 
 Каталог:
 
