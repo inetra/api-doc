@@ -116,7 +116,9 @@ Media Catalogue API предназначен для получения спра�
 - задание области поиска и сортировки;
 - персональные рекомендации или избранное в интерфейсе, при помощи ссылок на User Data;
 
-![Пример интерфейса](rubricator-iphone.png)
+![Пример интерфейса][rubricator-iphone]
+
+[rubricator-iphone]: rubricator-iphone.png?p=plain
 
 Каталог:
 
