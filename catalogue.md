@@ -643,16 +643,18 @@ Cуществуют следующие стандартные параметры
 	}
 	
 	message TagGroups {
-	    repeated Tag directors = 1;
-	    repeated Tag actors = 2;
-	    repeated Tag countries = 3;
-	    repeated Tag genres = 4;
+	    repeated Tag general = 1;
+	    repeated Tag directors = 2;
+	    repeated Tag actors = 3;
+	    repeated Tag countries = 4;
+	    repeated Tag genres = 5;
 	}
 
 Замечания:
 
 - `Tag.title` — название тега, отображаемое пользователю;
 - поля `TagGroups`:
+	- `general` — теги общего назначения, например "Новый год";
 	- `directors` — режиссеры;
 	- `actors` — актеры;
 	- `countries` — страны;
