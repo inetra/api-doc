@@ -63,6 +63,7 @@ API возвращает результат работы в HTTP–коде и �
 [Tracking API]: tracking.md
 [User Data API]: user-data.md
 [User Data Merge API]: user-data-merge.md
+[Media Locator API]: media-locator.md
 
 Методы
 ======
