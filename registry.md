@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.12
+version: 2.12.1
 server-version: 2.10
 status: в бою
 
@@ -51,7 +51,7 @@ API возвращает результат работы в HTTP–коде и �
  Код | Идентификатор     | Название | Провайдер | Возможные API | Описание
 -----|-------------------|----------|-----------|---------------|----------
  `0` | `films`           | Каталог фильмов CN.ru | Инетра и партнеры | [Films API] | С помощью API можно получить список фильмов, описания и ссылки для загрузки и просмотра из файлообменной сети Пирс.
- `1` | `iptv`            | IP–телевидение | Контрагент | M3U, XSPF | IP–телевидение, может распространяться различными транспортами.
+ `1` | `iptv`            | IP–телевидение | Контрагент | [IPTV] | IP–телевидение, может распространяться различными транспортами.
  `2` | `peerstv`         | Peers.TV | Инетра и партнеры | [TV API] | С помощью API можно получить список каналов, расписание для каждого из них, а также ссылки на эфир и записи телепередач для просмотра из файлообменной сети Пирс.
  `3` | `peers`           | Файлообменная сеть Пирс | Инетра и партнеры | NMDC, [Registry API] | С помощью API можно обнаружить доступные хабы и подключиться в качестве клиента.
  `4` | `tv_guide`        | Телепрограмма (<span style="color:#0f0">новое в 2.8</span>) | Инетра | [TV Guide API] | С помощью данного сервиса можно получить информацию о канале по его идентификатору, а также расписание на прошлое и будущее время. Учитывается территория и, как следствие, ее часовой пояс.
@@ -66,6 +66,7 @@ API возвращает результат работы в HTTP–коде и �
 [Auth API]: auth.md
 [Registry API]: #
 [Films API]: films.md
+[IPTV]: iptv.md
 [TV Guide API]: tv-guide.md
 [TV API]: tv-guide.md
 [Notifications API]: notifications.md
@@ -196,19 +197,19 @@ knownInfo — информация от пользователя
 	  repeated Service services = 4;
 	  optional string ipAddress = 5;
 	} 
+
+	message APIVersion {
+	  optional uint32 majorVersion = 1;
+	  optional uint32 minorVersion = 2;
+	  optional string location = 3;
+	  optional string params = 4;
+	}
 	 
 	message APIInfo {
 	  enum APIType {
 	    FILMS = 0;        // Films API
 	    IPTV = 1;         // телевидение провайдера
 	    TV_RECORDS = 2;   // контент Peers.TV
-	  }
-	  
-	  message APIVersion {
-	    optional uint32 majorVersion = 1;
-	    optional uint32 minorVersion = 2;
-	    optional string location = 3;
-	    optional string params = 4;
 	  }
 	  
 	  optional APIType apiType = 1;
@@ -509,3 +510,8 @@ knownInfo — информация от пользователя
 
 - Описан прием синхронизации времени;
 - В сообщение `TerritoryInfo` добавлена информация о часовом поясе при помощи атрибута `timezone`.
+
+Изменения в версии 2.12.1
+----------------------
+
+- Добавлена ссылка на документ IPTV.
