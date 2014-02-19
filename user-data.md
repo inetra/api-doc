@@ -481,14 +481,16 @@ API работает по протоколу HTTPS (передаваемые д�
 
 ## Сообщения QuotaList, Quota — ограничение на использование ресурсов
 
-	enum QuotaType {
-	  COUNT = 1;
+	message QuotaUnit {
+	  optional int64 quantity = 1;
+	  optional string title = 2;
 	}
 
 	message Quota {
 	  optional int64 level = 1;
 	  optional int64 limit = 2;
-	  optional QuotaType type = 3;
+	  optional string title = 3;
+	  repeated QuotaUnit units = 4;
 	}
 
 	message QuotaList {
@@ -499,8 +501,11 @@ API работает по протоколу HTTPS (передаваемые д�
 
 - `level` — текущий уровень использования ресурсов;
 - `limit` — максимальный уровень использования ресурсов;
-- `type` — тип ограничения, может принимать значения:
-	- `COUNT` — количество элементов.
+- `title` — название ограничения;
+- `units` — единицы измерения:
+	- `QuotaUnit.quantity` — величина, характеризующая единицу измерения;
+	- `QuotaUnit.title` — название единицы измерения.
+
 
 # Рекомендованные классы элементов
 
