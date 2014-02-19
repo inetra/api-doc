@@ -591,20 +591,21 @@ API каталога состоит из следующих RPC-запросов
 	    optional string title = 3;
 	    optional string description = 4;
 	    optional bool has_logo = 5;
+	    optional string share_link = 6;
 
-	    repeated CatalogueItem parents = 6;
-	    optional bool has_children = 7;
+	    repeated CatalogueItem parents = 7;
+	    optional bool has_children = 8;
 
-	    optional uint64 date = 8;
-	    optional uint32 duration = 9;
-	    optional uint32 age_restriction = 10;
+	    optional uint64 date = 9;
+	    optional uint32 duration = 10;
+	    optional uint32 age_restriction = 11;
 
-	    repeated Rating ratings = 11;
-	    repeated CatalogueItem similar_items = 12;
-	    optional TagGroups tag_groups = 13;
+	    repeated Rating ratings = 12;
+	    repeated CatalogueItem similar_items = 13;
+	    optional TagGroups tag_groups = 14;
 
-	    optional int32 serial_number = 14;
-	    optional CatalogueItemOutState out_state = 15;
+	    optional int32 serial_number = 15;
+	    optional CatalogueItemOutState out_state = 16;
 	}
 
 Замечания:
@@ -616,6 +617,7 @@ API каталога состоит из следующих RPC-запросов
 	- `title` — локализованное название;
 	- `description` — локализованное  описание;
 	- `has_logo` — признак наличия логотипа для элемента каталога;
+	- `share_link` — ссылка "Поделиться", указывает на web–страницу элемента каталога;
 	- `parents` — список прямых родительских элементов, указывается только тип и идентификатор элемента каталога. Для выпуска телепередачи таковыми являются канал и телепередача;
 	- `has_children` — признак наличия дочерних элементов;
 	- `date` — дата выхода, в секундах относительно UTC;
