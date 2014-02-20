@@ -1,6 +1,7 @@
 title: Media Locator API
 quotes language: french
 version: 1.1.1
+server-version: 1.0
 status: поддерживается
 
 # Введение
@@ -166,7 +167,7 @@ API подразумевает доступ только аутентифици�
 - `codec` — кодек, из библиотеки MediaInfo
 - `format` — формат дорожки, из библиотеки MediaInfo
 - `format_profile` — профиль формата дорожки, из библиотеки MediaInfo
-- `language` — код язык дорожки по стандарту [ISO 639-1][wiki-iso-639-1]
+- `language` — код языка дорожки по стандарту [ISO 639-1][wiki-iso-639-1]
 - `duration` — продолжительность дорожки, в секундах
 - `bitrate` — битрейт дорожки
 - `locations` — список альтернативных источников вещания дорожки
