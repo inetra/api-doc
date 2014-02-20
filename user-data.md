@@ -3,7 +3,6 @@ quotes language: french
 version: 1.4.1
 server-version: 1.3.2
 status: поддерживается
-jira-ticket: TVREC-163
 
 # Общее описание
 
@@ -737,7 +736,7 @@ Eltex NV100/101   | 6
 
 	message StorageConstraint {
 	  option (class_name) = "storage_constraint";
-
+	  // Длительность хранения в секундах
 	  optional int64 storage_time = 121;
 	}
 
