@@ -1,6 +1,6 @@
 title: Media Locator API
 quotes language: french
-version: 1.1.1
+version: 1.2
 server-version: 1.0
 status: поддерживается
 
@@ -90,12 +90,18 @@ API подразумевает доступ только аутентифици�
 	  ACCESS_DENIED = 403;
 	}
 
+	enum StreamingType {
+	  PROTOCOL_DEFAULT = 0;
+	  HTTP_LIVE_STREAMING = 1;
+	}
+
 	message Rip {
 	  optional int64 id = 1;
 	  repeated RipPart parts = 2;
 	  repeated string snapshots = 3;
 	  optional RipDefinition definition = 4;
 	  optional RipStatus status = 5 [default = ACCESS_ALLOWED];
+	  optional StreamingType streaming_type = 6 [default = PROTOCOL_DEFAULT];
 	}
 
 Замечания:
@@ -105,6 +111,11 @@ API подразумевает доступ только аутентифици�
 - `snapshots` — массив, содержащий ссылки (URL) на стоп–кадры рипа
 - `definition` — качество рипа (SD, HD)
 - `status` — статус доступности рипа (доступны сразу либо все части, либо ни одной)
+- `streaming_type` — тип вещания:
+	- `PROTOCOL_DEFAULT` — определено протоколом доставки (значение по умолчанию);
+	- `HTTP_LIVE_STREAMING` — вещание по стандарту [Http Live Streaming][hls-standard-url].
+
+[hls-standard-url]: http://tools.ietf.org/html/draft-pantos-http-live-streaming-07
 
 ## RipPart — часть рипа
 
@@ -192,7 +203,7 @@ API подразумевает доступ только аутентифици�
 - `uri` — URI источника вещания
 - `usage_weight` — вес источника вещания, используется клиентом для определения вероятности использования источника вещания. Вероятность использования указанного URI равна весу источника, деленного на сумму всех источников вещания
 
-Например, имеются следующие источники вещания с весами 0, 1, 2, 3 и 4, то вероятность использования каждого из них будет 0, 0.1, 0.2, 0.3 и 0.4, соответственно.
+Например, имеются следующие источники вещания с весами 0, 1, 2, 3 и 4, то вероятность использования каждого из них будет 0, 0.1, 0.2, 0.3 и 0.4 соответственно.
 
 # Ожидайте в следующих версиях
 
@@ -204,3 +215,7 @@ API подразумевает доступ только аутентифици�
 
 - Добавлен способ получения трейлеров для элемента каталога
 - Исправлены некоторые опечатки и копипасты
+
+## Изменения в версии 1.2
+
+- Добавлен атрибут типа вещания — `streaming_type`.
