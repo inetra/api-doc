@@ -1,17 +1,14 @@
-title: Playlist extending rules
-version: 0.10.0
+title: Правила расширения плейлистов
+version: 0.11.0
 status: в разработке
 jira-ticket: TVREC-70
 jira-ticket: TVREC-175
-jira-ticket: TVREC-178
 
-# Правила расширения плейлистов
+# Общее описание
 
 Данный документ описывает правила расширения плейлистов формата M3U и XSPF для поддержки расширенных атрибутов при описании списка каналов.
 
 Документ предназначен для разработчиков приложений и поставщиков услуг IPTV-вещания, записей телепередач.
-
-## Общее описание [^fn-check-playlist]
 
 Основной целью расширения форматов плейлистов является внесение дополнительной информации (атрибутов), способной улучшить взаимодействие пользователя с приложением.
 
@@ -22,11 +19,9 @@ jira-ticket: TVREC-178
 
 Расширение плейлиста на затрагивает совместимость с большинством известных проигрывателей, таких как VLC, и соответствует существующим стандартам.
 
-Важно: плейлист должен использовать кодировку UTF-8.
+Плейлист должен быть сформирован с использованием кодировки UTF–8.
 
-[^fn-check-playlist]: Провести аудит версии 0.10.0 на совместимость с клиентами мобильных приложений.
-
-### Атрибуты каналов
+## Атрибуты каналов
 
 - Идентификатор канала (доступен в [TV Guide API](tv-guide.md))
 - Признак наличия записей
@@ -35,13 +30,13 @@ jira-ticket: TVREC-178
 - Соотношение сторон: 4:3, 16:9, 16:10
 - Признак потока: только аудио.
 
-### Версионирование
+## Версионирование
 
 Версионирование расширений для форматов M3U, XSPF осуществляется путем добавления специальной директивы. Если версия не указана явно, то подразумевается первая версия.
 
 Вторая и последующие версии являются надмножеством первой версии, т.е. обратно совместимы, если не указано обратное. Таким образом, возможно сформировать промежуточный плейлист, совместимый с первой и второй версией одновременно.
 
-## Интеграция со сторонними системами генерации плейлистов
+# Интеграция со сторонними системами генерации плейлистов
 
 При обращении за плейлистом рекомендуется устанавливать HTTP-заголовок `User-Agent`. Данный заголовок может быть использован при системой генерации плейлиста. Значение заголовка должно однозначно определять платформу и класс устройства.
 
@@ -49,7 +44,7 @@ jira-ticket: TVREC-178
 
 	Peers.TV/3.2.1 (iOS/3.2.1; iPad/5,1;) Darwin/14.0.0
 
-### Рекомендации для поставщиков услуги IPTV
+## Рекомендации для поставщиков услуги IPTV
 
 При реализации системы ограничения доступа к плейлисту, например, только для своих абонентов, при обращении к плейлисту для неабонентов сети рекомендуется возвращать пустой плейлист с кодом 200 HTTP-статуса.
 
@@ -245,9 +240,7 @@ jira-ticket: TVREC-178
 
 ## Директивы
 
-Каждая директива может содержать значение или набор атрибутов, атрибуты указываются при помощи ключевого слова `attribute` в рамках директивы. Пример задания атрибута:
-
-	<cn:playlist-info attribute="territory-id">3</cn:playlist-info>
+Каждая директива может содержать значение или набор атрибутов, атрибуты указываются вложенных элементов.
 
 Ниже приведены соглашения по интерпретации типов данных атрибутов:
 
@@ -358,7 +351,7 @@ jira-ticket: TVREC-178
 
 ### cn:location
 
-Директива описывает альтернативные источники для вещания, в свойства атрибута при помощи параметра `type` дополнительно указывается тип вещания.
+Директива описывает альтернативные источники для вещания, в свойствах директивы при помощи параметра `type` дополнительно указывается тип вещания.
 
 Известные типы вещания:
 
@@ -366,7 +359,7 @@ jira-ticket: TVREC-178
 
 ### cn:tv-channel-definition
 
-Атрибут описывает разрешение источника вещания.
+Директива описывает разрешение источника вещания.
 
 Разрешение может быть задано константой:
 
@@ -375,7 +368,7 @@ jira-ticket: TVREC-178
 
 ### cn:tv-channel-status
 
-Атрибут описывает статус канала.
+Директива описывает статус канала.
 
 Возможные статусы канала:
 
@@ -384,7 +377,7 @@ jira-ticket: TVREC-178
 
 ### cn:tv-channel-subscription
 
-Атрибут содержит информацию о подписке на канал.
+Директива содержит информацию о подписке на канал.
 
 Возможные значения:
 
@@ -398,32 +391,40 @@ jira-ticket: TVREC-178
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
-    <extension application="http://www.cn.ru">
-        <cn:version>2</cn:version>
-    </extension>
-    <title>Телевидение Электронного города</title>
-    <trackList>
-        <track>
-            <location>http://hls.cn.ru/streaming/1kanal/tvrec/playlist.m3u8</location>
-            <title>Первый</title>
-            <extension application="http://www.cn.ru">
-                <cn:channel-info attribute="channel-id">10338245</cn:channel-info>
-                <cn:channel-info attribute="recordable">true</cn:channel-info>
-                <cn:channel-info attribute="access">allowed</cn:channel-info>
-                <cn:stream-info attribute="definition">SD</cn:stream-info>
-            </extension>
-        </track>
-        <track>
-            <location>udp://@239.1.15.2:1234</location>
-            <title>Россия 1</title>
-            <extension application="http://www.cn.ru">
-                <cn:channel-info attribute="channel-id">10338258</cn:channel-info>
-                <cn:channel-info attribute="recordable">false</cn:channel-info>
-                <cn:channel-info attribute="access">forbidden</cn:channel-info>
-                <cn:stream-info attribute="definition">SD</cn:stream-info>
-            </extension>
-        </track>
-    </trackList>
+	<extension application="http://www.cn.ru">
+	    <cn:version>2</cn:version>
+	</extension>
+	<title>Телевидение Электронного города</title>
+	<trackList>
+	    <track>
+	        <location>http://hls.cn.ru/streaming/1kanal/tvrec/playlist.m3u8</location>
+	        <title>Первый</title>
+	        <extension application="http://www.cn.ru">
+	            <cn:channel-info>
+	               <channel-id>10338245</channel-id>
+	               <recordable>true</recordable>
+	               <access>allowed</access>
+	            </cn:channel-info>
+	            <cn:stream-info>
+	               <definition>SD</definition>
+	            </cn:stream-info>
+	        </extension>
+	    </track>
+	    <track>
+	        <location>udp://@239.1.15.2:1234</location>
+	        <title>Россия 1</title>
+	        <extension application="http://www.cn.ru">
+	            <cn:channel-info>
+	               <channel-id>10338258</channel-id>
+	               <recordable>false</recordable>
+	               <access>forbidden</access>
+	            </cn:channel-info>
+	            <cn:stream-info>
+	               <definition>SD</definition>
+	            </cn:stream-info>
+	        </extension>
+	    </track>
+	</trackList>
 	</playlist>
 
 **Версия 1:**
@@ -465,13 +466,4 @@ jira-ticket: TVREC-178
 			</track>
 		</trackList>
 	</playlist>
-
-
-# Дальнейшая работа
-
-- Описание способа доставки медиа–контента, перекликается с тикетом [TVREC-72] на доработку документации по Media Locator API;
-- Описание наличия нескольких мультиплексируемых аудио-дорожек в источнике;
-- Описание номера аудио-дорожки, которая должна быть выбрана по умолчанию.
-
-[TVREC-72]: https://drug/ijira/browse/TVREC-72
 
