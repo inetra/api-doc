@@ -297,10 +297,11 @@ knownInfo — информация от пользователя (<span style="c
 
 ### PrimarySources — информация о первичных источниках [primary-source-message]
 
-	message GPS {			
-	  optional float latitude = 1;
-	  optional float longitude = 2;
-	  optional float precision = 3;            
+	message GPS {
+	  optional string source = 1;
+	  optional float latitude = 2;
+	  optional float longitude = 3;
+	  optional float precision = 4;
 	}
 
 	message CellInfo {
@@ -314,22 +315,16 @@ knownInfo — информация от пользователя (<span style="c
 	  optional string bssid = 1;
 	}
 
-	message LocationInfo {
-	  optional string source = 1;
-	  optional GPS gps = 2;	
-	}
-
 	message PrimarySources {
-	  optional GPS gps = 1;
+	  repeated GPS gps = 1;
 	  repeated CellInfo cellInfos = 2;
 	  repeated WifiSpot wifiSpots = 3;
-
-	  repeated LocationInfo locationInfos = 4;
 	}
 
 Замечания:
 
 - `GPS` — gps–координаты местоположения:
+	- `source` — строковое название источника GPS-координат, например, "yandex_locator", "last_position". Для физических датчиков необходимо указывать источник "sensor";
 	- `latitude` — широта;
 	- `longitude` — долгота;
 	- `precision` — точность определения местоположения (радиус в метрах).
@@ -340,8 +335,6 @@ knownInfo — информация от пользователя (<span style="c
 	- `localAreaCode` — код локальной зоны.
 - `WifiSpot` — информации о WiFi точке доступа:
 	- `bssid` — идентификатор WiFi точки доступа.
-- `LocationInfo` — информации о местоположении, полученная из прочих источников:
-	- `source` — строковое название источника, например, "Yandex.Locator", "LastPosition".
 
 При передаче информации от первичных источников можно также передать информацию о прошлом местоположении или полученную от различных источников, таких как Google Geocoder API, Яндекс.Локатор API и т.д. Сервер может принять в расчет информацию от прочих источников при определении местоположения клиента.
 
