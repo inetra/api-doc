@@ -1,6 +1,6 @@
 title: TV Guide & Peers.TV API
 version: 2.7
-server-version: 2.5.2
+server-version: 2.6
 status: поддерживается
 quotes language: french
 
