@@ -226,12 +226,20 @@ knownInfo — информация от пользователя (<span style="c
 
 ## WhereAmI — Где я [whereami-message]
 
+	enum GeoResolveType {
+	  GEO_IP = 0;
+	  GPS = 1;
+	  CELL_ID = 2;
+	  WIFI = 3;
+	}
+
 	message WhereAmI {
 	  optional ContractorInfo contractor = 1;
 	  repeated TerritoryInfo territories = 2;
 	  repeated APIInfo apis = 3 [deprecated=true];
 	  repeated Service services = 4;
 	  optional string ipAddress = 5;
+	  optional GeoResolveType resolveType = 6 [default = GEO_IP];
 	} 
 
 	message APIVersion {
