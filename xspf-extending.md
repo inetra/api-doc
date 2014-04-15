@@ -1,6 +1,6 @@
 title: Правила расширения форматa XSPF
 version: 0.13.0
-status: RC2
+status: RC4
 jira-ticket: TVREC-70
 jira-ticket: TVREC-175
 
@@ -63,7 +63,7 @@ jira-ticket: TVREC-175
 - cn:records
 - cn:location
 
-**Дополнительные директивы для приставок Eltex**:
+**Дополнительные директивы для приставок Eltex–Linux**:
 
 - cn:tv-channel-definition
 - cn:tv-channel-status
@@ -109,8 +109,8 @@ jira-ticket: TVREC-175
 
 Возможные статусы канала:
 
-- `TESTING ` — канал "в бою", продаётся;
-- `LAUNCHED` — канал в тестовом вещании.
+- `TESTING ` — канал в тестовом вещании;
+- `LAUNCHED` — канал "в бою", продаётся.
 
 ### cn:tv-channel-subscription
 

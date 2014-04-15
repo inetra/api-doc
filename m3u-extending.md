@@ -1,6 +1,6 @@
 title: Правила расширения формата M3U
 version: 0.13.0
-status: RC3
+status: RC4
 jira-ticket: TVREC-70
 jira-ticket: TVREC-175
 
@@ -180,9 +180,9 @@ jira-ticket: TVREC-175
 
 название      | тип    | по умолчанию | смысл
 --------------|--------|--------------|-------------
-`definition ` |`строка`| отсутствует  | Идентифицирует разрешение источника.
+`resolution ` |`строка`| отсутствует  | Идентифицирует разрешение источника.
 
-Параметр  `definition` должен быть задан в формате `ширина` x `высота`, например, `720x576`:
+Параметр  `resolution` должен быть задан в формате `ширина` x `высота`, например, `720x576`:
 
 - указание разрешения источника в виде `0x0` обозначает отсутствие видео–дорожки в потоке.
 - в случае вариативного вещания список разрешений источника может быть указан перечислением через запятую.
@@ -195,9 +195,13 @@ jira-ticket: TVREC-175
 	#EXT-INETRA-VERSION:2
 
 	#EXT-INETRA-CHANNEL-INF: channel-id=10338245 recordable=true territory-id=16
-	#EXT-INETRA-STREAM-INF: definition=720x576
+	#EXT-INETRA-STREAM-INF: resolution=720x576
 	#EXTINF:-1, Первый канал
 	udp://@239.1.15.1:1234
+
+	#EXT-INETRA-CHANNEL-INF: channel-id=10338245 recordable=true territory-id=16
+	#EXTINF:-1, Первый канал
+	http://hls.cn.ru/streaming/1kanal/tvrec/playlist.m3u8
 
 	#EXT-INETRA-CHANNEL-INF: channel-id=10338258
 	#EXTINF:-1, Россия 1
