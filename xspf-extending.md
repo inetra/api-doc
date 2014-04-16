@@ -195,7 +195,7 @@ jira-ticket: TVREC-175
 	               <recordable>true</recordable>
 	            </inetra:channel-inf>
 	            <inetra:stream-inf>
-	               <definition>720x576</definition>
+	               <resolution>720x576</resolution>
 	            </inetra:stream-inf>
 	        </extension>
 	    </track>
@@ -206,10 +206,10 @@ jira-ticket: TVREC-175
 	            <inetra:channel-inf>
 	               <channel-id>10338258</channel-id>
 	               <recordable>false</recordable>
-	               <access>payable</access>
+	               <allowed>false</allowed>
 	            </inetra:channel-inf>
 	            <inetra:stream-inf>
-	               <definition>720x576</definition>
+	               <resolution>720x576</resolution>
 	            </inetra:stream-inf>
 	        </extension>
 	    </track>
