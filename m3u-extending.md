@@ -1,5 +1,5 @@
 title: Правила расширения формата M3U
-version: 0.13.0
+version: 0.14.0
 status: RC5
 jira-ticket: TVREC-70
 jira-ticket: TVREC-175
