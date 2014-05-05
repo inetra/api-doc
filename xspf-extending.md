@@ -1,6 +1,6 @@
 title: Правила расширения форматa XSPF
-version: 2.1.x
-status: черновик
+version: 2.1.1
+status: согласован
 
 # Общее описание
 
