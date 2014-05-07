@@ -1,7 +1,7 @@
 title: IPTV
 quotes language: french
 version: 1.2.2
-status: черновик
+status: согласовано
 
 # Общая информация
 
