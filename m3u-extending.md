@@ -1,5 +1,5 @@
 title: Правила расширения формата M3U
-version: 3.2.0
+version: 2.3.0
 status: согласован
 
 # Общее описание
@@ -14,7 +14,7 @@ status: согласован
 
 Детальное описание принципов формирования списка доступных каналов отражено в разделе [«Список каналов»][iptv-channel-list].
 
-[iptv-channel-list]: iptv.md?id=iptv-1.3.2#channels-list
+[iptv-channel-list]: iptv.md#channels-list
 
 # Формат M3U
 
@@ -139,7 +139,6 @@ status: согласован
 `channel-id`  |`число` | отсутствует  | Идентификатор канала (доступен в [TV Guide API](tv-guide.md))
 `territory-id`|`число` | отсутствует  | Идентификатор территории (доступен в [Registry API][registry-api])
 `recordable`  |`булев` | `false`      | Наличие архива записей телепередач для данного канала
-`allowed`     |`булев` | `true`       | Признак наличия доступа к каналу (<span style="color:#f00">устарел в версии 3</span>)
 `age-restriction`|`число`|отсутствует | Возрастное ограничение для канала
 
 Идентификатор территории `territory-id` описывает регион, для которого осуществляется вещание:
@@ -182,16 +181,16 @@ status: согласован
 
 Признак наличия поддержки технологии Timeshift `has-timeshift` носит вспомогательный характер и не гарантирует поддержку сервером вещания.
 
-[iptv-billing-communicate]: iptv.md?id=iptv-1.3.2#billing-communicate
-[iptv-crop-n-aspect-ratio]: iptv.md?id=iptv-1.3.2#crop-n-aspect-ratio
-[timeshift-anchor]: iptv.md?id=iptv-1.3.2#timeshift
+[iptv-billing-communicate]: iptv.md#billing-communicate
+[iptv-crop-n-aspect-ratio]: iptv.md#crop-n-aspect-ratio
+[timeshift-anchor]: iptv.md#timeshift
 
 ## Примеры формирования
 
-**Версия 3:**
+**Версия 2:**
 
 	#EXTM3U
-	#EXT-INETRA-VERSION:3
+	#EXT-INETRA-VERSION:2
 
 	#EXT-INETRA-CHANNEL-INF: channel-id=10338245 recordable=true
 	#EXT-INETRA-STREAM-INF: resolution=720x576 aspect-ratio=4:3 crop=16:9 access=pending pending-till=1399367372 allowed-till=1401959372 has-timeshift=true
@@ -232,16 +231,15 @@ status: согласован
 
 [borpas-doc]: http://borpas.info/iptvplayer-docs#16
 
-## Изменения в версии 3.0.0
+## Изменения в версии 2.2.0
 
-- Атрибуты доступности перенесены в характеристики источника вещания;
-- Атрибут `allowed` объявлен устаревшим.
+- Добавлен атрибут доступности канала `access`.
 
-## Изменения в версии 3.1.0
+## Изменения в версии 2.2.1
 
 - Описание атрибутов `access`, `allowed-till` и `pending-till` вынесены в общий документ.
 
-## Изменения в версии 3.2.0 (TVREC-284)
+## Изменения в версии 2.3.0 (TVREC-284)
 
 - Описан атрибут `has-timeshift`;
 - Раздел «Атрибуты каналов» заменен ссылкой на раздел «Список каналов» из документа iptv.md.

@@ -1,5 +1,5 @@
 title: Правила расширения форматa XSPF
-version: 3.2.0
+version: 3.3.0
 status: согласован
 
 # Общее описание
@@ -14,7 +14,7 @@ status: согласован
 
 Детальное описание принципов формирования списка доступных каналов отражено в разделе [«Список каналов»][iptv-channel-list].
 
-[iptv-channel-list]: iptv.md?id=iptv-1.3.2#channels-list
+[iptv-channel-list]: iptv.md#channels-list
 
 # Формат XSPF
 
@@ -138,9 +138,9 @@ XSPF — особое расширение XML, предназначенное �
 
 Признак наличия поддержки технологии Timeshift `has-timeshift` носит вспомогательный характер и не гарантирует поддержку сервером вещания.
 
-[iptv-billing-communicate]: iptv.md?id=iptv-1.3.2#billing-communicate
-[iptv-crop-n-aspect-ratio]: iptv.md?id=iptv-1.3.2#crop-n-aspect-ratio
-[timeshift-anchor]: iptv.md?id=iptv-1.3.2#timeshift
+[iptv-billing-communicate]: iptv.md#billing-communicate
+[iptv-crop-n-aspect-ratio]: iptv.md#crop-n-aspect-ratio
+[timeshift-anchor]: iptv.md#timeshift
 
 ### cn:id
 
@@ -333,16 +333,15 @@ XSPF — особое расширение XML, предназначенное �
 - Добавлен атрибут группировки каналов, реализованный в VLC;
 - Добавлены атрибуты возрастного ограничения канала, изменения пропорций и кадрирования изображения (TVREC-276).
 
-## Изменения в версии 3.0.0
+## Изменения в версии 2.2.0
 
-- Атрибуты доступности перенесены в характеристики источника вещания;
-- Атрибут `allowed` объявлен устаревшим.
+- Добавлен атрибут доступности канала `access`.
 
-## Изменения в версии 3.1.0
+## Изменения в версии 2.2.1
 
 - Описание атрибутов `access`, `allowed-till` и `pending-till` вынесены в общий документ.
 
-## Изменения в версии 3.2.0 (TVREC-284)
+## Изменения в версии 2.3.0 (TVREC-284)
 
 - Описан атрибут `has-timeshift`;
 - Раздел «Атрибуты каналов» заменен ссылкой на раздел «Список каналов» из документа iptv.md.
