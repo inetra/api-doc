@@ -88,7 +88,7 @@ IPTV сервис предоставляет ссылку на список ка
 	Inetra-Timeshift: template="http://peers.tv/startover/1kanal/playlist.m3u8?start_time=${start_time}";duration=86400
 
 [hls-standard-url]: http://tools.ietf.org/html/draft-pantos-http-live-streaming-07
-[^regex-ref]: Для поиска переменных в шаблоне можно воспользоваться регулярным выражением "([a-zA-Z_][a-zA-Z0-9_]*)"
+[^regex-ref]: Для поиска переменных в шаблоне можно воспользоваться регулярным выражением `(\\$\\{[a-zA-Z_][a-zA-Z0-9_]*\\})`.
 
 Список переменных:
 
