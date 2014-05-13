@@ -14,7 +14,7 @@ status: согласован
 
 Детальное описание принципов формирования списка доступных каналов отражено в разделе [«Список каналов»][iptv-channel-list].
 
-[iptv-channel-list]: iptv.md#channels-list
+[iptv-channel-list]: iptv.md?id=iptv-1.3.2#channels-list
 
 # Формат M3U
 
@@ -182,9 +182,9 @@ status: согласован
 
 Признак наличия поддержки технологии Timeshift `has-timeshift` носит вспомогательный характер и не гарантирует поддержку сервером вещания.
 
-[iptv-billing-communicate]: iptv.md#billing-communicate
-[iptv-crop-n-aspect-ratio]: iptv.md#crop-n-aspect-ratio
-[timeshift-anchor]: iptv.md#timeshift
+[iptv-billing-communicate]: iptv.md?id=iptv-1.3.2#billing-communicate
+[iptv-crop-n-aspect-ratio]: iptv.md?id=iptv-1.3.2#crop-n-aspect-ratio
+[timeshift-anchor]: iptv.md?id=iptv-1.3.2#timeshift
 
 ## Примеры формирования
 
