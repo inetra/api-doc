@@ -158,7 +158,7 @@ XSPF — особое расширение XML, предназначенное �
 - `0` – отсутствуют записи для канала;
 - `1` - присутствуют записи для канала.
 
-### cn:location (<span style="color:#f00">Устарело</span>)
+### cn:location (<span style="color:#f00">Устарело в версии 2</span>)
 
 Директива описывает альтернативные источники для вещания, в свойствах директивы при помощи параметра `type` дополнительно указывается тип вещания.
 
@@ -196,6 +196,10 @@ XSPF — особое расширение XML, предназначенное �
 
 ### Поддерживаемые директивы пространства имен vlc
 
+Официальная документация доступна на сайте [Videolan][vlc-wiki-xspf].
+
+[vlc-wiki-xspf]: https://wiki.videolan.org/XSPF/
+
 ### vlc:id
 
 Директива содержит целочисленный идентификатор канала, используется для группировки.
@@ -221,12 +225,12 @@ XSPF — особое расширение XML, предназначенное �
 
 ## Примеры формирования плейлиста
 
-**Версия 3**:
+**Версия 2**:
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:inetra="http://www.inetra.ru" xmlns:vlc="http://www.videolan.org/vlc/playlist/0">
 	<extension application="http://www.inetra.ru">
-	    <inetra:version>3</inetra:version>
+	    <inetra:version>2</inetra:version>
 	</extension>
 	<extension application="http://www.videolan.org/vlc/playlist/0">
 	    <vlc:node title="Эфир">
