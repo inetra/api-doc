@@ -755,10 +755,6 @@ TV Guide предоставляет меньше информации. Так, �
 	  repeated Telecast telecastsList = 2;
 	  optional int64 items_skipped = 3;
 	  optional int64 total_count = 4;
-	  
-	  optional string lower_mark = 5;
-	  optional string upper_mark = 6;
-	  optional int64 window_count = 7;
 	}
 
 Замечание:
