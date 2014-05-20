@@ -762,7 +762,7 @@ TV Guide предоставляет меньше информации. Так, �
 - `items_skipped` — количество пропущенных выпусков телепередач в выдаче
 - `total_count` — общее количество выпусков телепередач, подпавших под действие фильтра
 
-## `TelecastsPage` — Выборка выпусков телепередач (<span style="color:#0f0">новое в 2.8</span>) [p-telecasts-page]
+## `TelecastsPage` — Страница выборки выпусков телепередач (<span style="color:#0f0">новое в 2.8</span>) [p-telecasts-page]
 
 	message TelecastsPage {
 	  repeated Telecast items = 2;
