@@ -553,7 +553,7 @@ TV Guide предоставляет меньше информации. Так, �
 
 Формат ответа: сообщение [`Channel`][p-channel].
 
-### `gettop` — получение популярных выпусков телепередач (<span style="color:#f00">устарел с версии 2.8</span>) <span style="color:#f00">\[только в Peers.TV\]</span> [m-telecaststop]
+### `gettop` — получение популярных выпусков телепередач <span style="color:#f00">\[только в Peers.TV\]</span> (<span style="color:#f00">устарел с версии 2.8</span>) [m-telecaststop]
 
  параметр  | значение
 -----------|----------
@@ -565,13 +565,13 @@ TV Guide предоставляет меньше информации. Так, �
 
 Внимание: сортировка выпусков телепередач в данном методе производится всегда по количеству просмотров.
 
-### `getcollections` — получение списка тематических коллекций выпусков телепередач (<span style="color:#f00">устарел с версии 2.8</span>) <span style="color:#f00">\[только в Peers.TV\]</span> [m-telecastscollections]
+### `getcollections` — получение списка тематических коллекций выпусков телепередач <span style="color:#f00">\[только в Peers.TV\]</span> (<span style="color:#f00">устарел с версии 2.8</span>) [m-telecastscollections]
 
 Данный метод возвращает только активные тематические коллекции.
 
 Формат ответа: сообщение [`CollectionList`][p-collectionslist].
 
-### `collection` — получение списка передач для определенной коллекции (<span style="color:#f00">устарел с версии 2.8</span>) <span style="color:#f00">\[только в Peers.TV\]</span> [m-collection]
+### `collection` — получение списка передач для определенной коллекции <span style="color:#f00">\[только в Peers.TV\]</span> (<span style="color:#f00">устарел с версии 2.8</span>) [m-collection]
 
  параметр   | значение
 ------------|---------------
