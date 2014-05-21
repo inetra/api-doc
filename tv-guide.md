@@ -1,7 +1,7 @@
 title: TV Guide & Peers.TV API
 version: 2.8
 server-version: 2.6
-status: черновик
+status: релиз-кандидат 3
 quotes language: french
 
 # Цель и смысл
