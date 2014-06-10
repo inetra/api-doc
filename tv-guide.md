@@ -1,5 +1,5 @@
 title: TV Guide & Peers.TV API
-version: 2.8
+version: 2.8.1
 server-version: 2.6
 status: согласован
 quotes language: french
@@ -547,7 +547,7 @@ TV Guide предоставляет меньше информации. Так, �
 
 Способ кодирования параметров `rubric` и `rubric_options` описан в параграфе "[Передача значений выбранных опций рубрик][para-rubric-options-encoding]".
 
-Формат ответа: сообщение [`Suggestions`][p-suggestions].
+Формат ответа: сообщение [`RubricSuggestions`][p-rubric-suggestions].
 
 ## `logo` — Запрос логотипа для рубрики (<span style="color:#0f0">новое в 2.8</span>) [m-logo]
 
@@ -956,15 +956,25 @@ TV Guide предоставляет меньше информации. Так, �
 - `items_skipped` — количество пропущенных подрубрик в выдаче
 - `total_count` — общее количество подрубрик в выдаче
 
-## `Suggestions` — предложения по продолжению ввода <span style="color:#f00">\[только в Peers.TV\]</span> (<span style="color:#0f0">новое в 2.8</span>) [p-suggestions]
+## `RubricSuggestions` — предложения по продолжению ввода <span style="color:#f00">\[только в Peers.TV\]</span> (<span style="color:#0f0">новое в 2.8</span>) [p-rubric-suggestions]
 
-	message Suggestions {
-	  repeated string suggestions = 1;
+	message RubricOptionSuggestions {
+	  optional int64 id = 1;
+	  repeated string suggestions = 2;
 	}
 
 Замечания:
 
-- `suggestions` — массив предложений, отсортирован по релевантности.
+- `id` — идентификатор опции, для которой сделаны предложения
+- `suggestions` — массив предложений по продолжению ввода для указанной опции, отсортирован по релевантности
+
+	message RubricSuggestions {
+	  repeated RubricOptionSuggestions suggestions = 1;
+	}
+
+Замечания:
+
+- `suggestions` — предложения для опций
 
 # История версий
 
@@ -1044,3 +1054,7 @@ TV Guide предоставляет меньше информации. Так, �
 1. Описан иерархический рубрикатор с новым способом выборки. Методы `getcollections`, `gettop` унифицированы для обработки коллекций и хайлайтов.
 2. Для сюжетов выпусков телепередач добавлена ссылка `parent_id`, атрибут `time_offset` — смещение от начала выпуска телепередачи до начала сюжета.
 3. Подготовка к замене на Media Catalogue API.
+
+## Изменения в версии 2.8.1
+
+1. Переработана структура ответа метода `suggestions`.
