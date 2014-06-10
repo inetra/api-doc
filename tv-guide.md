@@ -956,7 +956,9 @@ TV Guide предоставляет меньше информации. Так, �
 - `items_skipped` — количество пропущенных подрубрик в выдаче
 - `total_count` — общее количество подрубрик в выдаче
 
-## `RubricSuggestions` — предложения по продолжению ввода <span style="color:#f00">\[только в Peers.TV\]</span> (<span style="color:#0f0">новое в 2.8</span>) [p-rubric-suggestions]
+## `RubricOptionSuggestions`, `RubricSuggestions` — предложения по продолжению ввода <span style="color:#f00">\[только в Peers.TV\]</span> (<span style="color:#0f0">новое в 2.8</span>) [p-rubric-suggestions]
+
+### `RubricOptionSuggestions` — предложения для опции рубрики
 
 	message RubricOptionSuggestions {
 	  optional int64 id = 1;
@@ -967,6 +969,8 @@ TV Guide предоставляет меньше информации. Так, �
 
 - `id` — идентификатор опции, для которой сделаны предложения
 - `suggestions` — массив предложений по продолжению ввода для указанной опции, отсортирован по релевантности
+
+### `RubricSuggestions` — предложения для рубрики
 
 	message RubricSuggestions {
 	  repeated RubricOptionSuggestions suggestions = 1;
