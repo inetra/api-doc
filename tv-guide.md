@@ -625,7 +625,7 @@ TV Guide предоставляет меньше информации. Так, �
 
 Данный метод возвращает только активные тематические коллекции.
 
-Формат ответа: сообщение [`CollectionList`][p-collectionslist].
+Формат ответа: сообщение [`CollectionList`][p-collectionlist].
 
 ## `collection` — получение списка передач для определенной коллекции <span style="color:#f00">\[только в Peers.TV\]</span> (<span style="color:#f00">устарел с версии 2.8</span>) [m-collection]
 
