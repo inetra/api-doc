@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.13.1
+version: 2.14
 server-version: 2.13
 status: в бою
 
@@ -62,11 +62,13 @@ API возвращает результат работы в HTTP–коде и �
  `9` | `user_data_merge` | Слияние пользовательских данных (<span style="color:#0f0">новое в 2.9</span>) | Инетра | [User Data Merge API] | |
 `10` | `media_locator`   | Нахождение источников вещания (<span style="color:#0f0">новое в 2.10</span>) | Инетра и партнеры | [Media Locator API] | |
 `11` | `pinger`          | HTTP pinger (<span style="color:#0f0">новое в 2.10</span>) | Кто угодно | HTTP | С помощью данного API контрагент может определять активность приложений в своей сети. Приложение периодически отправляет запросы на адрес, указанный в `location`.
+`12` | `radio`           | Радио   | Инетра   | [Radio] | Предоставляет список источников вещания каналов радио.
 
 [Auth API]: auth.md
 [Registry API]: #
 [Films API]: films.md
 [IPTV]: iptv.md
+[Radio]: radio.md
 [TV Guide API]: tv-guide.md
 [TV API]: tv-guide.md
 [Notifications API]: notifications.md
@@ -231,6 +233,7 @@ knownInfo — информация от пользователя
 	    USERS_MERGE = 9 [(CN.string_value) = "users_merge"];
 		MEDIA_LOCATOR = 10 [(CN.string_value) = "media_locator"];
 		PINGER = 11 [(CN.string_value) = "pinger"];
+		RADIO = 12 [(CN.string_value) = "radio"];
 	  }
 	 
 	  optional Type type = 1;
@@ -525,3 +528,8 @@ knownInfo — информация от пользователя
 ----------------------
 
 - Удален параметр `services` из метода `territories`.
+
+Изменения в версии 2.14
+----------------------
+
+- Добавлен сервис Радио.
