@@ -221,19 +221,22 @@ knownInfo — информация от пользователя
 	 
 	message Service {
 	  enum Type {
+	    option allow_alias = true;
+
 	    FILMS = 0 [(CN.string_value) = "films"];
 	    IPTV = 1 [(CN.string_value) = "iptv"];
 	    PEERSTV = 2 [(CN.string_value) = "peerstv"];
 	    PEERS = 3 [(CN.string_value) = "peers"];
 	    TV_GUIDE = 4 [(CN.string_value) = "tv_guide"];
+	    MEDIA_GUIDE = 4 [(CN.string_value) = "tv_guide"];
 	    NOTIFICATION = 5 [(CN.string_value) = "notification"];
 	    TRACKING = 6 [(CN.string_value) = "tracking"];
 	    AUTH = 7 [(CN.string_value) = "auth"];
 	    DATA = 8 [(CN.string_value) = "data"];
 	    USERS_MERGE = 9 [(CN.string_value) = "users_merge"];
-		MEDIA_LOCATOR = 10 [(CN.string_value) = "media_locator"];
-		PINGER = 11 [(CN.string_value) = "pinger"];
-		RADIO = 12 [(CN.string_value) = "radio"];
+	    MEDIA_LOCATOR = 10 [(CN.string_value) = "media_locator"];
+	    PINGER = 11 [(CN.string_value) = "pinger"];
+	    RADIO = 12 [(CN.string_value) = "radio"];
 	  }
 	 
 	  optional Type type = 1;
