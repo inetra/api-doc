@@ -9,9 +9,9 @@ jira-ticket: TVREC-274
 
 # Введение
 
-Media Catalogue API предназначен для получения коллекций медиа–каталога.
+Media Catalogue API предназначен для получения коллекций медиа–каталога. Получение информации об элементах каталога возможно только при помощи [Media Guide][media-guide-doc].
 
-Получение информации об элементах каталога возможно только при помощи [Media Guide][media-guide-doc]
+**Внимание**: В сервисе Media Catalogue приложение может получить выборку медиа–каталога только с помощью рубрикатора. Других способов получить выборку сервис не предоставляет.
 
 [media-guide-doc]: tv-guide.md
 
@@ -38,8 +38,6 @@ Media Catalogue API предназначен для получения колл�
 ## Рубрикатор
 
 Рубрикатор нужен для формирования коллекций при навигации пользователем по меню приложения или схожим по функциональности с ним элементам графического интерфейса.
-
-**Внимание**: В сервисе Media Catalogue приложение может получить выборку медиа–каталога только с помощью рубрикатора. Других способов получить выборку сервис не предоставляет.
 
 Рубрикатор может быть различным в зависимости от:
 
@@ -447,7 +445,7 @@ API работает по протоколу HTTP, корень доступа �
 
 Получение информации об элементе каталога возможно только при помощи [Media Guide][media-guide-doc]
 
-## `SelectionPage` — Страница выборки выпусков передач [p-selection-page]
+## SelectionPage — Страница выборки выпусков передач [p-selection-page]
 
 	message SelectionPage {
 	  repeated CatalogueItem items = 1;
@@ -468,9 +466,9 @@ API работает по протоколу HTTP, корень доступа �
 - `upper_mark` — верхняя временная метка окна выборки
 - `ttl` — время в секундах, на которое клиент может закэшировать страницу выборки. Используется только при постраничной навигации по выборке.
 
-## `Rubricator`, `Rubric`, `RubricOption` — рубрикатор
+## Rubricator, Rubric, RubricOption — рубрикатор
 
-### `RubricOption`, `RubricOptionType`, `RubricOptionValue` — опция рубрики [p-rubric-option]
+### RubricOption`, RubricOptionType, RubricOptionValue — опция рубрики [p-rubric-option]
 
 	enum RubricOptionType {
 	  SWITCH = 0;
@@ -502,7 +500,7 @@ API работает по протоколу HTTP, корень доступа �
 	- `value` — передаваемое на сервер значение. См. [Обработка выбора пользователем рубрики][para-get-for-rubric]
 	- `selected_by_default` — является ли данное значение опции выбранным по умолчанию
 
-### `Rubric`, `RubricUIHint` — рубрика [p-pubric]
+### Rubric, RubricUIHint — рубрика [p-pubric]
 
 	enum RubricUIHint {
 	  option allow_alias = true;
@@ -540,7 +538,7 @@ API работает по протоколу HTTP, корень доступа �
 	- `STORIES` — "хайлайты", сюжеты выпусков передач, обычно на одну тему
 - `timelined` — использовать временные метки для навигации по выборке.
 
-### `Rubricator` — рубрикатор [p-rubricator]
+### Rubricator — рубрикатор [p-rubricator]
 
 	message Rubricator {
 	  repeated Rubric items = 1;
@@ -554,9 +552,9 @@ API работает по протоколу HTTP, корень доступа �
 - `items_skipped` — количество пропущенных подрубрик в выдаче
 - `total_count` — общее количество подрубрик в выдаче
 
-## `RubricOptionSuggestions`, `RubricSuggestions` — предложения по продолжению ввода [p-rubric-suggestions]
+## RubricOptionSuggestions, RubricSuggestions — предложения по продолжению ввода [p-rubric-suggestions]
 
-### `RubricOptionSuggestions` — предложения для опции рубрики
+### RubricOptionSuggestions — предложения для опции рубрики
 
 	message RubricOptionSuggestions {
 	  optional int64 id = 1;
@@ -568,7 +566,7 @@ API работает по протоколу HTTP, корень доступа �
 - `id` — идентификатор опции, для которой сделаны предложения
 - `suggestions` — массив предложений по продолжению ввода для указанной опции, отсортирован по релевантности
 
-### `RubricSuggestions` — предложения для рубрики
+### RubricSuggestions — предложения для рубрики
 
 	message RubricSuggestions {
 	  repeated RubricOptionSuggestions suggestions = 1;
