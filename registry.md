@@ -63,7 +63,7 @@ API возвращает результат работы в HTTP–коде и �
 `10` | `media_locator`   | Нахождение источников вещания (<span style="color:#0f0">новое в 2.10</span>) | Инетра и партнеры | [Media Locator API] | |
 `11` | `pinger`          | HTTP pinger (<span style="color:#0f0">новое в 2.10</span>) | Кто угодно | HTTP | С помощью данного API контрагент может определять активность приложений в своей сети. Приложение периодически отправляет запросы на адрес, указанный в `location`.
 `12` | `radio`           | Радио   | Инетра и партнеры | [Radio] | Предоставляет список источников вещания каналов радио.
-`13` | `media_catalogue` | Медиа Каталог | Инетра | [Catalogue API] | Предоставляет информацию о коллекциях медийных элементов.
+`13` | `catalogue`       | Медиа Каталог | Инетра | [Catalogue API] | Предоставляет информацию о коллекциях медийных элементов.
 
 [Auth API]: auth.md
 [Registry API]: #
@@ -239,7 +239,7 @@ knownInfo — информация от пользователя
 	    MEDIA_LOCATOR = 10 [(CN.string_value) = "media_locator"];
 	    PINGER = 11 [(CN.string_value) = "pinger"];
 	    RADIO = 12 [(CN.string_value) = "radio"];
-	    CATALOGUE = 13 [(CN.string_value)="catalogue"];
+	    CATALOGUE = 13 [(CN.string_value) = "catalogue"];
 	  }
 	 
 	  optional Type type = 1;
