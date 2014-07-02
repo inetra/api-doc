@@ -1,7 +1,7 @@
 title: Media Catalogue API
 quotes language: french
 version: 1.0.0
-status: черновик
+status: не реализовано
 jira-ticket: STB-923
 jira-ticket: WEBDEV-6465
 jira-ticket: TVREC-86
