@@ -409,9 +409,9 @@ API работает по протоколу HTTP, корень доступа �
 ## CatalogueItem — элемент каталога
 
 	enum CatalogueItemType {
-	    TVSHOW = 1;
-	    TELECAST = 2;
-	    TV_CHANNEL = 3;
+	    TV_CHANNEL = 1;
+	    TVSHOW = 2;
+	    TELECAST = 3;
 	    FRAGMENT = 4;
 	}
 
