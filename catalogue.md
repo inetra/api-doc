@@ -26,7 +26,7 @@ jira-ticket: TVREC-274
 
 В этом документе используются термины и определения, описанные в документах "[О программных интерфейсах сервисов Инетры][about.md]" и ["Термины и определения"][terms.md].
 
-[terms.md]: terms.md?h=tvrec-274-dedicated-rubricator#media-catalogue-anchor
+[terms.md]: terms.md#media-catalogue-anchor
 [about.md]: about.md
 
 ## Рубрикатор

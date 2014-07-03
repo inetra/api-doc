@@ -29,13 +29,13 @@ quotes language: french
 [Radio-doc]: radio.md
 [media-locator-doc]: media-locator.md
 [PeersTV-doc]: tv-guide.md?id=tv-guide-2.6
-[catalogue-api-ref]: catalogue.md?h=tvrec-274-dedicated-rubricator
+[catalogue-api-ref]: catalogue.md
 
 ## Термины и определения
 
 В этом документе используются термины и определения, описанные в документах "[О программных интерфейсах сервисов Инетры][about.md]" и ["Термины и определения"][terms.md].
 
-[terms.md]: terms.md?h=tvrec-274-dedicated-rubricator#media-guide-anchor
+[terms.md]: terms.md#media-guide-anchor
 [about.md]: about.md
 
 # Размещение и использование
