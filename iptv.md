@@ -265,7 +265,9 @@ IPTV сервис предоставляет ссылку на список ка
 
 В случае если пользователь отменил установку PIN–кода клиент должен сбросить разрешение на смену PIN–кода родительского контроля.
 
-### PINAuthorizationStatus —  проверка статуса авторизации на сброс PIN–кода родительского контроля [message-pin-authorization]
+### Описание сообщений в формате Google Protocol Buffers
+
+#### PINAuthorizationStatus —  проверка статуса авторизации на сброс PIN–кода родительского контроля [message-pin-authorization]
 
 	message PINAuthorizationStatus {
 	  enum Status {
