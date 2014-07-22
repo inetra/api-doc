@@ -315,16 +315,14 @@ quotes language: french
 	}
 
 	message Category {
-	  optional uint64 category_id = 1;
+	  optional CategoryType type = 1;
 	  optional string title = 2;
-	  optional CategoryType type = 3;
 	}
 
-Замечания
+Замечания:
 
-- `category_id` — числовой идентификатор категории;
-- `title` — название категории;
-- `type` — зарезервированный тип категории.
+- `type` — фиксированный тип категории, описывающий семантику использования;
+- `title` — человекочитаемое название категории.
 
 ## Channel — Описание канала [p-channel]
 
