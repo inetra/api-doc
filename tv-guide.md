@@ -1,5 +1,5 @@
 title: Media Guide
-version: 2.8.1
+version: 2.9
 server-version: 2.6
 status: черновик
 quotes language: french
@@ -152,13 +152,14 @@ quotes language: french
 `channel_ids` | список идентификаторов каналов через `,`
 `fields`      | список полей через `,` из сообщения `Channel`. Только указанные поля должны присутствовать в выдаче.
 
-В независимости от переданного значения в параметре `fields` в выдаче для каждого сообщения `Channel` будет присутствовать поле `channelId`. Если параметр `fields` не задан, то по умолчанию в выдачу будут включены поля поля `title`, `alias`, `logoURL`, `ageRestriction`, `hasSchedule`, что гарантирует наличие в выдаче:
+В независимости от переданного значения в параметре `fields` в выдаче для каждого сообщения `Channel` будет присутствовать поле `channelId`. Если параметр `fields` не задан, то по умолчанию в выдачу будут включены поля поля `title`, `alias`, `logoURL`, `ageRestriction`, `hasSchedule`, `categories` что гарантирует наличие в выдаче:
 
 - названия канала;
 - идентификатора канала (в том числе строкового);
 - URL логотипа канала;
 - возрастного ограничения;
 - наличие расписания для канала (без указания точных дат);
+- наличие категорий передач, вещаемых на канале.
 
 Если параметр `channel_ids` не задан, то будет возвращена информация по всем каналам.
 
@@ -274,6 +275,8 @@ quotes language: french
 	  optional uint64 views_count = 13;
 	  optional int32 time_offset = 14 [default = 0];
 	  optional uint64 parent_id = 15;
+
+	  repeated Category categories = 16;
 	}
 
 Замечания:
@@ -293,6 +296,35 @@ quotes language: french
 	- для выпуска передачи: разница в секундах между фактическим временем выхода выпуска и временем по расписанию,
 	- для сюжета выпуска передачи (задан `parent_id`): время в секундах от начала выпуска передачи до начала сюжета в нем.
 - `parent_id` — идентификатор выпуска передачи, к которой относится сюжет (<span style="color:#0f0">новое в версии 2.8.1</span>)
+- `categories` — категории передач (<span style="color:#0f0">новое в 2.9</span>).
+
+## Category — Категория аудиовизуального материала [p-category]
+
+	enum CategoryType {
+	  option (allow_alias) = true;
+
+	  PORNOGRAPHIC = 1;
+	  DOCUMENTAL = 2;
+	  HUMOROUS = 3;
+	  MUSIC = 4;
+	  INFORMATIONAL = 5;
+	  ENTERTAINMENT = 6;
+	  FOR_KIDS = 7;
+	  SPORT = 8;
+	  FASHION = 9;
+	}
+
+	message Category {
+	  optional uint64 category_id = 1;
+	  optional string title = 2;
+	  optional CategoryType type = 3;
+	}
+
+Замечания
+
+- `category_id` — числовой идентификатор категории;
+- `title` — название категории;
+- `type` — зарезервированный тип категории.
 
 ## Channel — Описание канала [p-channel]
 
@@ -317,6 +349,8 @@ quotes language: french
 	  
 	  optional ChannelType type = 15 [default = TV];
 	  optional string artworkURL = 16;
+
+	  repeated Category categories = 17;
 	}
 
 Замечания:
@@ -334,7 +368,8 @@ quotes language: french
 - `type` — тип канала (<span style="color:#0f0">новое в 2.8</span>):
 	- `TV` — телевизионный канал (значение по умолчанию);
 	- `RADIO` — радиоканал.
-- `artworkURL` — афиша для канала (<span style="color:#0f0">новое в 2.8</span>).
+- `artworkURL` — афиша для канала (<span style="color:#0f0">новое в 2.8</span>);
+- `categories` — категории передач, вещаемых на канале (<span style="color:#0f0">новое в 2.9</span>).
 
 ## Schedule — Расписание для канала [p-schedule]
 
@@ -440,4 +475,8 @@ quotes language: french
 ## Изменение в версии 2.8.1 (TVREC-274)
 
 1. Добавлен атрибут `parent_id` для ссылки на выпуск передачи.
+
+## Изменения в версии 2.9.0 (TVREC-341)
+
+1. Добавлены категории, характеризующие передачи и каналы.
 
