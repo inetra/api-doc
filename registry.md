@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.14.1
+version: 2.15
 server-version: 2.13
 status: в бою
 
@@ -288,6 +288,7 @@ knownInfo — информация от пользователя
 	  repeated ContractorImage images = 3;
 	  optional string brandName = 4;
 	  optional string privateOfficeURL = 5;
+	  optional string callCenterNumber = 6;
 	}
 	 
 	message ContractorList {
@@ -299,6 +300,7 @@ knownInfo — информация от пользователя
 - `ContractorInfo.name` — юридическое именование контрагента (например, "ООО Вымпелком")
 - `ContractorInfo.brandName` — имя бренда контрагента (например, "Билайн")
 - `ContractorInfo.privateOfficeURL` — адрес личного кабинета пользователя (для открытия в браузере)
+- `ContractorInfo.callCenterNumber` — номер телефона контакт–центра
 
 ## TerritoryInfo, TerritoryList — информация о территории [territoryinfo-message]
 
@@ -544,3 +546,8 @@ knownInfo — информация от пользователя
 ----------------------
 
 - Добавлен сервис Media Catologue
+
+Изменения в версии 2.15 (TVREC-341)
+----------------------
+
+- Добавлен атрибут `callCenterNumber` в сообщение `ContractorInfo`.
