@@ -1,7 +1,7 @@
 title: Media Guide
 version: 2.9
 server-version: 2.6
-status: черновик
+status: согласован
 quotes language: french
 
 # Цель и смысл
