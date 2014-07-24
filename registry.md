@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
 version: 2.15
-server-version: 2.13
+server-version: 2.14
 status: в бою
 
 Общая информация
