@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.15
+version: 2.16
 server-version: 2.14
 status: в бою
 
@@ -542,12 +542,12 @@ knownInfo — информация от пользователя
 
 - Добавлен сервис Радио.
 
-Изменения в версии 2.14.1 (TVREC-274)
-----------------------
-
-- Добавлен сервис Media Catologue
-
 Изменения в версии 2.15 (TVREC-341)
 ----------------------
 
 - Добавлен атрибут `callCenterNumber` в сообщение `ContractorInfo`.
+
+Изменения в версии 2.16 (TVREC-274)
+----------------------
+
+- Добавлен сервис Media Catologue
