@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.16
+version: 2.16.1
 server-version: 2.14
 status: в бою
 
@@ -550,4 +550,4 @@ knownInfo — информация от пользователя
 Изменения в версии 2.16 (TVREC-274)
 ----------------------
 
-- Добавлен сервис Media Catologue
+- Добавлен сервис Media Catalogue
