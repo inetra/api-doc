@@ -1,11 +1,6 @@
 title: Media Catalogue API
 quotes language: french
-version: 1.0.0
-status: не реализовано
-jira-ticket: STB-923
-jira-ticket: WEBDEV-6465
-jira-ticket: TVREC-86
-jira-ticket: TVREC-274
+version: 1.0.1
 
 # Введение
 
@@ -464,7 +459,7 @@ API работает по протоколу HTTP, корень доступа �
 
 ## Rubricator, Rubric, RubricOption — рубрикатор
 
-### RubricOption`, RubricOptionType, RubricOptionValue — опция рубрики [p-rubric-option]
+### RubricOption, RubricOptionType, RubricOptionValue — опция рубрики [p-rubric-option]
 
 	enum RubricOptionType {
 	  SWITCH = 0;
