@@ -80,7 +80,7 @@ IPTV сервис предоставляет ссылку на список ка
 
 Пример заголовка:
 
-	Inetra-Timeshift: base-uri="http://peers.tv/timeshift/1kanal/playlist.m3u8";duration=86400
+	Inetra-Timeshift: base-uri="http://peers.tv/timeshift/1kanal/playlist.m3u8";duration=86400;api-version=1
 
 В случае [Http Live Streaming][hls-draft-url] базовый адрес должен указывать на индексный файл (ресурс с расширением m3u8).
 
