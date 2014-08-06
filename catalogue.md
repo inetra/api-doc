@@ -1,6 +1,6 @@
 title: Media Catalogue API
 quotes language: french
-version: 1.1.0
+version: 1.1.1
 
 # Введение
 
@@ -446,7 +446,7 @@ API работает по протоколу HTTP, корень доступа �
 ### CatalogueItemSelectionAttributes --- атрибуты элемента, характерные для выборки
 
 	message CatalogueItemSelectionAttributes {
-	    optional views_count = 1;
+	    optional uint64 views_count = 1;
 	}
 
 Замечания:
@@ -610,6 +610,6 @@ API работает по протоколу HTTP, корень доступа �
 	- описаны методы рубрикатора `rubricator`, `suggestion`, `select`;
 	- описан метод `logo`.
 
-## Изменения в версии 1.1.0 (WEBDEV-7958)
+## Изменения в версии 1.1.1 (WEBDEV-7958)
 
 1. `CatalogueItem` расширен атрибутами элементов, характерных для выборки.
