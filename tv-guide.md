@@ -53,9 +53,9 @@ quotes language: french
 - `path_to_api` — путь до API, полученный из Регистратуры
 - `method` — имя метода
 - `format` — формат передачи данных, может быть одним из:
-	- `.json` — JSON
-	- `.xml` — XML
-	- `.xspf` — XSPF (только для метода list)
+	- `json` — JSON
+	- `xml` — XML
+	- `xspf` — XSPF (только для метода list)
 - `parameters` — параметры метода
 
 Запрос к корневому URL API (без указания метода и формата) равносилен на запросу `list.xspf`.
