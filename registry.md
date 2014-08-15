@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.17
+version: 2.18
 server-version: 2.14
 status: в бою
 
@@ -58,12 +58,13 @@ API возвращает результат работы в HTTP–коде и �
  `5` | `notification`    | Уведомления (<span style="color:#0f0">новое в 2.8</span>) | Инетра | [Notifications API] | С помощью API приложения рассылают пользователям уведомления о событиях.
  `6` | `tracking`        | Трекинг событий (<span style="color:#0f0">новое в 2.8</span>) | Инетра | [Tracking API] | С помощью API приложения могут регистрировать происходящие события для последующей их обработки.
  `7` | `auth`            | Аутентификация пользователя и авторизация приложения (<span style="color:#0f0">новое в 2.9</span>) | Инетра и партнеры| [Auth API] | |
- `8` | `user_data`       | Данные пользователя (<span style="color:#0f0">новое в 2.9</span>) | Инетра | [User Data API] | |	 
+ `8` | `user_data`       | Данные пользователя (<span style="color:#0f0">новое в 2.9</span>) | Инетра | [User Data API] | |
  `9` | `user_data_merge` | Слияние пользовательских данных (<span style="color:#0f0">новое в 2.9</span>) | Инетра | [User Data Merge API] | |
 `10` | `media_locator`   | Нахождение источников вещания (<span style="color:#0f0">новое в 2.10</span>) | Инетра и партнеры | [Media Locator API] | |
 `11` | `pinger`          | HTTP pinger (<span style="color:#0f0">новое в 2.10</span>) | Кто угодно | HTTP | С помощью данного API контрагент может определять активность приложений в своей сети. Приложение периодически отправляет запросы на адрес, указанный в `location`.
 `12` | `radio`           | Радио   | Инетра и партнеры | [Radio] | Предоставляет список источников вещания каналов радио.
 `13` | `catalogue`       | Медиа Каталог | Инетра | [Catalogue API] | Предоставляет информацию о коллекциях медийных элементов.
+`14` | `promo`           | Промо   | Инетра | [Promo API] | Предоставляет клиентам информацию об активации промо–кодов, контрагентам — информацию об активных акциях и возможность добавлять и изменять существующие промо–коды.
 
 [Auth API]: auth.md
 [Registry API]: #
@@ -78,6 +79,7 @@ API возвращает результат работы в HTTP–коде и �
 [User Data Merge API]: user-data-merge.md
 [Media Locator API]: media-locator.md
 [Catalogue API]: catalogue.md
+[Promo API]: promo.md
 
 Методы
 ======
@@ -259,6 +261,7 @@ knownInfo — информация от пользователя
 	    PINGER = 11 [(CN.string_value) = "pinger"];
 	    RADIO = 12 [(CN.string_value) = "radio"];
 	    CATALOGUE = 13 [(CN.string_value) = "catalogue"];
+	    PROMO = 14 [(CN.string_value) = "promo"];
 	  }
 	 
 	  optional Type type = 1;
@@ -575,3 +578,8 @@ knownInfo — информация от пользователя
 ----------------------
 
 - Добавлен идентификатор клиента в метод `whereami`.
+
+Изменения в версии 2.18 (TVREC-378)
+----------------------
+
+- Добавлен сервиса Promo.
