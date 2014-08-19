@@ -1,7 +1,7 @@
 title: Личный кабинет
 quotes language: french
 version: 1.0.0
-status: черновик
+status: согласован
 
 # Введение
 

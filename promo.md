@@ -1,7 +1,7 @@
 title: Promo API
 quotes language: french
 version: 1.0
-status: черновик
+status: согласован
 
 # Введение
 

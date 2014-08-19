@@ -1,6 +1,6 @@
 title: Термины и определения
 quotes language: french
-status: черновик
+status: согласован
 
 # Цель и смысл
 
