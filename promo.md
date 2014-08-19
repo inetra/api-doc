@@ -77,7 +77,7 @@ API подразумевает доступ только аутентифици�
 	}
 
 	message ActivationInfo {
-	  optional ActivationErrorСode error_code = 1;
+	  optional ActivationErrorCode error_code = 1;
 
 	  optional uint32 contractor_id = 2;
 	  optional string private_office_uri = 3;
