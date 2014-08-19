@@ -71,7 +71,7 @@ API подразумевает доступ только аутентифици�
 
 ## ActivationInfo — информация об активации промо–кода [p-activation-info]
 
-	enum ActivationErrorСode {
+	enum ActivationErrorCode {
 	  PROMO_CODE_NOT_FOUND = 1;
 	  PROMO_CODE_EXPIRED = 2;
 	}
