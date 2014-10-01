@@ -1,5 +1,5 @@
 title: Media Guide
-version: 2.9.3
+version: 2.10.0
 server-version: 2.9.1
 status: согласован
 quotes language: french
@@ -497,6 +497,6 @@ quotes language: french
 
 1. Уточнено значение атрибута `views_count` сообщения `Telecast`.
 
-## Изменения в версии 2.9.3 (TVREC-425)
+## Изменения в версии 2.10.0 (TVREC-425)
 
 1. Добавлена локализация.

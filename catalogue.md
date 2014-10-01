@@ -1,6 +1,6 @@
 title: Media Catalogue API
 quotes language: french
-version: 1.3.1
+version: 1.4.0
 server-version: 1.1
 status: согласован
 
@@ -661,6 +661,6 @@ API работает по протоколу HTTP, корень доступа �
 
 1. Параметр `quantity` из метода `rubricator` переименован в `count`.
 
-## Изменения в версии 1.3.1 (TVREC-425)
+## Изменения в версии 1.4.0 (TVREC-425)
 
 1. Добавлена локализация.

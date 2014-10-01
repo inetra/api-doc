@@ -2,7 +2,7 @@ title: Registry API
 quotes language: french
 version: 2.19
 server-version: 2.16
-status: черновик
+status: согласован
 
 Общая информация
 ================
