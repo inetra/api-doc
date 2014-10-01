@@ -368,4 +368,4 @@ XSPF — особое расширение XML, предназначенное �
 
 ## Изменения в версии 2.4.0 (TVREC-425)
 
-- Добавлен атрибут `content-language` для директивы `inetra:stream-inf`.
+- Добавлены атрибуты `audio-language` и `subtitles-language` для директивы `inetra:stream-inf`.

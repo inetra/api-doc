@@ -263,4 +263,4 @@ status: согласован
 
 ## Изменения в версии 2.4.0 (TVREC-425)
 
-- Добавлен атрибут `content-language` для директивы `EXT-INETRA-STREAM-INF`.
+- Добавлены атрибуты `audio-language` и `subtitles-language` для директивы `EXT-INETRA-STREAM-INF`.
