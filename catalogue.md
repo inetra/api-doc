@@ -1,7 +1,7 @@
 title: Media Catalogue API
 quotes language: french
 version: 1.4.0
-server-version: 1.1
+server-version: 1.3
 status: согласован
 
 # Введение

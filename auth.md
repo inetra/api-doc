@@ -1,7 +1,7 @@
 title: Auth API
 status: поддерживается
 version: 1.2.0
-server-version: 1.1.0
+server-version: 1.2.0
 quotes language: french
 
 # Цель и смысл

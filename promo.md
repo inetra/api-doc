@@ -1,6 +1,7 @@
 title: Promo API
 quotes language: french
 version: 1.1.0
+server-version: 1.1.0
 status: согласован
 
 # Введение
