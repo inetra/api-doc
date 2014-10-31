@@ -329,7 +329,7 @@ knownInfo — информация от пользователя (<span style="c
 	message TerritoryInfo {
 	  optional uint32 territoryId = 1;
 	  optional string name = 2;
-	  optional string parentId = 3;
+	  optional uint32 parentId = 3;
 	  optional bool isLeaf = 4;
 	  optional TerritoryInfo parent = 5;
 	  optional int32 timezone = 6;
@@ -593,6 +593,11 @@ knownInfo — информация от пользователя (<span style="c
 
 - Метод `knownInfo` помечен как устаревший;
 - Актуализировано описание метода `contractors`.
+
+Изменения в версии 2.18.2
+----------------------
+
+- Исправлено некорректное описание атрибута `parentId` из сообщения `TerritoryInfo`.
 
 Изменения в версии 2.19 (TVREC-425)
 ----------------------
