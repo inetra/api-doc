@@ -43,7 +43,7 @@ API возвращает результат работы в HTTP–коде и �
 `400` | В запросе отсутствует обязательные параметры
 `501` | Метод не реализован
 
-Сервисы контрагентов
+Сервисы контрагентов [services-anchor]
 --------------------
 
 Каждый контрагент имеет список сервисов, которые предоставляются им на определенном множестве территорий. Виды сервисов, которые можно найти с помощью Регистратуры перечислены в таблице ниже. Сервис может иметь несколько способов доставки. К примеру, IP–телевидение может поставляться как с помощью multicast, так и с помощью других средств, вроде HTTP Live Streaming или RTSP.
@@ -255,8 +255,8 @@ knownInfo — информация от пользователя (<span style="c
 	    NOTIFICATION = 5 [(CN.string_value) = "notification"];
 	    TRACKING = 6 [(CN.string_value) = "tracking"];
 	    AUTH = 7 [(CN.string_value) = "auth"];
-	    DATA = 8 [(CN.string_value) = "data"];
-	    USERS_MERGE = 9 [(CN.string_value) = "users_merge"];
+	    DATA = 8 [(CN.string_value) = "user_data"];
+	    USERS_MERGE = 9 [(CN.string_value) = "user_data_merge"];
 	    MEDIA_LOCATOR = 10 [(CN.string_value) = "media_locator"];
 	    PINGER = 11 [(CN.string_value) = "pinger"];
 	    RADIO = 12 [(CN.string_value) = "radio"];
@@ -598,6 +598,11 @@ knownInfo — информация от пользователя (<span style="c
 ----------------------
 
 - Исправлено некорректное описание атрибута `parentId` из сообщения `TerritoryInfo`.
+
+Изменения в версии 2.18.3
+----------------------
+
+- Исправлены неточности в описании сообщения `Service`.
 
 Изменения в версии 2.19 (TVREC-425)
 ----------------------
