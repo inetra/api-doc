@@ -644,7 +644,7 @@ Blackberry        | 4
 Linux             | 5
 Eltex NV100/101   | 6
 
-[Пример][usage-device] использования класса
+[Пример][usage-devices] использования класса
 
 ## application — приложение [class-application]
 
