@@ -1,6 +1,6 @@
 title: Media Locator API
 quotes language: french
-version: 1.3.3
+version: 1.4
 server-version: 1.3
 status: поддерживается
 
