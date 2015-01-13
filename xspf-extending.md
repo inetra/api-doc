@@ -1,5 +1,5 @@
 title: Правила расширения форматa XSPF
-version: 2.4.0
+version: 2.4.1
 status: согласован
 
 # Общее описание
@@ -20,7 +20,11 @@ status: согласован
 
 XSPF — особое расширение XML, предназначенное для описания плейлиста, формат описан в официальной документации [стандарта XSPF](http://www.xspf.org/xspf-v1.html).
 
-**Mime-type**: application/xspf+xml
+**Медиа–тип**: application/xspf+xml
+
+При использовании протокола HTTP [медиа–тип][media-type-ref] передается сервером в заголовке `Content-Type`.
+
+[media-type-ref]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7
 
 ## Версионирование
 
@@ -369,3 +373,7 @@ XSPF — особое расширение XML, предназначенное �
 ## Изменения в версии 2.4.0 (TVREC-425)
 
 - Добавлены атрибуты `audio-language` и `subtitles-language` для директивы `inetra:stream-inf`.
+
+## Изменение в версии 2.4.1
+
+- Для указания типа ресурса теперь используется понятие "медиа–тип" из RFC2616.
