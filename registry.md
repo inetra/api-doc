@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.20
+version: 2.20.1
 server-version: 2.18
 status: согласован
 
@@ -273,6 +273,7 @@ knownInfo — информация от пользователя (<span style="c
 	    RADIO = 12 [(CN.string_value) = "radio"];
 	    CATALOGUE = 13 [(CN.string_value) = "catalogue"];
 	    PROMO = 14 [(CN.string_value) = "promo"];
+	    BYTEFOG = 15 [(CN.string_value) = "bytefog"];
 	  }
 	 
 	  optional Type type = 1;
@@ -631,3 +632,8 @@ knownInfo — информация от пользователя (<span style="c
 ----------------------
 
 - Добавлен сервис ByteFog.
+
+Изменения в версии 2.20.1
+----------------------
+
+- Дополнено описание типов возвращаемых сервисов.
