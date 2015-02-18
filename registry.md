@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.21
+version: 2.21.1
 server-version: 2.18
 status: согласован
 
@@ -276,6 +276,7 @@ knownInfo — информация от пользователя (<span style="c
 	    CATALOGUE = 13 [(CN.string_value) = "catalogue"];
 	    PROMO = 14 [(CN.string_value) = "promo"];
 	    BYTEFOG = 15 [(CN.string_value) = "bytefog"];
+	    PORTCHECKER = 16 [(CN.string_value) = "portchecker"];
 	  }
 	 
 	  optional Type type = 1;
@@ -644,3 +645,8 @@ knownInfo — информация от пользователя (<span style="c
 ----------------------
 
 - Добавлен сервис PortChecker.
+
+Изменения в версии 2.21.1
+----------------------
+
+- Дополнено описание типов возвращаемых сервисов.
