@@ -124,7 +124,7 @@ status: RC
 - [IP–телевещание][iptv-doc]
 - [Радио][radio-doc]
 - [Записи телепередач][medialocator-doc]
-- [Универсальная телепрограмма][tvguide-doc]
+- [Универсальная телепрограмма][mediaguide-doc]
 - [Авторизационный сервис][auth-doc]
 - [Сервис хранения пользовательских данных][userdata-doc]
 - [Трекинг событий][tracking-doc]
@@ -139,7 +139,7 @@ status: RC
 [iptv-doc]: iptv.md
 [radio-doc]: radio.md
 [medialocator-doc]: media-locator.md
-[tvguide-doc]: tv-guide.md
+[mediaguide-doc]: media-guide.md
 [tracking-doc]: tracking.md
 [auth-doc]: auth.md
 [films-doc]: films.md

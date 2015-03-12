@@ -65,7 +65,7 @@ status: согласован
 
 [m3u-extending]: m3u-extending.md
 [xspf-extending]: xspf-extending.md
-[media-guide-api]: tv-guide.md
+[media-guide-api]: media-guide.md
 
 <span style="color:#f00">Внимание!</span> Если приложение не сможет определить числовой идентификатор канала, приложение передаст только причину визита абонента (`inetra-visit-reason=buy-subscription`), без указания выбранного пользователем канала.
 

@@ -16,7 +16,7 @@ status: согласован
 
 В планах расширить возможности данного сервиса для замены существующих сервисов, таких как [Media Guide][media-guide-doc], [Films][films-doc].
 
-[media-guide-doc]: tv-guide.md
+[media-guide-doc]: media-guide.md
 [films-doc]: films.md
 
 ## Термины и определения

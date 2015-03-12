@@ -68,7 +68,7 @@ IPTV сервис предоставляет ссылку на список ис
 
 Архив записей телепередач предоставляется при помощи [Media Guide API][media-guide-api] и [MediaLocator API][media-locator-api].
 
-[media-guide-api]: tv-guide.md
+[media-guide-api]: media-guide.md
 [media-locator-api]: media-locator.md
 
 ## Характеристики источников вещания каналов
