@@ -6,7 +6,7 @@ import urllib2
 import codecs
 
 def load_channels():
-	data = urllib2.urlopen('http://api.peers.tv/tvguide/2/channels.json?device=iphone')
+	data = urllib2.urlopen('http://api.peers.tv/tvguide/2/channels.json?fields=channelId,title,logoURL&device=iphone')
 	return json.load(data)['channels']
 
 def get_value(dict, key, default):
