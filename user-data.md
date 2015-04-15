@@ -2,7 +2,7 @@ title: User Data API
 quotes language: french
 version: 1.9.0
 server-version: 1.8
-status: черновик
+status: согласован
 
 # Общее описание
 
