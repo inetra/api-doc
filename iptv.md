@@ -1,6 +1,6 @@
 title: IPTV
 quotes language: french
-version: 2.5.1
+version: 2.5.2
 status: согласован
 
 # Общая информация
@@ -208,12 +208,12 @@ IPTV сервис предоставляет ссылку на список ис
 
 Для поддержки технологии "Timeshift" на клиентах, реализующих "[CORS][cors-specification]", необходимо установить HTTP заголовок `Access-Control-Expose-Headers` со значениями:
 
-- `Inetra-Timeshift-Offset` — на серверах, обеспечивающих работу технологии Timeshift;
-- `Inetra-Timeshift` — на серверах, обеспечивающих эфирное вещание каналов.
+- `Inetra-Timeshift-Offset`, `Date` — на серверах, обеспечивающих работу технологии Timeshift;
+- `Inetra-Timeshift`, `Date` — на серверах, обеспечивающих эфирное вещание каналов.
 
 Пример задания HTTP заголовка:
 
-	Access-Control-Expose-Headers: Inetra-Timeshift
+	Access-Control-Expose-Headers: Inetra-Timeshift,Date
 
 Если значений несколько, то в качестве разделителя может использоваться символ запятая (`,`).
 
@@ -439,3 +439,7 @@ IPTV сервис предоставляет ссылку на список ис
 ## Изменения в версии 2.5.1 (TVREC-639)
 
 - Описаны требования по настройке серверов для поддержки технологии Timeshift на клиентах с поддержкой CORS.
+
+## Изменения в версии 2.5.2 (TVREC-639)
+
+- Добавлен HTTP заголовок `Date` в список разрешенных заголовков для "CORS".
