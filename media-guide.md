@@ -1,6 +1,6 @@
 title: Media Guide
 version: 2.11
-server-version: 2.9
+server-version: 2.11
 status: согласован
 quotes language: french
 
