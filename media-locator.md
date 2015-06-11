@@ -83,7 +83,7 @@ API подразумевает доступ только аутентифици�
 
 Клиент может передать список поддерживаемых функций при помощи HTTP заголовка `Client-Capabilities`. Возможные значения:
 
-- `parental_control` — родительский контроль;
+- `adult_content` — контент для взрослых;
 - `paid_content` — платный контент (закрытые записи).
 
 HTTP заголовок `Client-Capabilities` задается грамматикой в форме ABNF (см. [RFC2616][rfc2616]):
@@ -97,7 +97,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 
 *Пример задания заголовка*
 
-	Client-Capabilities: paid_content,parental_control
+	Client-Capabilities: paid_content,adult_content
 
 ## Рекомендации по использованию API
 
