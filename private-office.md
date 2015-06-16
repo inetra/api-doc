@@ -34,7 +34,7 @@ status: согласован
 - `check-parental-pincode-authorization` — запрос клиентом статуса выполненной ранее процедуры авторизации абонента на сброс PIN–кода родительского контроля (независимо от способа авторизации);
 - `activate-promo-code` — желание пользователя активировать промо–код.
 
-Если параметр `inetra-visit-reason` не указан, автоматизированная система расчетов может считать такое обращение как визит страницы "Личного кабинета" абонента без явно указанной цели.
+Если параметр `inetra-visit-reason` не указан, автоматизированная система расчетов может считать такое обращение как визит страницы "Личного кабинета" абонента без явно указанной цели. Подробное описание каждой цели визита находится в разделе "[Цели визита][visit-reason]".
 
 Клиент должен отобразить веб–страницу как есть, отслеживая переходы на адрес, закодированный в параметре `inetra-callback-url`.
 
@@ -72,29 +72,37 @@ status: согласован
 Если контрагент поддерживает взаимодействие с внешними платежными системами  для совершения покупок, то клиент может передать список поддерживаемых внешних платежных систем при помощи параметра `inetra-stores`, возможные значения:
 
 - `google_play` — Google Play;
-- `apple_store` — Apple AppStore;
-- `robokassa` — Robokassa.
+- `apple_store` — Apple AppStore.
 
 Для обеспечения прямой связи c ЛК Оператора клиент *должен* интегрировать javascript–объект с именем `store` и интерфейсами:
 
-- "purchase(store_id, product_id)" — инициация покупки продукта с идентификатором `product_id` в платежной системе с идентификатором внешней платежной системы `store_id`;
-- "manageSubscriptions()" — инициация управления покупками;
-- "restore()" — инициация восстановления покупок.
+- "purchase(store_id, product_id)" — инициация покупки продукта с идентификатором:
+	- `store_id` — строковый идентификатор внешней платежной системы;
+	- `product_id` — строковый идентификатор продукта.
+- "manageSubscriptions(store_id)" — инициация управления покупками:
+	- `store_id` — строковый идентификатор внешней платежной системы.
+- "restore()" — инициация восстановления покупок (только для Apple AppStore).
 
 Клиент должен отсылать события для DOM–элемента "document":
 
 - "onStoreReady" — после интеграции javascript–объекта `store`;
-- "onVerificationStart" — при начале верификации покупки путем сохранения информации о покупке в [UserData API][user-data-doc];
-- "onVerificationComplete" — при завершении верификации покупки.
+- "onPurchaseComplete" — при завершении покупки.
 
-Пример отправки события при помощи javascript:
+Пример отправки события "onStoreReady" при помощи javascript:
 
 	var readyEvent = document.createEvent('Events')
 	readyEvent.initEvent('onStoreReady')
 	readyEvent.store = store
 	document.dispatchEvent(readyEvent)
 
-[user-data-doc]: user-data.md#usage-purchases
+Пример отправки события "onPurchaseComplete" при помощи javascript:
+
+	var readyEvent = document.createEvent('Events')
+	readyEvent.initEvent('onPurchaseComplete')
+	readyEvent.product_id = product_id
+	document.dispatchEvent(readyEvent)
+
+# Цели визита [visit-reason]
 
 ## Подписка на каналы [buy-subscription]
 
