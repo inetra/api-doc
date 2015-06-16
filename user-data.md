@@ -801,7 +801,7 @@ Eltex NV100/101   | 6
 	message Purchase {
 	  option (class_name) = "purchase";
 
-	  optional int64 store_id = 126 [(mandatory) = true];
+	  optional string store_id = 126 [(mandatory) = true];
 	  optional bytes purchase_info = 127 [(mandatory) = true];
 	}
 
@@ -830,9 +830,9 @@ Eltex NV100/101   | 6
 
 - `purchase_info` — информация о покупке в формате, определенным платежной системой;
 - `store_id` — идентификатор внешней платежной системы, возможные значения:
-	- `1` — Google Play (сообщение `GooglePlayReceipt`);
-	- `2` — Apple AppStore (сообщение `AppStoreReceipt`);
-	- `3` — Robokassa (сообщение `RobokassaReceipt`).
+	- `google_play` — Google Play (сообщение `GooglePlayReceipt`);
+	- `apple_store` — Apple AppStore (сообщение `AppStoreReceipt`);
+	- `robokassa` — Robokassa (сообщение `RobokassaReceipt`).
 
 [Пример][usage-purchases] использования класса
 
