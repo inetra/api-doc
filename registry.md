@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.22.0
+version: 2.23.0
 server-version: 2.22
 status: согласован
 
@@ -329,6 +329,7 @@ knownInfo — информация от пользователя (<span style="c
 	  optional string brandName = 4;
 	  optional string privateOfficeURL = 5;
 	  optional string callCenterNumber = 6;
+	  repeated string partnerTags = 7;
 	}
 	 
 	message ContractorList {
@@ -341,6 +342,8 @@ knownInfo — информация от пользователя (<span style="c
 - `ContractorInfo.brandName` — имя бренда контрагента (например, "Билайн")
 - `ContractorInfo.privateOfficeURL` — адрес личного кабинета пользователя (для открытия в браузере)
 - `ContractorInfo.callCenterNumber` — номер телефона контакт–центра
+- `ContractorInfo.partnerTags` — набор тегов, характеризующих условия партнерства. Применяются только для контрагента, к сети которого осуществлено подключение. Возможные значения (список значений может расширяться):
+	- `payment` — приложение предлагает закрытый (платный) контент контрагента, независимо от наличия открытых источников от других контрагентов
 
 ## TerritoryInfo, TerritoryList — информация о территории [territoryinfo-message]
 
@@ -669,3 +672,9 @@ knownInfo — информация от пользователя (<span style="c
 ----------------------
 
 - Описана услуга "Доступ к сети интернет", не имеет API.
+
+
+Изменения в версии 2.23 (TVREC-665)
+----------------------
+
+- Описаны признаки партнерства с контрагентом.
