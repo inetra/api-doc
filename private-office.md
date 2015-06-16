@@ -97,10 +97,11 @@ status: согласован
 
 Пример отправки события "onPurchaseComplete" при помощи javascript:
 
-	var readyEvent = document.createEvent('Events')
-	readyEvent.initEvent('onPurchaseComplete')
-	readyEvent.product_id = product_id
-	document.dispatchEvent(readyEvent)
+	var completeEvent = document.createEvent('Events')
+	completeEvent.initEvent('onPurchaseComplete')
+	completeEvent.store_id = store_id
+	completeEvent.product_id = product_id
+	document.dispatchEvent(completeEvent)
 
 # Цели визита [visit-reason]
 
