@@ -322,28 +322,49 @@ knownInfo — информация от пользователя (<span style="c
 	    optional uint32 height = 4;
 	    optional string URL = 5;
 	  }
+
+	  message PrivateOffice {
+	    enum IdiomType {
+	       WEB = 0;
+	       TV = 1;
+	       MOBILE = 2;
+	    }
+
+	    optional string url = 1;
+	    repeated IdiomType supportedIdioms = 2;
+	  }
 	  
 	  optional uint32 contractorId = 1;
 	  optional string name = 2;
 	  repeated ContractorImage images = 3;
 	  optional string brandName = 4;
-	  optional string privateOfficeURL = 5;
+	  optional string privateOfficeURL = 5 [deprecated=true];
 	  optional string callCenterNumber = 6;
 	  repeated string partnerTags = 7;
+	  optional PrivateOffice privateOffice = 8;
 	}
 	 
 	message ContractorList {
 	  repeated ContractorInfo contractors = 1;
 	}
 
-Замечания:
+Описания атрибутов сообщения `ContractorInfo`:
 
 - `ContractorInfo.name` — юридическое именование контрагента (например, "ООО Вымпелком")
 - `ContractorInfo.brandName` — имя бренда контрагента (например, "Билайн")
-- `ContractorInfo.privateOfficeURL` — адрес личного кабинета пользователя (для открытия в браузере)
+- `ContractorInfo.privateOfficeURL` — адрес личного кабинета пользователя (<span style="color:#f00">устарело с версии 2.24</span> — используйте информацию из сообщения `PrivateOffice`)
 - `ContractorInfo.callCenterNumber` — номер телефона контакт–центра
 - `ContractorInfo.partnerTags` — набор тегов, характеризующих условия партнерства. Применяются только для контрагента, к сети которого осуществлено подключение. Возможные значения (список значений может расширяться):
 	- `payment` — приложение предлагает закрытый (платный) контент контрагента, независимо от наличия открытых источников от других контрагентов
+- `ContractorInfo.privateOffice` — информация о личном кабинете контрагента
+
+Описания атрибутов сообщения `PrivateOffice`:
+
+- `url` — адрес личного кабинета;
+- `supportedIdioms` — список идиом, для которых адаптировано отображение:
+	- `WEB` — сайт, подразумевает ввод информации при помощи манипулятора мышь или клавиатуры;
+	- `TV` — телевизор или телевизионная приставка, подразумевает ввод информации при помощи пульта дистанционного управления;
+	- `MOBILE` — мобильный клиент, подразумевает ввод информации с использованием сенсорного экрана.
 
 ## TerritoryInfo, TerritoryList — информация о территории [territoryinfo-message]
 
@@ -678,3 +699,8 @@ knownInfo — информация от пользователя (<span style="c
 ----------------------
 
 - Описаны признаки партнерства с контрагентом.
+
+Изменения в версии 2.24 (TVREC-697)
+----------------------
+
+- Добавлено сообщение `PrivateOffice`, описывающее Личный кабинет контрагента.
