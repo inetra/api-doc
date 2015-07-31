@@ -1,6 +1,6 @@
 title: User Data API
 quotes language: french
-version: 1.11.2
+version: 1.11.3
 server-version: 1.8
 status: согласован
 
@@ -830,11 +830,15 @@ Eltex NV100/101   | 6
 
 Замечания:
 
-- `purchase_info` — информация о покупке в формате, определенным платежной системой;
 - `store_id` — идентификатор внешней платежной системы, возможные значения:
-	- `google_play` — Google Play (сообщение `GooglePlayReceipt`);
-	- `apple_store` — Apple AppStore (сообщение `AppStoreReceipt`);
-	- `robokassa` — Robokassa (сообщение `RobokassaReceipt`).
+	- `google_play` — Google Play;
+	- `apple_store` — Apple AppStore;
+	- `robokassa` — Robokassa.
+- `purchase_info` — информация о покупке в формате соотвественно сообщению:
+	- `GooglePlayReceipt` — для Google Play;
+	- `AppStoreReceipt` — для Apple AppStore;
+	- `RobokassaReceipt` — для Robokassa.
+
 
 [Пример][usage-purchases] использования класса
 
@@ -1123,3 +1127,7 @@ Eltex NV100/101   | 6
 ## Изменения в версии 1.11.2
 
 - Исправлено форматирование заголовка для примера использования класса `purchase`.
+
+## Изменения в версии 1.11.3
+
+- Внесены уточнения в описание атрибутов класса `purchase`.
