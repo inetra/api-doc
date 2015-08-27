@@ -223,8 +223,11 @@ Auth API реализует протокол авторизации в соот�
 
 *Запрос*
 
-	GET /auth/1/token?grant_type=anonymous&client_id=91801674-777e-4edd-aacc-1911c7262115&client_secret=3WzahKEFZqhm3GpowLAsS4 HTTP/1.1
+	POST /auth/1/token HTTP/1.1
 	Host: api.cn.ru
+	Content-Type: application/x-www-form-urlencoded
+
+	grant_type=anonymous&client_id=91801674-777e-4edd-aacc-1911c7262115&client_secret=3WzahKEFZqhm3GpowLAsS4
 
 *Ответ*
 
