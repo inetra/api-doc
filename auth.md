@@ -65,11 +65,11 @@ Auth API реализует протокол авторизации в соот�
 
 # Взаимодействие с API
 
-Расположение данного API фиксировано: `https://api.cn.ru/auth/<version>/` (внимание: доступно только по HTTPS). Сервис API должен присутствовать в Регистратуре в списке сервисов, предоставляемых Инетрой.
+Расположение данного API фиксировано: `https://api.peers.tv/auth/<version>/` (внимание: доступно только по HTTPS). Сервис API должен присутствовать в Регистратуре в списке сервисов, предоставляемых Инетрой.
 
-Параметры к запросам передаются методом GET, их значения экранируются стандартным URI кодированием. Таким образом, обращение к API строится по схеме:
+Параметры к запросам передаются методом GET. Обращение к методам API строится по схеме:
 
-	https://api.cn.ru/auth/1/<method>?[<parameters>]
+	https://api.peers.tv/auth/1/<method>?[<parameters>]
 
 Где:
 
@@ -261,7 +261,7 @@ Auth API реализует протокол авторизации в соот�
 *Запрос*
 
 	GET /auth/1/device_code?client_id=91801674-777e-4edd-aacc-1911c7262115 HTTP/1.1
-	Host: api.cn.ru
+	Host: api.peers.tv
 
 *Ответ*
 
@@ -275,11 +275,29 @@ Auth API реализует протокол авторизации в соот�
 	  "interval":10
 	}
 
-## `AccountInfo` — информация об учетной записи [m-account-info]
+## `account_info` — информация об учетной записи [m-account-info]
 
 Формат ответа: [`AccountInfo`][p-account-info]
 
 **Замечание**: метод требует аутентификации пользователя
+
+### Пример успешного взаимодействия
+
+*Запрос*
+
+	GET /auth/1/account_info HTTP/1.1
+	Host: api.peers.tv
+	Authorization: Bearer 2YotnFZFEjr1zCsicMWpAA
+
+*Ответ*
+
+	HTTP/1.1 200 OK
+	Content-Type: application/json;charset=UTF-8
+
+	{
+	  "username":"v_ivanov@peers.tv",
+	  "account_id":"398E944A-5475-4FAB-95BA-FCB9A86DD3FA"
+	}
 
 # Устаревшие методы
 
@@ -331,7 +349,7 @@ Auth API реализует протокол авторизации в соот�
 *Запрос*
 
 	GET /auth/1/UserCredentials?grant_type=anonymous&client_id=91801674-777e-4edd-aacc-1911c7262115&client_secret=3WzahKEFZqhm3GpowLAsS4 HTTP/1.1
-	Host: api.cn.ru
+	Host: api.peers.tv
 
 *Ответ*
 
@@ -345,7 +363,7 @@ Auth API реализует протокол авторизации в соот�
 	  "expires_in":3600  
 	}
 
-## PinCode — получение PIN кода (<span style="color:#f00"> устарело с версии 1.5</span>)
+## PinCode — получение PIN кода (<span style="color:#f00"> устарело с версии 1.5</span>) [m-pin-code]
 
 Основные параметры:
 
@@ -374,7 +392,7 @@ Auth API реализует протокол авторизации в соот�
 *Запрос*
 
 	GET /auth/1/PinCode?token=2YotnFZFEjr1zCsicMWpAA HTTP/1.1
-	Host: api.cn.ru
+	Host: api.peers.tv
 
 *Ответ*
 
@@ -433,18 +451,6 @@ Auth API реализует протокол авторизации в соот�
 - `expires_in` — срок жизни выданных кодов (в секундах);
 - `interval` — интервал для проверки авторизации по коду устройства.
 
-## `PinCodeReply` — получение PIN–кода [p-pin-code-reply]
-
-	message PinCodeReply {
-	  optional string pin = 1;
-	  optional int32 expires_in = 2;
-	}
-
-Замечания:
-
-- `pin` — PIN код, отображаемый пользователю
-- `expires_in` — время жизни PIN кода, в секундах относительно создания
-
 ## `AccountInfo` — информация об учетной записи [p-account-info]
 
 	message AccountInfo {
@@ -456,6 +462,18 @@ Auth API реализует протокол авторизации в соот�
 
 - `username` — уникальный идентификатор учетной записи, введенный пользователем, например, e-mail;
 - `account_id` — уникальный идентификатор учетной записи в формате UUID.
+
+## `PinCodeReply` — получение PIN–кода [p-pin-code-reply]
+
+	message PinCodeReply {
+	  optional string pin = 1;
+	  optional int32 expires_in = 2;
+	}
+
+Замечания:
+
+- `pin` — PIN код, отображаемый пользователю
+- `expires_in` — время жизни PIN кода, в секундах относительно создания
 
 # Изменения по версиям
 
@@ -510,4 +528,6 @@ Auth API реализует протокол авторизации в соот�
 	- описан способ получения авторизации на основе владения анонимной учетной записью;
 	- описан способ подтверждения авторизации для введенного PIN-кода.
 - Описан метод [`account_info`][m-account-info] для получения информации об учетной записи пользователя;
-- Метод [`UserCredentials`][m-user-credentials] помечен устаревшим.
+- Метод [`UserCredentials`][m-user-credentials] помечен устаревшим;
+- Метод [`PinCode`][m-pin-code] помечен устаревшим;
+- В сообщение [`TokenReply`][p-token-reply] добавлен атрибут `refresh_token`.
