@@ -368,7 +368,7 @@ Auth API реализует протокол авторизации в соот�
 
 *Запрос*
 
-	POST /auth/1/token HTTP/1.1
+	POST /auth/2/token HTTP/1.1
 	Host: api.peers.tv
 	Content-Type: application/x-www-form-urlencoded
 
@@ -405,7 +405,7 @@ Auth API реализует протокол авторизации в соот�
 
 *Запрос*
 
-	POST /auth/1/device_code HTTP/1.1
+	POST /auth/2/device_code HTTP/1.1
 	Host: api.peers.tv
 
 	client_id=91801674-777e-4edd-aacc-1911c7262115
@@ -432,7 +432,7 @@ Auth API реализует протокол авторизации в соот�
 
 *Запрос*
 
-	GET /auth/1/account HTTP/1.1
+	GET /auth/2/account HTTP/1.1
 	Host: api.peers.tv
 	Authorization: Bearer 2YotnFZFEjr1zCsicMWpAA
 
