@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.25.3
+version: 2.26.0
 server-version: 2.24
 status: согласован
 
@@ -360,12 +360,20 @@ API возвращает результат работы в HTTP–коде и �
 	      IOS = 0;
 	      ANDROID = 1;
 	    }
+
+	    enum ProfileType {
+	      SQUARE_SOLID = 1;
+	      LAUNCHER = 2;
+	      LAUNCHER_KIDS = 3;
+	    }
 	  
-	    optional SizeType sizeType = 1;
-	    optional OSType osType = 2;
+	    optional SizeType sizeType = 1 [deprecated=true];
+	    optional OSType osType = 2 [deprecated=true];
+
 	    optional uint32 width = 3;
 	    optional uint32 height = 4;
 	    optional string URL = 5;
+	    optional ProfileType profile = 6;
 	  }
 
 	  enum PrivateOfficeIdiom {
@@ -388,7 +396,7 @@ API возвращает результат работы в HTTP–коде и �
 	  repeated ContractorInfo contractors = 1;
 	}
 
-Замечания:
+Описание атрибутов сообщения `ContractorInfo`:
 
 - `ContractorInfo.name` — юридическое именование контрагента (например, "ООО Вымпелком")
 - `ContractorInfo.brandName` — имя бренда контрагента (например, "Билайн")
@@ -401,6 +409,17 @@ API возвращает результат работы в HTTP–коде и �
 	- `TV` — телевизор или телевизионная приставка, подразумевает ввод информации при помощи пульта дистанционного управления;
 	- `MOBILE` — мобильный клиент, подразумевает ввод информации с использованием сенсорного экрана.
 
+Описание атрибутов сообщения `ContractorImage`:
+
+- `sizeType` — размер логотипа (<span style="color:#f00">устарело с версии 2.26</span>);
+- `osType` — тип операционой системы, для которого предназначен логотип (<span style="color:#f00">устарело с версии 2.26</span>);
+- `width` — ширина логотипа в пикселях;
+- `height` — высота логотипа в пикселях;
+- `URL` — адрес логотипа;
+- `profile` — тип профиля логотипа:
+	- `SQUARE_SOLID` — квадратный логотип со сплошной заливкой;
+	- `LAUNCHER` — логотип для приставки;
+	- `LAUNCHER_KIDS` — логотип для приставки в детском режиме.
 
 ## TerritoryInfo, TerritoryList — информация о территории [territoryinfo-message]
 
@@ -726,3 +745,8 @@ API возвращает результат работы в HTTP–коде и �
 
 - Исправлены опечатка в разделе "Резервирование сервисов";
 - Удалена ошибочная ссылка на сообщение "PrivateOffice", которое отсутствует в данной документации.
+
+## Изменения в версии 2.26.0 (TVREC-790)
+
+- Атрибуты `sizeType`, `osType` из сообщения `[ContractorMessage][contractorinfo-message]` помечены устаревшими;
+- Для сообщения `[ContractorMessage][contractorinfo-message]` добавлен новый атрибут `profile`;
