@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
 version: 2.26.0
-server-version: 2.24
+server-version: 2.26
 status: согласован
 
 # Общая информация
@@ -743,10 +743,10 @@ API возвращает результат работы в HTTP–коде и �
 
 ## Изменения в версии 2.25.3
 
-- Исправлены опечатка в разделе "Резервирование сервисов";
+- Исправлена опечатка в разделе "Резервирование сервисов";
 - Удалена ошибочная ссылка на сообщение "PrivateOffice", которое отсутствует в данной документации.
 
 ## Изменения в версии 2.26.0 (TVREC-790)
 
-- Атрибуты `sizeType`, `osType` из сообщения `[ContractorMessage][contractorinfo-message]` помечены устаревшими;
-- Для сообщения `[ContractorMessage][contractorinfo-message]` добавлен новый атрибут `profile`;
+- Атрибуты `sizeType`, `osType` из сообщения [`ContractorMessage`][contractorinfo-message] помечены устаревшими;
+- Для сообщения [`ContractorMessage`][contractorinfo-message] добавлен новый атрибут `profile`;
