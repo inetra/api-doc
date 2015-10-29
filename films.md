@@ -1,7 +1,7 @@
 title: Films API
 quotes language: french
 version: 2.8.0
-server-version: 2.6
+server-version: 2.8
 status: поддерживается
 
 # Общее описание
