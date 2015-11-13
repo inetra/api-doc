@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.26.0
+version: 2.27.0
 server-version: 2.26
 status: согласован
 
@@ -64,6 +64,7 @@ API возвращает результат работы в HTTP–коде и �
 `16` | `portchecker`     | PortChecker | Кто угодно | [PortChecker API] | Предоставляет проверку возможности получения входящих соединений.
 `17` | `internet`        | Доступ к сети Интернет | Кто угодно | отсутствует | Описывает услугу "Доступ к сети Интернет"
 `18` | `registry`        | Регистратура| Инетра | [Registry API] | Предоставляет информацию о доступных сервисах
+`19` | `money_miner`     | Конфигуратор рекламы| Инетра | [Money Miner API] | Предоставляет информацию о рекламных сетей для баннерных мест
 
 
 [Auth API]: auth.md
@@ -82,6 +83,7 @@ API возвращает результат работы в HTTP–коде и �
 [Promo API]: promo.md
 [ByteFog API]: bytefog.md
 [PortChecker API]: portchecker.md
+[Money Miner API]: money_miner.md
 
 ## Версионирование сервисов [anchor-versions]
 
@@ -325,6 +327,7 @@ API возвращает результат работы в HTTP–коде и �
 	    PORTCHECKER = 16 [(CN.string_value) = "portchecker"];
 		// 17 reserved for "internet"
 	    REGISTRY = 18 [(CN.string_value) = "registry"];
+	    MONEY_MINER = 19 [(CN.string_value) = "money_miner"];
 	  }
 	 
 	  optional Type type = 1;
@@ -750,3 +753,7 @@ API возвращает результат работы в HTTP–коде и �
 
 - Атрибуты `sizeType`, `osType` из сообщения [`ContractorMessage`][contractorinfo-message] помечены устаревшими;
 - Для сообщения [`ContractorMessage`][contractorinfo-message] добавлен новый атрибут `profile`;
+
+## Изменения в версии 2.27.0 (TVREC-810)
+
+- Описан новый сервис "Конфигуратор рекламы" (Money Miner), предоставляемый по Money Miner API.
