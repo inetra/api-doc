@@ -1,6 +1,6 @@
 title: Auth API
 status: поддерживается
-version: 2.0.1
+version: 2.0.2
 quotes language: french
 
 # Цель и смысл
@@ -264,7 +264,7 @@ Auth API предусматривает различные способы авт
 	Host: api.peers.tv
 	Content-Type: application/x-www-form-urlencoded
 
-	grant_type=anonymous&client_id=91801674-777e-4edd-aacc-1911c7262115&client_secret=3WzahKEFZqhm3GpowLAsS4
+	grant_type=inetra%3Aanonymous&client_id=91801674-777e-4edd-aacc-1911c7262115&client_secret=3WzahKEFZqhm3GpowLAsS4
 
 
 *Ответ*
@@ -461,3 +461,6 @@ Auth API предусматривает различные способы авт
 
 - Уточнен параметр `device_code`, используемый в методе `token` для авторизации по коду устройства.
 
+## Изменения в версии 2.0.2
+
+- Исправлен пример для метода `token` для анонимной аутентификации.
