@@ -114,7 +114,7 @@ MoneyMiner API предназначен для медиации и таргет�
 
 # Описание ответов в формате Google Protocol Buffers 
 
-## AdPlaceList, AdPlace — рекламной место
+## AdPlaceList, AdPlace — рекламной место [p-ad-place-list]
 
 	message AdPlaceList {
 	  repeated AdPlace places = 1;
