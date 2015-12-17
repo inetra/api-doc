@@ -114,7 +114,35 @@ MoneyMiner API предназначен для медиации и таргет�
 
 *ВАЖНО*: метод принимает не более 10 идентификаторов рекламных мест.
 
-# Описание ответов в формате Google Protocol Buffers 
+### Пример успешного взаимодействия
+
+*Запрос*
+
+	GET /money_miner/1/places.json?id=JxDBgQmd
+	Authorization: Bearer 18dasd81230dah12032
+	Host: api.peers.tv
+
+*Ответ*
+
+	HTTP/1.1 200 OK
+	Content-Type: application/json
+
+	{
+	   "places": [{
+	      "place_id":"JxDBgQmd",
+	      "ad_systems": [{
+	          "type":1,
+	          "name":"Адривер",
+	          "params": {
+	             "sid":"178068",
+	             "url":"http://ad.adriver.ru/e_event.cgi"
+	          }
+	       }],
+	   "request_delay":15
+	   }]
+	}
+
+# Описание ответов в формате Google Protocol Buffers
 
 ## AdPlaceList, AdPlace — рекламной место [p-ad-place-list]
 
