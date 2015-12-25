@@ -1,6 +1,6 @@
 title: Money Miner
 version: 1.1.0
-status: черновик
+status: согласован
 quotes language: french
 
 # Введение
