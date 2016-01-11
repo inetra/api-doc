@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.1.0
+version: 1.1.1
 status: согласован
 quotes language: french
 
@@ -102,7 +102,7 @@ MoneyMiner API предназначен для медиации и таргет�
 
 # Методы
 
-## places — получение информации по местам баннеров
+## places — получение информации по местам баннеров [m-places]
 
 Параметры:
 
@@ -133,10 +133,13 @@ MoneyMiner API предназначен для медиации и таргет�
 	      "ad_systems": [{
 	          "type":1,
 	          "name":"Адривер",
-	          "params": {
-	             "sid":"178068",
-	             "url":"http://ad.adriver.ru/e_event.cgi"
-	          }
+	          "params": [{
+	             "key":"sid",
+	             "value":"178068"
+	          }, {
+	             "key":"url",
+	             "value":"http://ad.adriver.ru/e_event.cgi"
+	          }]
 	       }],
 	   "request_delay":15
 	   }]
@@ -206,3 +209,7 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.1.0
 
 - В сообщении [`AdPlace`][p-ad-place-list] описан атрибут `request_delay`, ограничивающий частоту запросов к рекламным сетям
+
+## Изменения в версии 1.1.1
+
+- Исправлен ответ для примера успешного выполнения метода "[places][m-places]";
