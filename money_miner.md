@@ -133,7 +133,7 @@ MoneyMiner API предназначен для медиации и таргет�
 	      "ad_systems": [{
 	          "type":1,
 	          "name":"Адривер",
-	          "id":370223
+	          "id":370223,
 	          "params": [{
 	             "key":"sid",
 	             "value":"178068"
