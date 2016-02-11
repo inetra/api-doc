@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.2.1
+version: 1.2.2
 status: согласован
 quotes language: french
 
@@ -137,11 +137,8 @@ MoneyMiner API предназначен для медиации и таргет�
 	          "name":"Адривер",
 	          "id":370223,
 	          "params": [{
-	             "key":"sid",
-	             "value":"178068"
-	          }, {
-	             "key":"url",
-	             "value":"http://ad.adriver.ru/e_event.cgi"
+	             "key":"vast_ad_tag",
+	             "value":"http://ad.adriver.ru/cgi-bin/erle.cgi?sid=170878&sz=test&bn=322&target=top&bt=61&pz=1&rnd=[CACHEBUSTING]"
 	          }]
 	       }],
 	   "request_delay":15
@@ -226,4 +223,8 @@ MoneyMiner API предназначен для медиации и таргет�
 
 ## Изменения в версии 1.2.1 (TVREC-899)
 
-- добавлен идентификатор и список параметров для интеграции через IMA SDK от Google
+- Добавлен идентификатор и список параметров для интеграции через IMA SDK от Google
+
+## Изменения в версии 1.2.2
+
+- Обновлен пример успешного выполнения метода "[places][m-places]"
