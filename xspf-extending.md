@@ -1,5 +1,5 @@
 title: Правила расширения форматa XSPF
-version: 2.4.1
+version: 2.5.0
 status: согласован
 
 # Общее описание
@@ -71,25 +71,6 @@ XSPF — особое расширение XML, предназначенное �
 
 [xml-specification]: http://www.w3.org/TR/xml11/#sec-well-formed
 
-**Версия 2**:
-
-- inetra:version
-- inetra:channel-inf
-- inetra:stream-inf
-
-**Версия 1**:
-
-- cn:id
-- cn:link
-- cn:records
-- cn:location
-
-**Дополнительные директивы для приставок Eltex NV100/NV101 (бета)**:
-
-- cn:tv-channel-definition
-- cn:tv-channel-status
-- cn:tv-channel-subscription
-
 ### inetra:version
 
 Директива задает версию расширения. Доступна с версии 2. Указывается на уровне плейлиста.
@@ -151,59 +132,6 @@ XSPF — особое расширение XML, предназначенное �
 [iptv-crop-n-aspect-ratio]: iptv.md#crop-n-aspect-ratio
 [timeshift-anchor]: iptv.md#timeshift
 [RFC3282]: http://tools.ietf.org/html/rfc3282
-
-### cn:id (<span style="color:#f00">устарело со 2–ой версии расширения</span>)
-
-Директива содержит информацию об идентификаторе канала в сервисе [Media Guide API](media-guide.md).
-
-### cn:link (<span style="color:#f00">устарело со 2–ой версии расширения</span>)
-
-Директива содержит ссылку на программу телепередач для данного канала.
-
-### cn:records (<span style="color:#f00">устарело со 2–ой версии расширения</span>)
-
-Директива описывает признак наличия записей для канала.
-
-Принимает значения:
-
-- `0` – отсутствуют записи для канала;
-- `1` - присутствуют записи для канала.
-
-### cn:location (<span style="color:#f00">устарело с 2–ой версии расширения</span>)
-
-Директива описывает альтернативные источники для вещания, в свойствах директивы при помощи параметра `type` дополнительно указывается тип вещания.
-
-Известные типы вещания:
-
-- `hls` — вещание осуществляется по протоколу HTTP Live Streaming.
-
-### cn:tv-channel-definition (<span style="color:#f00">устарело со 2–ой версии расширения</span>)
-
-Директива описывает разрешение источника вещания.
-
-Разрешение может быть задано константой:
-
-- `SD` — стандартная чёткость;
-- `HD` — высокая чёткость.
-
-### cn:tv-channel-status (<span style="color:#f00">устарело со 2–ой версии расширения</span>)
-
-Директива описывает статус канала.
-
-Возможные статусы канала:
-
-- `TESTING ` — канал в тестовом вещании;
-- `LAUNCHED` — канал "в бою", продаётся.
-
-### cn:tv-channel-subscription (<span style="color:#f00">устарело со 2–ой версии расширения</span>)
-
-Директива содержит информацию о подписке на канал.
-
-Возможные значения:
-
-- `NOT_SUBSCRIBED ` — подписки нет, но подписаться можно;
-- `SUBSCRIPTION_PENDING ` — подписка есть, идёт применение подписки к оборудованию;
-- `SUBSCRIBED ` — подписка есть, применена к оборудованию.
 
 ### Поддерживаемые директивы пространства имен vlc
 
@@ -293,45 +221,6 @@ XSPF — особое расширение XML, предназначенное �
 	</trackList>
 	</playlist>
 
-**Версия 1**:
-
-	<?xml version="1.0" encoding="UTF-8"?>
-	<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
-		<title>Телевидение Электронного города</title>
-		<trackList>
-			<track>
-				<location>udp://@239.1.15.1:1234</location>
-				<title>Первый</title>
-				<extension application="http://www.cn.ru">
-					<cn:id>10338245</cn:id>
-					<cn:link>http://www.cn.ru/tv/program/1kanal/</cn:link>
-					<cn:records>1</cn:records>
-					<cn:location type="hls">http://hls.cn.ru/streaming/1kanal/tvrec/playlist.m3u8</cn:location>
-				</extension>
-			</track>
-		</trackList>
-	</playlist>
-
-**С дополнительными директивами для приставок Eltex ("Электронный Город")**:
-
-	<?xml version="1.0" encoding="UTF-8"?>
-		<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:cn="http://www.cn.ru">
-		<title>Телевидение Электронного города</title>
-		<trackList>
-			<track>
-				<location>udp://@239.1.10.23:1234</location>
-				<title>Первый HD</title>
-				<image>http://www.cn.ru/data/illustrations/ills/2013/08/01/24494/24494403.png</image>
-				<extension application="http://www.cn.ru/">
-					<cn:id>21381677</cn:id>
-					<cn:tv-channel-definition>HD</cn:tv-channel-definition>
-					<cn:tv-channel-status>LAUNCHED</cn:tv-channel-status>
-					<cn:tv-channel-subscription>SUBSCRIBED</cn:tv-channel-subscription>
-				</extension>
-			</track>
-		</trackList>
-	</playlist>
-
 # Изменения по версиям
 
 ## Изменения в версии 2.0.0 (TVREC-70, TVREC-175)
@@ -377,3 +266,7 @@ XSPF — особое расширение XML, предназначенное �
 ## Изменение в версии 2.4.1
 
 - Для указания типа ресурса теперь используется понятие "медиа–тип" из RFC2616.
+
+## Изменение в версии 2.5.0
+
+- Удалено описание устаревших атрибутов `cn:id`, `cn:link`, `cn:records`, `cn:location`, `cn:tv-channel-definition`, `cn:tv-channel-status`, `cn:tv-channel-subscription` и примеры их использования.
