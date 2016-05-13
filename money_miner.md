@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.2.3
+version: 1.2.4
 status: согласован
 quotes language: french
 
@@ -98,6 +98,8 @@ MoneyMiner API предназначен для медиации и таргет�
 - Yume SDK
 	- `domain_id` — идентификатор рекламной площадки
 	- `ad_server_url` — адрес рекламного сервера
+- myTarget SDK
+	- `slot_id` — идентификатор баннера
 
 Список известных макросов для параметра `vast_ad_tag`:
 
@@ -184,6 +186,7 @@ MoneyMiner API предназначен для медиации и таргет�
 	    IVENGO_SDK = 5;
 	    IMA_SDK    = 6;
 	    YUME_SDK   = 7;
+	    MY_TARGET_SDK = 8;
 	  }
 
 	  optional AdType type = 1;
@@ -236,3 +239,7 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.2.3 (TVREC-785)
 
 - Добавлен идентификатор и список параметров для интеграции через Yume SDK
+
+## Изменения в версии 1.2.4 (PTVANDR-1633, PTVIOS-1520)
+
+- Добавлен идентификатор и список параметров для интеграциичерез myTarget SDK
