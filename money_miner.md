@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.2.4
+version: 1.2.5
 status: согласован
 quotes language: french
 
@@ -87,7 +87,7 @@ MoneyMiner API предназначен для медиации и таргет�
 	- `banner_id` — идентификатор баннера
 - WapStart API
 	- `site_id`— идентификатор приложения
-- Yandex Ads SDK
+- Yandex Video SDK
 	- `partner_id` — идентификатор партнера (разный для целевых платформ)
 	- `target_ref` — площадка размещения
 	- `page_ref` — страница перехода (для приложений всегда равно `target_ref`)
@@ -100,6 +100,8 @@ MoneyMiner API предназначен для медиации и таргет�
 	- `ad_server_url` — адрес рекламного сервера
 - myTarget SDK
 	- `slot_id` — идентификатор баннера
+- Yandex Ads SDK
+	- `block_id` — идентификатор рекламного блока
 
 Список известных макросов для параметра `vast_ad_tag`:
 
@@ -182,11 +184,12 @@ MoneyMiner API предназначен для медиации и таргет�
 	    VAST_API   = 1;
 	    ADMOB_SDK  = 2;
 	    WAPSTART   = 3;
-	    YANDEX_RTB = 4;
+	    YANDEX_VIDEO = 4;
 	    IVENGO_SDK = 5;
 	    IMA_SDK    = 6;
 	    YUME_SDK   = 7;
 	    MY_TARGET_SDK = 8;
+	    YANDEX_ADS = 9;
 	  }
 
 	  optional AdType type = 1;
@@ -243,3 +246,8 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.2.4 (PTVANDR-1633, PTVIOS-1520)
 
 - Добавлен идентификатор и список параметров для интеграциичерез myTarget SDK
+
+## Изменения в версии 1.2.5 (PTVANDR-1688)
+
+- Переименована константа `YANDEX_RTB` в `YANDEX_VIDEO` (Yandex Video SDK);
+- Добавлены идентфикатор типа рекламной сети и список параметров для интеграции мобильной рекламны через Yandex Ads SDK;
