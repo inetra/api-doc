@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.3.1
+version: 1.4.0
 status: согласован
 quotes language: french
 
@@ -149,6 +149,7 @@ MoneyMiner API предназначен для медиации и таргет�
 	          "type":1,
 	          "name":"Адривер",
 	          "id":370223,
+	          "price":200,
 	          "params": [{
 	             "key":"vast_ad_tag",
 	             "value":"http://ad.adriver.ru/cgi-bin/erle.cgi?sid=170878&sz=test&bn=322&target=top&bt=61&pz=1&rnd=[CACHEBUSTING]"
@@ -202,6 +203,7 @@ MoneyMiner API предназначен для медиации и таргет�
 	  optional string name = 2;
 	  repeated AdSytemParam params = 3;
 	  optional int32 id = 4;
+	  optional int32 price = 5;
 	}
 
 Замечания:
@@ -210,6 +212,7 @@ MoneyMiner API предназначен для медиации и таргет�
 - `name` — название рекламной сети
 - `params` — параметры для рекламной сети
 - `id` — уникальный идентификатор рекламной сети
+- `price` — эффективная стоимость размещения на 1000 показов баннера (eCPM)
 
 # История изменений
 
@@ -265,3 +268,7 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.3.1
 
 - Добавлен параметр `block_num` для интеграции через Yandex Video SDK
+
+## Изменения в версии 1.4.0
+
+- Добавлен атрибут `price` для сообщения "[AdSystem][p-ad-system]"
