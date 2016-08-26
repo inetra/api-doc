@@ -1,5 +1,5 @@
 title: Правила расширения формата M3U
-version: 2.6.0
+version: 2.7.0
 status: согласован
 
 # Общее описание
@@ -178,6 +178,7 @@ status: согласован
 `audio-language`    |`строка`| отсутствует  | Языки аудио дорожек
 `subtitles-language`|`строка`| отсутствует  | Языки субтитров
 `priority`          |`число` | 0            | Приоритет для ранжирования источников
+`ad-targeting`      |`булев` | `false`      | Признак наличия in-stream рекламы, для которой доступны [таргетинги][ad-targeting]
 
 Параметр  `resolution` должен быть задан в формате `ширина` x `высота`, например, `720x576`:
 
@@ -196,6 +197,7 @@ status: согласован
 [iptv-crop-n-aspect-ratio]: iptv.md#crop-n-aspect-ratio
 [timeshift-anchor]: iptv.md#timeshift
 [RFC3282]: http://tools.ietf.org/html/rfc3282
+[ad-targeting]: ad-targeting.md
 
 ## Примеры формирования
 
@@ -282,3 +284,7 @@ status: согласован
 ## Изменения в версии 2.6.0
 
 - Добавлен атрибут `priority` для источника вещания.
+
+## Изменения в версии 2.7.0 (TVREC-982)
+
+- Добавлен атрибут `ad-targeting` для директивы `EXT-INETRA-STREAM-INF`.
