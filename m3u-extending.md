@@ -197,7 +197,7 @@ status: согласован
 [iptv-crop-n-aspect-ratio]: iptv.md#crop-n-aspect-ratio
 [timeshift-anchor]: iptv.md#timeshift
 [RFC3282]: http://tools.ietf.org/html/rfc3282
-[ad-targeting]: ad-targeting.md
+[ad-targeting]: iptv.md#ad-targeting
 
 ## Примеры формирования
 
