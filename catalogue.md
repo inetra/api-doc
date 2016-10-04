@@ -1,6 +1,6 @@
 title: Media Catalogue API
 quotes language: french
-version: 1.8.0
+version: 1.8.1
 server-version: 1.8
 status: согласован
 
@@ -542,10 +542,13 @@ API работает по протоколу HTTP, корень доступа �
 	  optional int64 window_size = 5;
 
 	  optional int32 ttl = 6;
+
+	  optional int32 items_skipped = 7 [default = 0];
 	}
 
 Замечания:
 
+- `items_skipped` --- количество пропущенных элементов в выборке
 - `total_count` --- общее количество элементов в выборке
 - `window_size` --- количество элементов, в заданном временном интервале. Не используется при постраничной реализации выборки.
 - `lower_mark` --- нижняя временная метка окна выборки
@@ -728,3 +731,7 @@ API работает по протоколу HTTP, корень доступа �
 
 1. Описан параметр `id` для получения элементов каталога;
 2. Описан атрибут `related_rubrics` в сообщении `CatalogueItem` для получения списка ассоциированных с элементом каталога рубрик.
+
+## Изменения в версии 1.8.1
+
+1. Описано поле `items_skipped` в сообщении [`SelectionPage`][p-selection-page].
