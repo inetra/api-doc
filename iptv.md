@@ -1,6 +1,6 @@
 title: IPTV
 quotes language: french
-version: 2.9.0
+version: 2.9.1
 status: согласован
 
 # Общая информация
@@ -34,6 +34,16 @@ IPTV сервис предоставляет ссылку на список ис
 [auth-api-doc]: auth.md
 [RFC6750]: http://tools.ietf.org/html/rfc6750
 [RFC2617]: http://tools.ietf.org/html/rfc2617
+
+## Cross-origin resource sharing
+
+Для корректной работы приложений на основе браузера, например, виджет в SmartTV, необходима настройка специальных HTTP заголовков на стороне сервера. Наиболее простой способ — установить заголовок `Access-Control-Allow-Origin`, разрешающий доступ с любого адреса:
+
+	Access-Control-Allow-Origin: *
+
+Более подробно с механизмом CORS можно ознакомиться в [документации MDN].
+
+[документации MDN]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 
 ## Стандартные коды ответов
 
@@ -421,3 +431,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 ## Изменения в версии 2.9.0 (TVREC-982)
 
 - Описано таргетирование рекламных вставок в источниках вещания каналов
+
+## Изменения в версии 2.9.1
+
+- Добавлено описание о необходимо конфигурирования сервера для CORS
