@@ -1,7 +1,7 @@
 title: User Data API
 quotes language: french
-version: 1.12.0
-server-version: 1.11
+version: 1.12.1
+server-version: 1.12
 status: согласован
 
 # Общее описание
@@ -831,7 +831,7 @@ Eltex NV100/101   | 6
 	message TimeLimitedPlaybackClass {
 	  option (class_name) = "time_limited_playback";
 	  
-	  // позиция в воспроизводимом элементе, в секундах
+	  // позиция в воспроизводимом элементе, в миллисекундах
 	  optional int64 playback_position = 110 [(mandatory) = true];
 	  // приостановлено ли воспроизведение
 	  optional bool playback_stopped = 111 [(mandatory) = true];
@@ -1254,3 +1254,7 @@ Eltex NV100/101   | 6
 
 - Исправлено описания параметра `quantity` для метода `list`
 - Сортировка по идентификатору объект больше не используется по умолчанию в методе `list`
+
+## Изменения в версии 1.12.1
+
+- Параметр `playback_position` в классе `time_limited_playback` теперь указывается в миллисекундах
