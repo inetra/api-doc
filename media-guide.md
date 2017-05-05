@@ -1,5 +1,5 @@
 title: Media Guide
-version: 2.11.2
+version: 2.11.3
 server-version: 2.11
 status: согласован
 quotes language: french
