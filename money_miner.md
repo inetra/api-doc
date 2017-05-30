@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.4.2
+version: 1.5.0
 status: согласован
 quotes language: french
 
@@ -203,11 +203,20 @@ MoneyMiner API предназначен для медиации и таргет�
 	    SPOTX_SDK = 10;
 	  }
 
+	  enum BannerType {
+	    INTERSTITIAL    = 1;
+	    GRAPHIC         = 2;
+	    VIDEO           = 3;
+	    NATIVE          = 4;
+	    NATIVE_TEMPLATE = 5;
+	  }
+
 	  optional AdType type = 1;
 	  optional string name = 2;
 	  repeated AdSytemParam params = 3;
 	  optional int32 id = 4;
 	  optional int32 price = 5;
+	  optional BannerType banner_type = 6;
 	}
 
 Замечания:
@@ -217,6 +226,12 @@ MoneyMiner API предназначен для медиации и таргет�
 - `params` — параметры для рекламной сети
 - `id` — уникальный идентификатор рекламной сети
 - `price` — эффективная стоимость размещения на 1000 показов баннера (eCPM)
+- `banner_type` — тип баннера:
+	- `INTERSTITIAL` — межстраничный
+	- `GRAPHIC` — графический или текстовый
+	- `VIDEO` — видео-реклама
+	- `NATIVE` — нативный
+	- `NATIVE_TEMPLATE` — нативный с шаблоном
 
 # История изменений
 
@@ -284,3 +299,7 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.4.2 (TVREC-1050)
 
 - Добавлен новое значение типа интеграции и список параметров для SpotX SDK
+
+## Изменения в версии 1.5.0 (TVREC-1052)
+
+- Добавлено описание типа баннера
