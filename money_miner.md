@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.5.1
+version: 1.5.2
 status: согласован
 quotes language: french
 
@@ -153,6 +153,7 @@ MoneyMiner API предназначен для медиации и таргет�
 	          "name":"Адривер",
 	          "id":370223,
 	          "price":200,
+	          "banner_type":3,
 	          "params": [{
 	             "key":"vast_ad_tag",
 	             "value":"http://ad.adriver.ru/cgi-bin/erle.cgi?sid=170878&sz=test&bn=322&target=top&bt=61&pz=1&rnd=[CACHEBUSTING]"
@@ -307,3 +308,7 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.5.1
 
 - Исправлено имя параметра инициализации для SpotX SDK
+
+## Изменения в версии 1.5.2
+
+- добавлен атрибут `banner_type` в примере ответа для метода `places.json`
