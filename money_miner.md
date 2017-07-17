@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.5.2
+version: 1.5.3
 status: согласован
 quotes language: french
 
@@ -105,6 +105,8 @@ MoneyMiner API предназначен для медиации и таргет�
 	- `block_id` — идентификатор рекламного блока
 - SpotX SDK
 	- `channel_id` — идентификатор рекламного блока
+- Facebook SDK
+	- `placement_id` — идентификатор рекламного блока
 
 Список известных макросов для параметра `vast_ad_tag`:
 
@@ -202,6 +204,7 @@ MoneyMiner API предназначен для медиации и таргет�
 	    MY_TARGET_SDK = 8;
 	    YANDEX_ADS = 9;
 	    SPOTX_SDK = 10;
+	    FACEBOOK_SDK = 11;
 	  }
 
 	  enum BannerType {
@@ -312,3 +315,7 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.5.2
 
 - добавлен атрибут `banner_type` в примере ответа для метода `places.json`
+
+## Изменения в версии 1.5.3 (TVREC-1031)
+
+- Добавлен новое значение типа интеграции и список параметров для Facebook SDK
