@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.6.1
+version: 1.6.2
 status: согласован
 quotes language: french
 
@@ -296,8 +296,8 @@ MoneyMiner API предназначен для медиации и таргет�
 	  }
 
 	  message PredicatePart {
-	    repeated int32 positive_tags = 1;
-	    repeated int32 negative_tags = 2;
+	    repeated uint64 positive_tags = 1;
+	    repeated uint64 negative_tags = 2;
 	  }
 
 	  message Predicate {
@@ -426,3 +426,8 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.6.1
 
 - Восстановлен отсутствующий текст.
+
+## Изменения в версии 1.6.2
+
+- Исправлен тип данных для элементов унарного предиката в сообщении [`PredicatePart`][p-ad-system]
+
