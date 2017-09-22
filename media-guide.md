@@ -1,5 +1,5 @@
 title: Media Guide
-version: 2.12.0
+version: 2.12.1
 server-version: 2.11
 status: согласован
 quotes language: french
@@ -307,7 +307,7 @@ POST–запрос:
 	  optional uint64 parent_id = 15;
 
 	  repeated Category categories = 16;
-	  repeated uint32 ad_tags = 17;
+	  repeated uint64 ad_tags = 17;
 	}
 
 Замечания:
@@ -567,3 +567,7 @@ POST–запрос:
 ## Изменения в версии 2.12.0 (TVREC-1074)
 
 1. Добавлен способ передачи рекламных тэгов для ограничения использованиия рекламых сетей на контенте.
+
+## Изменения в версии 2.12.1
+
+1. Исправлен тип данных для аттрибута `ad_tags` из сообщения [`Telecast`][p-telecast]
