@@ -1,6 +1,6 @@
 title: Registry API
 quotes language: french
-version: 2.28
+version: 2.29
 server-version: 2.27
 status: согласован
 
@@ -335,6 +335,7 @@ API возвращает результат работы в HTTP–коде и �
 	  optional string name = 3;
 	  repeated APIVersion apiVersions = 4;
 	  optional uint32 pingInterval = 5;
+	  optional uint32 id = 6;
 	}
 
 Замечания:
@@ -343,6 +344,7 @@ API возвращает результат работы в HTTP–коде и �
 - `APIVersion.params` задает дополнительные обязательные параметры, для передачи в указанное API
 - `WhereAmI.apis` — <span style="color:#f00">устарело с версии 2.6</span>
 - `WhereAmI.services` — сервисы, доступные пользователю данного контрагента на данной территории:
+	- `Service.id` — идентификатор сервиса
 	- `Service.type` — код (для JSON и XML представлений — строковый идентификатор) сервиса
 	- `Service.contractor` — контрагент, предоставляющий услугу
 	- `Service.name` — название сервиса
@@ -761,3 +763,7 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.28.0 (TVREC-907)
 
 - Promo сервис  помечен устаревшим
+
+## Изменения в версии 2.29.0 (TVREC-1077)
+
+- Идентификатор сервиса добавлен в ответ

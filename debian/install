@@ -1,3 +1,4 @@
 *.html usr/share/doc/api-doc
 res usr/share/doc/api-doc
 img usr/share/doc/api-doc
+examples usr/share/doc/api-doc
