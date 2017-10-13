@@ -1,7 +1,7 @@
 title: User Data API
 quotes language: french
 version: 1.13
-server-version: 1.12
+server-version: 1.13
 status: согласован
 
 # Общее описание
