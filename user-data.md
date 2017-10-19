@@ -1,6 +1,6 @@
 title: User Data API
 quotes language: french
-version: 1.13.1
+version: 1.13.2
 server-version: 1.13
 status: согласован
 
@@ -592,6 +592,7 @@ API работает по протоколу HTTPS (передаваемые д�
 	message ActionResult {
 	  optional string id = 1;
 	  optional int32 code = 2;
+	  optional string message = 3;
 	}
 	 
 	message ActionResults {
@@ -1263,3 +1264,7 @@ Eltex NV100/101   | 6
 - Обновлено описание частей запроса при взаимодействии с API:
 	- удалена `<api_version>`, т.к. является частью `<path_to_api>`
 	- удалена `<token>` в связи с переходом на авторизацию по схеме Bearer
+
+## Изменения в версии 1.13.2
+
+- Добавлен недокументированный атрибут `message` в сообщении `ActionResult`
