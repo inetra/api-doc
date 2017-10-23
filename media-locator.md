@@ -1,6 +1,6 @@
 title: Media Locator API
 quotes language: french
-version: 1.8.0
+version: 1.9.0
 status: согласован
 
 # Введение
@@ -245,6 +245,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 	  optional StreamingType streaming_type = 6 [default = PROTOCOL_DEFAULT];
 	  optional int64 allowed_till = 7;
 	  optional int64 pending_till = 8;
+	  optional bool ad_targeting = 9;
 	}
 
 Замечания:
@@ -259,10 +260,12 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 	- `HTTP_LIVE_STREAMING` — вещание по стандарту [Http Live Streaming][hls-standard-url].
 - `allowed_till` — время планируемого отключения доступа к вещанию;
 - `pending_till` — время в формате Unix–time, до которого будет производится настройка прав доступа, после истечения данного времени запись будет доступна для воспроизведения.
+- `ad_targeting` - признак наличия in-stream рекламы, для которой доступны [таргетинги][ad-targeting]
 
 Интерпретация атрибутов `status`, `allowed_till`, `pending_till` описана в разделе ["Интерпретация прав доступа"][access-interpretation]
 
-[hls-standard-url]: http://tools.ietf.org/html/draft-pantos-http-live-streaming-07
+[hls-standard-url]: https://tools.ietf.org/html/rfc8216
+[ad-targeting]: iptv.md#ad-targeting
 
 ## RipPart — часть рипа
 
@@ -436,3 +439,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 ## Изменение в версии 1.8.0 (TVREC-943)
 
 - Описан метод [`timeshift`][m-timeshift] для получения ссылки на источник вещания со смещением от эфирного.
+
+## Изменение в версии 1.9.0 (PTVTUBE-165)
+
+- Добавлен атрибут `ad_targeting` для рипа.
