@@ -308,6 +308,7 @@ POST–запрос:
 
 	  repeated Category categories = 16;
 	  repeated uint64 ad_tags = 17;
+	  optional string alias = 18;
 	}
 
 Замечания:
@@ -329,6 +330,7 @@ POST–запрос:
 - `parent_id` — идентификатор выпуска передачи, к которой относится сюжет (<span style="color:#0f0">новое в версии 2.8.1</span>)
 - `categories` — категории передач (<span style="color:#0f0">новое в 2.9</span>)
 - `ad_tags` — список идентификаторов рекламных тэгов
+- `alias` — строковый идентификатор передачи
 
 ## Category — Категория аудиовизуального материала [p-category]
 
