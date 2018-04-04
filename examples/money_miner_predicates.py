@@ -15,8 +15,15 @@ class NF(object):
 
 	def __call__(self, tags=None):
 		tags = tags or []
-		result = self.default_value
+		non_empty_parts = []
 		for part in self.parts:
+			if part.positive_tags or part.negative_tags:
+				non_empty_parts.append(part)
+		is_trivial = not non_empty_parts
+		if is_trivial:
+			return True
+		result = self.default_value
+		for part in non_empty_parts:
 			part_result = not self.default_value
 			for tag in part.positive_tags:
 				part_result = self.internal_op(part_result, tag in tags)
@@ -64,10 +71,31 @@ class Predicate(object):
 class TestDNF(unittest.TestCase):
 	def test_empty(self):
 		predicate = Predicate(dnf=True)
-		self.assertFalse(predicate())
-		self.assertFalse(predicate([]))
-		self.assertFalse(predicate([0]))
-		self.assertFalse(predicate([0, 1]))
+		self.assertTrue(predicate())
+		self.assertTrue(predicate([]))
+		self.assertTrue(predicate([0]))
+		self.assertTrue(predicate([0, 1]))
+
+	def test_empty_part(self):
+		# () and ()
+		parts = [PredicatePart(), PredicatePart()]
+		predicate = Predicate(dnf=True, parts=parts)
+		self.assertTrue(predicate())
+		self.assertTrue(predicate([]))
+		self.assertTrue(predicate([0]))
+		self.assertTrue(predicate([0, 1]))
+		parts = [PredicatePart(negative_tags=[]), PredicatePart()]
+		predicate = Predicate(dnf=True, parts=parts)
+		self.assertTrue(predicate())
+		self.assertTrue(predicate([]))
+		self.assertTrue(predicate([0]))
+		self.assertTrue(predicate([0, 1]))
+		parts = [PredicatePart(), PredicatePart(positive_tags=[])]
+		predicate = Predicate(dnf=True, parts=parts)
+		self.assertTrue(predicate())
+		self.assertTrue(predicate([]))
+		self.assertTrue(predicate([0]))
+		self.assertTrue(predicate([0, 1]))
 
 	def test_positive_tags_rule_1(self):
 		# 0 and 1
@@ -143,6 +171,27 @@ class TestDNF(unittest.TestCase):
 class TestCNF(unittest.TestCase):
 	def test_empty(self):
 		predicate = Predicate(dnf=False)
+		self.assertTrue(predicate())
+		self.assertTrue(predicate([]))
+		self.assertTrue(predicate([0]))
+		self.assertTrue(predicate([0, 1]))
+
+	def test_empty_part(self):
+		# () or ()
+		parts = [PredicatePart(), PredicatePart()]
+		predicate = Predicate(dnf=False, parts=parts)
+		self.assertTrue(predicate())
+		self.assertTrue(predicate([]))
+		self.assertTrue(predicate([0]))
+		self.assertTrue(predicate([0, 1]))
+		parts = [PredicatePart(negative_tags=[]), PredicatePart()]
+		predicate = Predicate(dnf=False, parts=parts)
+		self.assertTrue(predicate())
+		self.assertTrue(predicate([]))
+		self.assertTrue(predicate([0]))
+		self.assertTrue(predicate([0, 1]))
+		parts = [PredicatePart(), PredicatePart(positive_tags=[])]
+		predicate = Predicate(dnf=False, parts=parts)
 		self.assertTrue(predicate())
 		self.assertTrue(predicate([]))
 		self.assertTrue(predicate([0]))
