@@ -1,5 +1,5 @@
 title: Media Guide
-version: 2.12.1
+version: 2.13
 server-version: 2.11
 status: согласован
 quotes language: french
@@ -411,7 +411,10 @@ POST–запрос:
 	  optional int64 id;
 	  optional string title;
 	}
+Замечание:
 
+- `id` — идентификатор рубрики;
+- `title` — человекочитаемое название категории.
 
 ## Schedule — Расписание для канала [p-schedule]
 
