@@ -1,5 +1,5 @@
 title: Media Guide
-version: 2.12.1
+version: 2.13
 server-version: 2.11
 status: согласован
 quotes language: french
@@ -383,6 +383,7 @@ POST–запрос:
 	  optional string artworkURL = 16;
 
 	  repeated Category categories = 17;
+	  repeated Rubric rubrics = 18;
 	}
 
 Замечания:
@@ -402,6 +403,18 @@ POST–запрос:
 	- `RADIO` — радиоканал.
 - `artworkURL` — афиша для канала (<span style="color:#0f0">новое в 2.8</span>);
 - `categories` — категории передач, вещаемых на канале (<span style="color:#0f0">новое в 2.9</span>).
+- `rubrics` — рубрики, в которые входит канал (<span style="color:#0f0">новое в 2.13</span>).
+
+## Rubric - Рубрика канала [p-rubric]
+
+	message Rubric {
+	  optional int64 id;
+	  optional string title;
+	}
+Замечание:
+
+- `id` — идентификатор рубрики;
+- `title` — человекочитаемое название категории.
 
 ## Schedule — Расписание для канала [p-schedule]
 
@@ -573,3 +586,8 @@ POST–запрос:
 ## Изменения в версии 2.12.1
 
 1. Исправлен тип данных для аттрибута `ad_tags` из сообщения [`Telecast`][p-telecast]
+
+## Изменения в версии 2.13
+
+1. Добавлены рубрики каналов в сообщение [`Channel`][p-channel]
+
