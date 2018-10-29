@@ -63,8 +63,9 @@ API возвращает результат работы в HTTP–коде и �
 `15` | `bytefog`         | ByteFog | Инетра | [ByteFog API] | Предоставляет узлам сети ByteFog поиск точек входа для получения потокового вещания.
 `16` | `portchecker`     | PortChecker | Кто угодно | [PortChecker API] | Предоставляет проверку возможности получения входящих соединений.
 `17` | `internet`        | Доступ к сети Интернет | Кто угодно | отсутствует | Описывает услугу "Доступ к сети Интернет"
-`18` | `registry`        | Регистратура| Инетра | [Registry API] | Предоставляет информацию о доступных сервисах
-`19` | `money_miner`     | Конфигуратор рекламы| Инетра | [Money Miner API] | Предоставляет информацию о рекламных сетей для баннерных мест
+`18` | `registry`        | Регистратура | Инетра | [Registry API] | Предоставляет информацию о доступных сервисах
+`19` | `money_miner`     | Конфигуратор рекламы | Инетра | [Money Miner API] | Предоставляет информацию о рекламных сетей для баннерных мест
+`20` | `launcher`        | Вывод афиш в лаунчер на приставке | Инетра и ЭГ | [Launcher API] | Предоставляет список афиш для отображения в лаунчере на приставке
 
 
 [Auth API]: auth.md
@@ -84,6 +85,7 @@ API возвращает результат работы в HTTP–коде и �
 [ByteFog API]: bytefog.md
 [PortChecker API]: portchecker.md
 [Money Miner API]: money_miner.md
+[Launcher API]: launcher.md
 
 ## Версионирование сервисов [anchor-versions]
 
@@ -328,6 +330,7 @@ API возвращает результат работы в HTTP–коде и �
 		// 17 reserved for "internet"
 	    REGISTRY = 18 [(CN.string_value) = "registry"];
 	    MONEY_MINER = 19 [(CN.string_value) = "money_miner"];
+	    LAUNCHER = 20 [(CN.string_value) = "launcher"];
 	  }
 	 
 	  optional Type type = 1;
@@ -759,3 +762,9 @@ API возвращает результат работы в HTTP–коде и �
 - Описание атрибутов `sizeType`, `osType` из сообщения [`ContractorInfo `][contractorinfo-message] удалено;
 - Удалено требование, обязывающие применять теги из `partnerTags` только к контрагенту, к сети которого осуществлено подключение;
 - Добавлен новый тег `no_ads` для атрибута `partnerTags` из [`ContractorInfo `][contractorinfo-message].
+ 
+
+## Изменения в версии 2.31.0 (TVREC-1348)
+
+- Добавлен сервис Launcher
+
