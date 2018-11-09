@@ -42,13 +42,24 @@ status:
 Пример запроса:
 
 	GET /launcher/1/posters.json
-	
 
+## `poster` — получение информации об афишах в подборке и о связанных афишах
+Формат ответа: сообщение [`Poster`][poster-message].
+
+Пример запроса:
+
+	GET /launcher/1/poster.json?<id>	
+
+ параметр | значение
+----------|----------
+`id`      | идентификатор подборки (коллекции)
+   
+# Форматы сообщений
 ## PosterList — вывод списка афиш лаунчера [posters-list-message]
 
 	message PosterList {
       repeated Poster posters = 1;
-	  }	
+	}	
 	
 ## Poster — информация об афише лаунчера [poster-message]	
 	message Poster {
@@ -56,7 +67,10 @@ status:
 	    FILM = 0;
 	    TELECAST = 1;
 	    CHANNEL = 2;
-	  }	
+	    YOUTUBE = 3;
+	    NOTIFICATION = 4;
+	    COLLECTION = 5;
+      }	
 
 	  optional uint64 id = 1;
 	  optional PosterType type = 2;
@@ -69,23 +83,34 @@ status:
 	  optional string description = 9;
 	  optional uint32 duration = 10;
 	  optional bool is_promo = 11;
+	  optional string youtube_id = 12;
+	  optional string link = 13;
+	  repeated Poster attached_posters = 14;
+	  repeated Poster related_posters = 15;
 	}  
 	
 Замечания:
 
-- `poster_id` — идентификатор афишы  в блоке "Афишы лаунчера"
+- `id` — идентификатор афиши  в блоке "Афиши лаунчера"
 - `type ` — тип постера: 
  	- `Film` — фильм;
 	- `Telecast` — выпуск передачи;
-	- `Channel` — канал.
+	- `Channel` — канал;
+	- `Collection` — коллекция фильмов или телепередач;
+	- `Youtube` — ролик youtube;
+	- `Notification` — пуш-уведомления;
 - `title` — название фильма/передачи/канала;
 - `color` — цвет "подложки" афиши, закодирован в hex;
 - `channel_id` — идентификатор канала;
 - `telecast_id` — идентификатор выпуска передачи;
 - `film_id` — идентификатор фильма:
+- `youtube_id` — идентификатор ролика youtube;
 - `description` — описание фильма/передачи:
-- `duration` — длительность передачи/фильма. 
-- `is_promo` — метка промо.   
+- `duration` — длительность передачи/фильма;
+- `is_promo` — метка промо;
+- `link` — ссылка на афишу (на ролик youtube). Вводится моедратором в админке;
+- `attached_posters` — вывод афиш, входящих в подборку;
+- `related_posters` — вывод связанных афиш;
 
 ## LauncherImg — информация об иллюстрации афиши лаунчера  [launcherImg-message]
 
@@ -93,8 +118,8 @@ status:
       optional string url = 1;
 	  optional uint32 width = 2;
       optional uint32 height = 3;
-      optional string profile = 4.
-	  }	
+      optional string profile = 4;
+	}
 
 Замечания:
 
@@ -108,4 +133,6 @@ status:
 ## Версия 1.0
 
 Начальная версия (WEBDEV-12377)
+	- описан метод лаунчера `posters`;
+	- описан метод лаунчера `poster` c обязательным параметром `id`;
 	
