@@ -1,6 +1,6 @@
 title: Media Catalogue API
 quotes language: french
-version: 1.9.1
+version: 1.10.0
 server-version: 1.9
 status: согласован
 
@@ -488,6 +488,8 @@ API работает по протоколу HTTP, корень доступа �
 	    CHANNEL = 1;
 	    BROADCAST = 2;
 	    FRAGMENT = 3;
+	    MOVIE = 4;
+	    SERIAL = 5;
 	}
 
 Описание значений:
@@ -497,6 +499,8 @@ API работает по протоколу HTTP, корень доступа �
 `CHANNEL`        | канал
 `BROADCAST`      | передача
 `FRAGMENT`       | фрагмент
+`MOVIE`          | фильм
+`SERIAL`         | сериал
 
 [^fn-terms]: определения использованных значений описаны в документе "[Термины и определения][terms.md]"
 
@@ -504,11 +508,28 @@ API работает по протоколу HTTP, корень доступа �
 
 	message CatalogueItemSelectionAttributes {
 	    optional uint64 views_count = 1;
+
+	    optional int32 year = 2;
+	    optional string picture_url = 3;
+	    optional string short_description = 4;
+	    optional int64 duration = 5;
+	    optional int32 age = 6;
+	    optional string thumbnail_url = 7;
+	    optoinal timestamp publication_ts = 8;
+	    repeated string tags = 9;
 	}
 
 Замечания:
 
-- `views_count` --- количество просмотров за период времени, определяемый выборкой
+- `views_count` --- количество просмотров за период времени, определяемый выборкой;
+- `picture_url` --- ссылка на постер фильма;
+- `short_description` --- краткое описание фильма;
+- `duration` --- длительность фильма;
+- `age` --- возрастные ограничения;
+- `thumbnail_url` --- промо картинка;
+- `publication_ts` --- дата публикации фильма;
+- `year` --- год выхода фильма;
+- `tags` --- название тага (жанр/тематика), привязанного к фильму;
 
 ### CatalogueItem --- элемент медиа каталога
 
@@ -517,7 +538,9 @@ API работает по протоколу HTTP, корень доступа �
 	    optional MediaGuideType guide_type = 2 [deprecated = true];
 	    optional CatalogueItemSelectionAttributes selection_attributes = 3;
 
-	    repeated Rubric related_rubrics = 4;
+	    repeated Rubric related_rubrics = 4;		
+	    optional string title = 5;
+	    optional string description = 6;
 	}
 
 Замечания:
@@ -527,6 +550,8 @@ API работает по протоколу HTTP, корень доступа �
 	- `id` --- уникальный (в рамках каталога) числовой идентификатор;
 	- `guide_type` --- тип элемента каталога из Media Guide API;
 	- `selection_attributes` --- атрибуты элемента, характерные для выборки;
+	- `title` --- название фильма;
+	- `description` --- полное описание фильма;
 	- `related_rubrics` --- рубрики, ассоциированные с данным элементом каталога, например, "Другие выпуски телепередачи", "Похожие выпуски" и другие редакционные подборки. Сообщение [Rubric][p-pubric] должно содержать атрибуты `id`, `title` и опционально `options`, если требуется дополнительная фильтрация или упорядочивание выборки. Так, например, рубрика может содержать только одну опцию, выбранную по умолчанию, с одним значением для задания особой сортировки для конкретного пользователя, при этом клиент не должен отображать данную опцию в графическом интерфейсе.
 
 На данном этапе (апрель 2015) получение подробной информации об элементе каталога возможно только при помощи [Media Guide][media-guide-doc].
@@ -600,6 +625,8 @@ API работает по протоколу HTTP, корень доступа �
 	  POPULAR = 4;
 	  STORIES = 5;
 	  GENRES = 6;
+	  MOVIES = 7;
+	  SERIALS = 8;
 	}
 
 	message Rubric {
@@ -627,6 +654,8 @@ API работает по протоколу HTTP, корень доступа �
 	- `TOP`, `POPULAR` --- "популярное"
 	- `STORIES` --- "хайлайты", сюжеты выпусков передач, обычно на одну тему
 	- `GENRES` --- рубрики(жанры) каналов
+	- `MOVIES` --- "фильмы"
+	- `SERIALS` --- "сериалы"
 - `timelined` --- использовать временные метки для навигации по выборке.
 
 ### Rubricator --- рубрикатор [p-rubricator]
@@ -745,3 +774,7 @@ API работает по протоколу HTTP, корень доступа �
 ## Изменения в версии 1.9.1 (WEBDEV-12227)
 
 1. Добавлен `ui_hint` для рубрикации каналов.
+
+## Изменения в версии 1.10.0 (WEBDEV-12456)
+
+1. Расширены `CatalogueItemSelectionAttributes` и `CatalogueItem` для выдачи VOD контента.

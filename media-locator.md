@@ -1,6 +1,6 @@
 title: Media Locator API
 quotes language: french
-version: 1.9.0
+version: 1.10.0
 status: согласован
 
 # Введение
@@ -206,16 +206,33 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 	  optional int64 catalogue_item_id = 1;
 	  repeated Rip rips = 2;
 	  repeated Rip trailers = 3;
+	  repeated VOD vod = 4;
 	}
 	
 	message SourcesReply {
 	  repeated SourceReply replies = 1;
 	}
 
+	message VOD {
+	   optional VODType type = 1;	
+	   optional string video_id = 2;
+	   repeated Location locations = 3;
+
+	   enum VODType {
+	        RUTUBE= 1;
+	        TVIGLE = 2;
+	        IVI = 3;
+	        MEGOGO = 4;
+	    }	
+	}
 Замечания:
 
-- `rips` содержит описания рипов для элемента каталога.
-- `trailers` содержит описания трейлеров для элемента каталога
+- `rips` — содержит описания рипов для элемента каталога
+- `trailers` — содержит описания трейлеров для элемента каталога
+- `locations` — источники вещания контента Vod
+- `VOD` — информация от VOD контенте, такая как
+	- `video_id` — уникальный идентификатор фильма
+	- `type` — поставщик VOD контента
 
 ## Rip — информация о рипе [rip-message]
 
@@ -360,7 +377,6 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 
 - `uri` — URI источника вещания
 - `usage_weight` — вес источника вещания, используется клиентом для определения вероятности использования источника вещания. Вероятность использования указанного URI равна весу источника, деленного на сумму всех источников вещания
-
 Например, имеются следующие источники вещания с весами 0, 1, 2, 3 и 4, то вероятность использования каждого из них будет 0, 0.1, 0.2, 0.3 и 0.4 соответственно.
 
 ## TimeshiftReply [p-timeshift]
@@ -443,3 +459,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 ## Изменение в версии 1.9.0 (PTVTUBE-165)
 
 - Добавлен атрибут `ad_targeting` для рипа.
+
+## Изменение в версии 1.10.0
+
+- Описано сообщение `VOD`, содержащее информацию о источниках VOD контента.
