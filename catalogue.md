@@ -1,7 +1,7 @@
 title: Media Catalogue API
 quotes language: french
-version: 1.10.0
-server-version: 1.9
+version: 1.11.0
+server-version: 1.11.0
 status: согласован
 
 # Введение
@@ -83,7 +83,7 @@ status: согласован
 
 ### Получение и интерпретация рубрикатора [para-rubricator-interpret]
 
-Построение связи между графическим интерфейсом пользователя и рубрикатором должно производится по следующему алгоритму:
+Построение связи между графическим интерфейсом пользователя и рубрикатором должно производиться по следующему алгоритму:
 
 1. Отображается интерфейс пользователя.
 2. Отправляется [запрос `rubricator`][m-rubricator] на получение рубрикатора.
@@ -489,7 +489,7 @@ API работает по протоколу HTTP, корень доступа �
 	    BROADCAST = 2;
 	    FRAGMENT = 3;
 	    MOVIE = 4;
-	    SERIAL = 5;
+	    SERIES = 5;
 	}
 
 Описание значений:
@@ -500,7 +500,7 @@ API работает по протоколу HTTP, корень доступа �
 `BROADCAST`      | передача
 `FRAGMENT`       | фрагмент
 `MOVIE`          | фильм
-`SERIAL`         | сериал
+`SERIES`         | сериал
 
 [^fn-terms]: определения использованных значений описаны в документе "[Термины и определения][terms.md]"
 
@@ -517,19 +517,39 @@ API работает по протоколу HTTP, корень доступа �
 	    optional string thumbnail_url = 7;
 	    optoinal timestamp publication_ts = 8;
 	    repeated string tags = 9;
+	    repeated string countries = 10;
+	    repeated string genres = 11;
+	    repeated string directors = 12;
+	    repeated string actors = 13;
+	    optional string original_title = 14;
+	    repeated int32 seasons = 15;
+	    optional int32 season = 16;
+	    optional int32 episode = 17;
 	}
 
 Замечания:
 
 - `views_count` --- количество просмотров за период времени, определяемый выборкой;
-- `picture_url` --- ссылка на постер фильма;
-- `short_description` --- краткое описание фильма;
-- `duration` --- длительность фильма;
+
+Для VOD-контента:
+
+- `publication_ts` --- дата публикации;
+- `original_title` --- оригинальное название;
+- `short_description` --- краткое описание;
+- `year` --- год выхода;
 - `age` --- возрастные ограничения;
-- `thumbnail_url` --- промо картинка;
-- `publication_ts` --- дата публикации фильма;
-- `year` --- год выхода фильма;
-- `tags` --- название тага (жанр/тематика), привязанного к фильму;
+- `duration` --- длительность в секундах;
+- `picture_url` --- ссылка на постер;
+- `thumbnail_url` --- промо-картинка;
+- `countries` --- список стран;
+- `genres` --- список жанров;
+- `directors` --- список режиссёров;
+- `actors` --- список актёров;
+- `tags` --- список тагов;
+- `seasons` --- список доступных сезонов сериала;
+- `season` --- номер сезона сериала;
+- `episode` --- номер серии сериала;
+
 
 ### CatalogueItem --- элемент медиа каталога
 
@@ -626,7 +646,8 @@ API работает по протоколу HTTP, корень доступа �
 	  STORIES = 5;
 	  GENRES = 6;
 	  MOVIES = 7;
-	  SERIALS = 8;
+	  SERIES = 8;
+	  EPISODES = 9;
 	}
 
 	message Rubric {
@@ -649,13 +670,14 @@ API работает по протоколу HTTP, корень доступа �
 - `options` --- опции рубрики.
 - `ui_hint` --- подсказка по способу отображения рубрики в графическом интерфейсе приложения:
 	- `SEARCH` --- поиск в приложении
-	- `FEATURED` --- "выбор редакции"
-	- `RECOMMENDED` --- "рекомендации"
-	- `TOP`, `POPULAR` --- "популярное"
+	- `FEATURED` --- выбор редакции
+	- `RECOMMENDED` --- рекомендации
+	- `TOP`, `POPULAR` --- популярное
 	- `STORIES` --- "хайлайты", сюжеты выпусков передач, обычно на одну тему
 	- `GENRES` --- рубрики(жанры) каналов
-	- `MOVIES` --- "фильмы"
-	- `SERIALS` --- "сериалы"
+	- `MOVIES` --- фильмы
+	- `SERIES` --- сериалы
+	- `EPISODES` --- эпизоды сериала
 - `timelined` --- использовать временные метки для навигации по выборке.
 
 ### Rubricator --- рубрикатор [p-rubricator]
@@ -777,4 +799,9 @@ API работает по протоколу HTTP, корень доступа �
 
 ## Изменения в версии 1.10.0 (WEBDEV-12456)
 
-1. Расширены `CatalogueItemSelectionAttributes` и `CatalogueItem` для выдачи VOD контента.
+1. Расширены `CatalogueItemSelectionAttributes` и `CatalogueItem` для выдачи VOD-контента.
+
+## Изменения в версии 1.11.0 (TVSET-2190)
+
+1. Расширены `CatalogueItemSelectionAttributes` для выдачи VOD-контента.
+2. Добавлен `ui_hint` для рубрик c эпизодами сериала.
