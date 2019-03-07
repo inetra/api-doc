@@ -86,6 +86,7 @@ API возвращает результат работы в HTTP–коде и �
 [PortChecker API]: portchecker.md
 [Money Miner API]: money_miner.md
 [Launcher API]: launcher.md
+[Appconfig API]: appconfig.md
 
 ## Версионирование сервисов [anchor-versions]
 
@@ -767,4 +768,8 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.31.0 (TVREC-1348)
 
 - Добавлен сервис Launcher
+
+## Изменения в версии 2.32.0 (PTVRND-184)
+
+- Доюавлен сервис Appconfig
 
