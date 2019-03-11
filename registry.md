@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
-version: 2.32
-server-version: 2.31
+version: 2.30
+server-version: 2.29
 status: согласован
 
 # Общая информация
@@ -767,9 +767,4 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.31.0 (TVREC-1348)
 
 - Добавлен сервис Launcher
-
-
-## Изменения в версии 2.32.0 (PTVRND-187)
-
-- Добавлен сервис AppConfig.
 
