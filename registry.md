@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
-version: 2.30
-server-version: 2.29
+version: 2.32
+server-version: 2.31
 status: согласован
 
 # Общая информация
