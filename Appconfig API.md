@@ -41,14 +41,16 @@ status:
 
  параметр           | описание                | возможные значения      | обязательный  
 ----------          |----------               |-----------------        |------------------
-`platformName`      | наименование платформы  | Tizen<br/> Orsay<br/> NetCast<br/> Panasonic<br/> Hisense<br/> Infomir<br/> OperaTV<br/> WebOS<br/> Browser                 | Да
-`platformVersion`   | версия платформы        |                         |   нет
+`platformName`      | наименование платформы  | Tizen<br/> Orsay<br/> NetCast<br/> Panasonic<br/> Hisense<br/> Infomir<br/> OperaTV<br/> WebOS<br/> Browser<br/> Zeasn                 | да
+`platformVersion`   | версия платформы        | строка                       |   нет
 `appName`           | наименование приложения | peerstv                 |   да
-`appVersion`        | версия приложения       |                         |   нет
+`appVersion`        | версия приложения       | строка                  |   нет
 
 Параметры `platformName` и `appName` являются обязательными.
 
-Если клиент не передал параметры `platformName` и/или `appName` или передал некорректные параметры (значения паа=раметров), то выдается ошибка с кодом 400.
+Значения параметров регистронезависимы.
+
+Если клиент не передал параметры `platformName` и/или `appName` или передал некорректные параметры (значения параметров), то выдается ошибка с кодом 400.
 
 # История версий
 
