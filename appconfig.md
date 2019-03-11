@@ -46,14 +46,15 @@ status:
 `appName`           | наименование приложения | peerstv                 |   да
 `appVersion`        | версия приложения       | строка                  |   нет
 
-Пример ответа:<br/>
-{<br/>
-"experiments": [<br/>
-"activate_main",<br/>
-"deactivate_vod"<br/>
-],<br/>
-"hosted_url": "http://testsmart.cn.ru/orsay/test/index.html"<br/>
-}<br/>
+Пример ответа:
+
+	{
+		"experiments": [
+			"activate_main",
+			"deactivate_vod"
+		],
+		"hosted_url": "http://testsmart.cn.ru/orsay/test/index.html"
+	}
 
 Параметры `platformName` и `appName` являются обязательными.
 
