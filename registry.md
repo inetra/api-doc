@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
-version: 2.30
-server-version: 2.29
+version: 2.32
+server-version: 2.31
 status: согласован
 
 # Общая информация
@@ -66,7 +66,7 @@ API возвращает результат работы в HTTP–коде и �
 `18` | `registry`        | Регистратура | Инетра | [Registry API] | Предоставляет информацию о доступных сервисах
 `19` | `money_miner`     | Конфигуратор рекламы | Инетра | [Money Miner API] | Предоставляет информацию о рекламных сетей для баннерных мест
 `20` | `launcher`        | Вывод афиш в лаунчер на приставке | Инетра и ЭГ | [Launcher API] | Предоставляет список афиш для отображения в лаунчере на приставке
-
+`21` | `appconfig`       | Конфигуратор приложений | Инетра      | [Appconfig API] | Предоставляет клиенту возможность получать информацию о конфигурационных параметрах.
 
 [Auth API]: auth.md
 [Registry API]: #
@@ -86,6 +86,7 @@ API возвращает результат работы в HTTP–коде и �
 [PortChecker API]: portchecker.md
 [Money Miner API]: money_miner.md
 [Launcher API]: launcher.md
+[Appconfig API]: appconfig.md
 
 ## Версионирование сервисов [anchor-versions]
 
@@ -767,4 +768,8 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.31.0 (TVREC-1348)
 
 - Добавлен сервис Launcher
+
+## Изменения в версии 2.32.0 (PTVRND-184)
+
+- Добавлен сервис Appconfig
 
