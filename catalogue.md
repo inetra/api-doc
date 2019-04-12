@@ -1,7 +1,7 @@
 title: Media Catalogue API
 quotes language: french
-version: 1.11.0
-server-version: 1.11.0
+version: 1.11.1
+server-version: 1.11.1
 status: согласован
 
 # Введение
@@ -525,6 +525,7 @@ API работает по протоколу HTTP, корень доступа �
 	    repeated int32 seasons = 15;
 	    optional int32 season = 16;
 	    optional int32 episode = 17;
+	    repeated int32 VOD vod = 18;
 	}
 
 Замечания:
@@ -549,7 +550,24 @@ API работает по протоколу HTTP, корень доступа �
 - `seasons` --- список доступных сезонов сериала;
 - `season` --- номер сезона сериала;
 - `episode` --- номер серии сериала;
+- `vod` --- информация о VOD-контенте у разных поставщиков;
 
+### VOD --- информация о VOD-контенте
+
+	message VOD {
+	    optional VODType type = 1;	
+	    optional string video_id = 2;
+
+	    enum VODType {
+	        RUTUBE= 1;
+	        TVIGLE = 2;
+	        IVI = 3;
+	        MEGOGO = 4;
+	    }	
+	}
+
+- `type` --- тип контента (поставщик);
+- `video_id` --- идентификатор видео у поставщика;
 
 ### CatalogueItem --- элемент медиа каталога
 
@@ -805,3 +823,7 @@ API работает по протоколу HTTP, корень доступа �
 
 1. Расширены `CatalogueItemSelectionAttributes` для выдачи VOD-контента.
 2. Добавлен `ui_hint` для рубрик c эпизодами сериала.
+
+## Изменения в версии 1.11.1
+
+1. В `CatalogueItemSelectionAttributes` для VOD-контента добавлены идентификаторы видео у поставщиков.
