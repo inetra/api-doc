@@ -1,6 +1,6 @@
 title: Launcher API
 quotes language: french
-version: 1.1
+version: 1.2
 status: 
 
 # Введение
@@ -73,6 +73,7 @@ status:
 	    YOUTUBE = 3;
 	    NOTIFICATION = 4;
 	    COLLECTION = 5;
+	    VOD = 6;
       }	
 
 	  optional uint64 id = 1;
@@ -90,6 +91,7 @@ status:
 	  optional string link = 13;
 	  repeated Poster attached_posters = 14;
 	  repeated Poster related_posters = 15;
+	  optional uint32 vod_id = 16;
 	}  
 	
 Замечания:
@@ -102,6 +104,7 @@ status:
 	- `Collection` — коллекция фильмов или телепередач;
 	- `Youtube` — ролик youtube;
 	- `Notification` — пуш-уведомления;
+	- `VOD` — VOD-контент;
 - `title` — название фильма/передачи/канала;
 - `color` — цвет "подложки" афиши, закодирован в hex;
 - `channel_id` — идентификатор канала;
@@ -145,4 +148,6 @@ status:
 
 - описана возможность запросить неактивные афиши, помеченные признаком для премодерации.
 
-	
+## Версия 1.2
+
+- добавлен тип VOD в сообщение [`Poster`][poster-message].
