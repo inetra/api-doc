@@ -1,7 +1,7 @@
 title: Films API
 quotes language: french
-version: 2.11
-server-version: 2.11
+version: 2.12
+server-version: 2.12
 status: поддерживается
 
 # Общее описание
@@ -245,6 +245,24 @@ Films API предназначено для взаимодействия с ка
 При указании параметра запроса `age_filter` производится фильтрация афиш в связанных подборках по возрастному цензу (подборки "Похожее", "Смотри также").
 Параметр `published_before` используется для [фильтрации по времени публикации][published-before-filter].
 
+## `upnext` — Получение списка фильмов для непрерывного воспроизведения [m-upnext]
+
+Запрос: `/upnext/<id>/<series_id>`
+
+где:
+
+- `<id>` — идентификатор фильма.
+- `<series_id>` — идентификатор серии сериала. Обязателен для сериалов
+
+Дополнительные параметры:
+
+ параметр    | смысл                              | тип   | по умолчанию
+-------------|------------------------------------|-------|--------------
+`age_filter` | возраст пользователя               | число | отсутствует
+`limit`      | количество результатов на странице | число | 1
+
+Формат ответа: сообщение `UpnextList`.
+
 ## `getfilmsfile` — Получение списка фильмов для приложения PeerSay
 
 Запрос: `/getfilmsfile/`
@@ -380,6 +398,53 @@ Films API предназначено для взаимодействия с ка
 - `Trailers` — список трейлеров
 - `Images` — скриншоты к фильму
 
+
+## UpnextList — список фильмов для непрерывного воспроизведения
+
+	message UpnextFilm {
+	  optional uint64 Id = 1;
+	  optional string Title = 2;
+	  optional string Desc = 3;
+	  optional string Updated = 4;
+	  optional uint32 Year = 5;
+	  optional string Preview = 6;
+	  optional string Poster = 7;
+	  
+	  message Item {
+        optional string Title = 1;
+        optional string Magnet = 2;
+        optional uint64 Size = 3;
+        optional uint32 Length = 4;
+        optional string Published = 5;
+	    optional uint8 Quality = 6;
+        optional uint32 Number = 7;
+        optional string PictureQuality = 8;
+	  }
+	  repeated Items Item = 8;
+
+	  repeated string Images = 9 [(CN.child_names) = "Image"];
+	}
+
+Замечания:
+
+- `Id` — идентификатор фильма
+- `Title` — название фильма
+- `Desc` — описание фильма
+- `Updated` — время последнего обновления афиши
+- `Year` — год выхода фильма
+- `Preview` — URL до маленькой картинки о фильме (используется в списках)
+- `Poster` — URL до постера фильма (используется на странице фильма)
+- `Items` — информация о сериях:
+	- `Item.Title` — название серии
+	- `Item.Magnet` — ссылка на файл серии
+	- `Item.Size` — размер серии
+	- `Item.Length` — длительность серии
+	- `Item.Published` — дата публикации серии
+	- `Item.Quality` — качество записи серии
+	- `Item.Number` — номер серии
+	- `Item.PictureQuality` — качество картинки серии
+- `Images` — скриншоты к фильму
+
 ## FilmsList, FilmAlone — список фильмов
 
 	message FilmsList {
@@ -476,3 +541,7 @@ Films API предназначено для взаимодействия с ка
 
 - Добавлены методы [`similar`][m-similar] и [`recommended`][m-recommended].
 - Добавлена сортировка в случайном порядке в методе [`list`][m-list].
+
+## Изменения в версии 2.12
+
+- Добавлен метод [`upnext`][m-upnext].
