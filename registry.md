@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
-version: 2.32
-server-version: 2.31
+version: 2.33
+server-version: 2.33
 status: согласован
 
 # Общая информация
@@ -67,6 +67,7 @@ API возвращает результат работы в HTTP–коде и �
 `19` | `money_miner`     | Конфигуратор рекламы | Инетра | [Money Miner API] | Предоставляет информацию о рекламных сетей для баннерных мест
 `20` | `launcher`        | Вывод афиш в лаунчер на приставке | Инетра и ЭГ | [Launcher API] | Предоставляет список афиш для отображения в лаунчере на приставке
 `21` | `appconfig`       | Конфигуратор приложений | Инетра      | [Appconfig API] | Предоставляет клиенту возможность получать информацию о конфигурационных параметрах.
+`22` | `promo_block`     | Промоблок | Инетра | [PromoBlock API] | Предоставляет данные для отображения промоблока (слайдера/карусели)
 
 [Auth API]: auth.md
 [Registry API]: #
@@ -87,6 +88,7 @@ API возвращает результат работы в HTTP–коде и �
 [Money Miner API]: money_miner.md
 [Launcher API]: launcher.md
 [Appconfig API]: appconfig.md
+[PromoBlock API]: promo-block.md
 
 ## Версионирование сервисов [anchor-versions]
 
@@ -332,6 +334,8 @@ API возвращает результат работы в HTTP–коде и �
 	    REGISTRY = 18 [(CN.string_value) = "registry"];
 	    MONEY_MINER = 19 [(CN.string_value) = "money_miner"];
 	    LAUNCHER = 20 [(CN.string_value) = "launcher"];
+		APPCONFIG = 21 [(CN.string_value) = "appconfig"];
+		PROMO_BLOCK = 22 [(CN.string_value) = "promo_block"];
 	  }
 	 
 	  optional Type type = 1;
@@ -763,7 +767,6 @@ API возвращает результат работы в HTTP–коде и �
 - Описание атрибутов `sizeType`, `osType` из сообщения [`ContractorInfo `][contractorinfo-message] удалено;
 - Удалено требование, обязывающие применять теги из `partnerTags` только к контрагенту, к сети которого осуществлено подключение;
 - Добавлен новый тег `no_ads` для атрибута `partnerTags` из [`ContractorInfo `][contractorinfo-message].
- 
 
 ## Изменения в версии 2.31.0 (TVREC-1348)
 
@@ -773,3 +776,6 @@ API возвращает результат работы в HTTP–коде и �
 
 - Добавлен сервис Appconfig
 
+## Изменения в версии 2.33.0 (PTVRND-894)
+
+- Добавлен сервис PromoBlock
