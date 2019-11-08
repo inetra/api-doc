@@ -68,6 +68,7 @@ API возвращает результат работы в HTTP–коде и �
 `20` | `launcher`        | Вывод афиш в лаунчер на приставке | Инетра и ЭГ | [Launcher API] | Предоставляет список афиш для отображения в лаунчере на приставке
 `21` | `appconfig`       | Конфигуратор приложений | Инетра      | [Appconfig API] | Предоставляет клиенту возможность получать информацию о конфигурационных параметрах.
 `22` | `promo_block`     | Промоблок | Инетра | [PromoBlock API] | Предоставляет данные для отображения промоблока (слайдера/карусели)
+`23` | `promocode`       | Промокод | Инетра | [Promocode API] | Предоставляет данные для отображения страницы вввода промокода
 
 [Auth API]: auth.md
 [Registry API]: #
@@ -89,6 +90,7 @@ API возвращает результат работы в HTTP–коде и �
 [Launcher API]: launcher.md
 [Appconfig API]: appconfig.md
 [PromoBlock API]: promo-block.md
+[Promocode API]: promo-code.md
 
 ## Версионирование сервисов [anchor-versions]
 
@@ -336,6 +338,7 @@ API возвращает результат работы в HTTP–коде и �
 	    LAUNCHER = 20 [(CN.string_value) = "launcher"];
 		APPCONFIG = 21 [(CN.string_value) = "appconfig"];
 		PROMO_BLOCK = 22 [(CN.string_value) = "promo_block"];
+		PROMO_BLOCK = 23 [(CN.string_value) = "promocode"];
 	  }
 	 
 	  optional Type type = 1;
