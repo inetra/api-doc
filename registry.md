@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
-version: 2.33
-server-version: 2.33
+version: 2.34
+server-version: 2.34
 status: согласован
 
 # Общая информация
@@ -68,7 +68,7 @@ API возвращает результат работы в HTTP–коде и �
 `20` | `launcher`        | Вывод афиш в лаунчер на приставке | Инетра и ЭГ | [Launcher API] | Предоставляет список афиш для отображения в лаунчере на приставке
 `21` | `appconfig`       | Конфигуратор приложений | Инетра      | [Appconfig API] | Предоставляет клиенту возможность получать информацию о конфигурационных параметрах.
 `22` | `promo_block`     | Промоблок | Инетра | [PromoBlock API] | Предоставляет данные для отображения промоблока (слайдера/карусели)
-`23` | `promocode`       | Промокод | Инетра | [Promocode API] | Предоставляет данные для отображения страницы вввода промокода
+`23` | `promocode`       | Промокод | Инетра | [Promocode API] | Предоставляет данные для отображения страницы ввода промокода
 
 [Auth API]: auth.md
 [Registry API]: #
@@ -338,7 +338,7 @@ API возвращает результат работы в HTTP–коде и �
 	    LAUNCHER = 20 [(CN.string_value) = "launcher"];
 		APPCONFIG = 21 [(CN.string_value) = "appconfig"];
 		PROMO_BLOCK = 22 [(CN.string_value) = "promo_block"];
-		PROMO_BLOCK = 23 [(CN.string_value) = "promocode"];
+		PROMOCODE = 23 [(CN.string_value) = "promocode"];
 	  }
 	 
 	  optional Type type = 1;
@@ -782,3 +782,7 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.33.0 (PTVRND-894)
 
 - Добавлен сервис PromoBlock
+
+## Изменения в версии 2.34.0 (PTVRND-812)
+
+- Добавлен сервис Promocode
