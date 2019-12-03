@@ -1,6 +1,6 @@
 title: Media Guide
-version: 2.13
-server-version: 2.11
+version: 2.14
+server-version: 2.14
 status: согласован
 quotes language: french
 
@@ -219,6 +219,15 @@ POST–запрос:
 
 Формат ответа: сообщение [`Schedule`][p-schedule].
 
+## `tvshows` — получение информации о передачах [m-tvshows]
+
+ параметр  | значение
+-----------|----------
+`tvshow`   | список идентификаторов передач через запятую
+
+Формат ответа: сообщение [`TVShowList`][p-tvshow].
+
+
 # Устаревшие методы [methods-deprecated]
 
 ## `channel` — получение информации о канале по его идентификатору (<span style="color:#f00">устарел с версии 2.7</span>) [m-channel]
@@ -258,6 +267,7 @@ POST–запрос:
 	  repeated Channel channels = 4;
 	  optional uint32 ageRestriction = 5;
 	  optional string URL = 6;
+	  repeated TelecastImage telecastImages = 7;
 	}
 	 
 	message TVShowList {
@@ -591,3 +601,6 @@ POST–запрос:
 
 1. Добавлены рубрики каналов в сообщение [`Channel`][p-channel]
 
+## Изменения в версии 2.14
+
+1. Для получения информации о передачах добавлен метод [`tvshows`][m-tvshows]
