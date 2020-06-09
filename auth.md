@@ -1,6 +1,6 @@
 title: Auth API
 status: поддерживается
-version: 2.2.0
+version: 2.2.1
 quotes language: french
 
 # Цель и смысл
@@ -344,6 +344,21 @@ Auth API предусматривает различные способы авт
 	  "account_id":"398E944A-5475-4FAB-95BA-FCB9A86DD3FA"
 	}
 
+*Запрос*
+
+	GET /auth/2/account?access_token=5f1080e637a545eeb68e99fbdfffdce4 HTTP/1.1
+	Host: api.peers.tv
+
+*Ответ*
+
+	HTTP/1.1 200 OK
+	Content-Type: application/json;charset=UTF-8
+
+	{
+	  "account_id": 379907910,
+	  "cid": 104
+	}
+
 # Спецификация API для Protocol Buffers
 
 ## `TokenReply` — получение токена доступа [p-token-reply]
@@ -392,6 +407,7 @@ Auth API предусматривает различные способы авт
 	message AccountInfo {
 	  optional string username = 1;
 	  optional uint64 account_id = 2;
+	  optional uint64 сid = 3;
 	}
 
 Замечания:
@@ -485,3 +501,7 @@ Auth API предусматривает различные способы авт
 ## Изменения в версии 2.2.0 (WEBDEV-11388)
 
 - В методе [`authorize`][m-authorize] описана возможность передачи сессии авторизации по персональной учетной записи при авторизации по PIN коду.
+
+## Изменения в версии 2.2.1
+
+- Добавлен атрибут `cid` в сообщение [`AccountInfo`][p-account-info]
