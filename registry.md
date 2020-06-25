@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
-version: 2.34
-server-version: 2.34
+version: 2.34.1
+server-version: 2.34.1
 status: согласован
 
 # Общая информация
@@ -71,7 +71,7 @@ API возвращает результат работы в HTTP–коде и �
 `23` | `promocode`       | Промокоды | Инетра | [Promocode API] | Ввод и проверка промокодов
 `24` | `feed`            | Ленты | Инетра | [Feed API] | Выдача лент контента в приложениях
 `25` | `purchases`       | Покупки | Инетра | [Purchases API] | Получения данных о покупках в приложениях
-`26` | `weather`         | Погода | Гисметео | [Weather API] | Прогноз погоды
+`26` | `gismeteo`        | Погода | Гисметео | [Gismeteo API] | Прогноз погоды от Гисметео
 
 
 [Auth API]: auth.md
@@ -94,7 +94,7 @@ API возвращает результат работы в HTTP–коде и �
 [Launcher API]: launcher.md
 [Appconfig API]: appconfig.md
 [PromoBlock API]: promo-block.md
-[Weather API]: https://www.gismeteo.ru/api/
+[Gismeteo API]: https://www.gismeteo.ru/api/
 
 ## Версионирование сервисов [anchor-versions]
 
@@ -789,3 +789,7 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.34.0
 
 - Добавлен сервисы Promocode, Feed, Purchases, Weather
+
+## Изменения в версии 2.34.1
+
+- Сервис Weather переименован в Gismeteo
