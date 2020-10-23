@@ -216,7 +216,10 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 	message VOD {
 	   optional VODType type = 1;	
 	   optional string video_id = 2;
-	   repeated Location locations = 3;
+	   optional string video_url = 3;
+	   optional DModel distribution_model = 4;
+	   optional string auth_url = 5;
+	   optional string stream_url = 6;
 
 	   enum VODType {
 	        RUTUBE= 1;
@@ -224,7 +227,15 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 	        IVI = 3;
 	        MEGOGO = 4;
 	    }	
+
+	   enum DModel {
+	        FREE= 0;
+	        AVOD = 1;
+	        SVOD = 2;
+	        TVOD = 3;
+	    }	
 	}
+
 Замечания:
 
 - `rips` — содержит описания рипов для элемента каталога
@@ -233,6 +244,11 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 - `VOD` — информация от VOD контенте, такая как
 	- `video_id` — уникальный идентификатор фильма
 	- `type` — поставщик VOD контента
+	- `video_url` - ссылка для воспроизведения в плеере (необязательна)
+	- `distribution_model` - модель распространения контента. FREE - бесплатно, AVOD - после просмотра рекламы, SVOD - по подписке, TVOD - покупка конкретной единицы контента
+	- `auth_url` - ссылка для получения токена клиентом для последующего запроса контента (для Megogo)
+	- `stream_url` - ссылка для получения контента клиентом, в запросе используется токен из ответа на запрос  **auth_url** (для Megogo)
+
 
 ## Rip — информация о рипе [rip-message]
 
@@ -463,3 +479,9 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 ## Изменение в версии 1.10.0
 
 - Описано сообщение `VOD`, содержащее информацию о источниках VOD контента.
+
+## Изменение в версии 1.11.0
+
+- Скорректирована структура `SourcesReply` для VOD контента.
+
+
