@@ -525,7 +525,16 @@ API работает по протоколу HTTP, корень доступа �
 	    repeated int32 seasons = 15;
 	    optional int32 season = 16;
 	    optional int32 episode = 17;
-	    repeated int32 VOD vod = 18;
+		optional DModel distribution_model = 18;
+	    repeated int32 VOD vod = 19;
+
+		enum DModel {
+	        FREE= 0;
+	        AVOD = 1;
+	        SVOD = 2;
+	        TVOD = 3;
+	    }	
+
 	}
 
 Замечания:
@@ -550,24 +559,41 @@ API работает по протоколу HTTP, корень доступа �
 - `seasons` --- список доступных сезонов сериала;
 - `season` --- номер сезона сериала;
 - `episode` --- номер серии сериала;
+- `distribution_model` --- модель распространения контента. FREE - бесплатно, AVOD - после просмотра рекламы, SVOD - по подписке, TVOD - покупка конкретной единицы контента
 - `vod` --- информация о VOD-контенте у разных поставщиков;
 
 ### VOD --- информация о VOD-контенте
 
 	message VOD {
-	    optional VODType type = 1;	
-	    optional string video_id = 2;
+	   optional VODType type = 1;	
+	   optional string video_id = 2;
+	   optional string video_url = 3;
+	   optional DModel distribution_model = 4;
+	   optional string auth_url = 5;
+	   optional string stream_url = 6;
 
-	    enum VODType {
+	   enum VODType {
 	        RUTUBE= 1;
 	        TVIGLE = 2;
 	        IVI = 3;
 	        MEGOGO = 4;
 	    }	
+
+	   enum DModel {
+	        FREE= 0;
+	        AVOD = 1;
+	        SVOD = 2;
+	        TVOD = 3;
+	    }	
 	}
 
-- `type` --- тип контента (поставщик);
-- `video_id` --- идентификатор видео у поставщика;
+Где
+- `video_id` — уникальный идентификатор фильма
+- `type` — поставщик VOD контента
+- `video_url` - ссылка для воспроизведения в плеере (необязательна)
+- `distribution_model` - описано выше
+- `auth_url` - ссылка для получения токена клиентом для последующего запроса контента (для Megogo)
+- `stream_url` - ссылка для получения контента клиентом, в запросе используется токен из ответа на запрос  **auth_url** (для Megogo)
 
 ### CatalogueItem --- элемент медиа каталога
 
