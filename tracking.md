@@ -27,6 +27,8 @@ status: согласован
 `2`           | Peers
 `3`           | Peers.TV
 `4`           | ByteFog
+`5`           | Peers3
+`6`           | Launcher
 
 # Принцип работы
 
