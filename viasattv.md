@@ -66,7 +66,7 @@ logo_url: "https://viasat-small.cdnvideo.ru/viasat/production/uploads/store/dict
 
 Запроса адаптивного стрима телеканала для партнерского пользователя.
 
-*/viasattv/1/stream.url?channel_id=<ID>
+*/viasattv/1/stream.url?channel_id=ID
 
 Параметр:
 - channel_id - ID канала из списка channels.json
