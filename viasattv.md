@@ -1,6 +1,6 @@
 title: Purchases
 quotes language: french
-version: 1.0.0
+version: 1.0.1
 status:  согласован
 
 # Общая информация
@@ -12,7 +12,7 @@ status:  согласован
 
 Формат вывода: JSON.
 
-Для обращения за информацией клиент НЕ должен быть авторизован, т.е. токен не требуется.
+Для обращения за информацией клиент должен быть авторизован.
 
 Документация на "ViPPlay Partner API": https://api-partner.vipplay.ru/
 
@@ -67,6 +67,8 @@ status:  согласован
 
 Запроса адаптивного стрима телеканала для партнерского пользователя.
 
+! У пользователя должна быть подписка на контент viasat !
+
 */viasattv/1/stream.url?channel_id=ID
 
 Параметр:
@@ -75,27 +77,6 @@ status:  согласован
 
 Формат ответа: пееренаправление (302 код ответа) по адресу вещания потока. Если произойдет какая-то ошибка, то код ответа будет другой, соответствующий ошибке.
 
-Для получения потока каналы был создан специальный служебный пользователь с такими параметрами:
-
-user_email=dumy@mail.ru
-user_phone=+79123456987
-user_password=password
-
-  {
-    "encrypted_email": "${encrypted_email}",
-    "encrypted_phone": "${encrypted_phone}",
-    "password": "${encrypted_password}",
-    "sub": {
-    "title": "Example sub",
-    "duration": 12,
-    "duration_unit": "month",
-    "start_at": ${current_dt},
-        "price": 100,
-        "is_trial": false
-    }
-  }
-
-То есть ссылку типа 
 "http://api.peers.tv/viasattv/1/stream.url?channel_id=3c43c6e4-7f72-490d-aa4e-393258533850"
 можно публиковать в админке сервиса Peers.TV в качестве источников для транскодеров и все будет работать.
 
