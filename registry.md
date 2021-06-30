@@ -374,6 +374,8 @@ API возвращает результат работы в HTTP–коде и �
 	      SQUARE_SOLID = 1;
 	      LAUNCHER = 2;
 	      LAUNCHER_KIDS = 3;
+	      PROGRESSBAR_POSITION = 4;
+	      PROGRESSBAR_POSITION_KIDS = 5;
 	    }
 	  
 	    optional uint32 width = 3;
@@ -418,13 +420,15 @@ API возвращает результат работы в HTTP–коде и �
 
 Описание атрибутов сообщения `ContractorImage`:
 
-- `width` — ширина логотипа в пикселях;
-- `height` — высота логотипа в пикселях;
-- `URL` — адрес логотипа;
-- `profile` — тип профиля логотипа:
+- `width` — ширина изображения в пикселях;
+- `height` — высота изображения в пикселях;
+- `URL` — адрес изображения;
+- `profile` — тип профиля изображения:
 	- `SQUARE_SOLID` — квадратный логотип со сплошной заливкой;
 	- `LAUNCHER` — логотип для приставки;
-	- `LAUNCHER_KIDS` — логотип для приставки в детском режиме.
+	- `LAUNCHER_KIDS` — логотип для приставки в детском режиме;
+	- `PROGRESSBAR_POSITION` - указатель прогрессбара для приставки;
+	- `PROGRESSBAR_POSITION_KIDS` - указатель прогрессбара для приставки в детском режиме.
 
 ## TerritoryInfo, TerritoryList — информация о территории [territoryinfo-message]
 
@@ -793,3 +797,7 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.34.1
 
 - Сервис Weather переименован в Gismeteo
+
+## Изменения в версии 2.35.0
+
+- Добавлены новые типы профилей изображений `PROGRESSBAR_POSITION` и `PROGRESSBAR_POSITION_KIDS` в сообщениях `ContractorImage`
