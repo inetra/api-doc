@@ -1,7 +1,7 @@
 title: Registry API
 quotes language: french
-version: 2.34.1
-server-version: 2.34.1
+version: 2.35.1
+server-version: 2.35.1
 status: согласован
 
 # Общая информация
@@ -376,6 +376,8 @@ API возвращает результат работы в HTTP–коде и �
 	      LAUNCHER_KIDS = 3;
 	      PROGRESSBAR_POSITION = 4;
 	      PROGRESSBAR_POSITION_KIDS = 5;
+	      LAUNCHER_VERTICAL = 6;
+	      LAUNCHER_VERTICAL_KIDS = 7;
 	    }
 	  
 	    optional uint32 width = 3;
@@ -428,7 +430,9 @@ API возвращает результат работы в HTTP–коде и �
 	- `LAUNCHER` — логотип для приставки;
 	- `LAUNCHER_KIDS` — логотип для приставки в детском режиме;
 	- `PROGRESSBAR_POSITION` - указатель прогрессбара для приставки;
-	- `PROGRESSBAR_POSITION_KIDS` - указатель прогрессбара для приставки в детском режиме.
+	- `PROGRESSBAR_POSITION_KIDS` - указатель прогрессбара для приставки в детском режиме;
+	- `LAUNCHER_VERTICAL` - вертикальный логотип для приставки;
+	- `LAUNCHER_VERTICAL_KIDS` - вертикальный логотип для приставки в детском режиме.
 
 ## TerritoryInfo, TerritoryList — информация о территории [territoryinfo-message]
 
@@ -801,3 +805,7 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.35.0
 
 - Добавлены новые типы профилей изображений `PROGRESSBAR_POSITION` и `PROGRESSBAR_POSITION_KIDS` в сообщениях `ContractorImage`
+
+## Изменения в версии 2.35.1
+
+- Добавлены новые типы профилей изображений `LAUNCHER_VERTICAL` и `LAUNCHER_VERTICAL_KIDS` в сообщениях `ContractorImage`
