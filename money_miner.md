@@ -561,6 +561,66 @@ MoneyMiner API предназначен для медиации и таргет�
 		- `positive_tags` — тэги, входящие в положительные литералы
 		- `negative_tags` — тэги, входящие в отрицательные литералы
 
+## erid — получение информации об erid
+
+Параметры:
+
+параметр    | тип данных      | значение
+--------    |-----------------|-----------
+`network_id`| строка          | идентификатор рекламной сети
+`place_id`  | строка          | идентификатор рекламного места
+
+Важно(!): В body нужно передать vast в формате xml
+
+### Пример успешного взаимодействия
+
+*Запрос*
+
+	GET /money_miner/1/erid.json?network_id=2&place_id=nncD2og3
+	Authorization: Bearer 18dasd81230dah12032
+	Host: api.peers.tv
+	Content-Type: application/xml
+	<VAST xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iab.com/VAST" version="4.0">........
+
+*Ответ*
+
+	HTTP/1.1 200 OK
+	Content-Type: application/json
+
+```
+{
+    "erid": {
+        "id": 5,
+        "network_id": 2,
+        "erid_external_id": 1,
+        "percent_erid_top": 20,
+        "percent_erid_left": 20,
+        "background_color_erid": "#FFC1CB",
+        "font_color_erid": "#FFC1CB",
+        "font_size_erid": 12,
+        "erid_value": "2RanykfPadaaS6k"
+    }
+}
+```
+### Пример отсутствия у рекламного места ERID 
+```
+{
+    "erid": null
+}
+```
+
+
+
+
+Замечания:
+
+- `erid_external_id` — id способа передачи erid. На текущий момент доступны: 1 - videocontact, 2 - no erid (erid не передается)
+- `percent_erid_top` — Месторасположение левого верхнего угла ERID сверху (в процентах, а не пикселях) 
+- `percent_erid_left` — Месторасположение левого верхнего угла ERID слева (в процентах, а не пикселях) 
+- `font_size_erid` — Размер шрифта надписи ERID в пунктах(в пикселях)
+- `background_color_erid` — Цвет фона блока ERID
+- `font_color_erid` — Цвет шрифта блока ERID
+- `erid_value` — Значение ERID
 
 # История изменений
 
@@ -680,3 +740,7 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.9.2
 
 - Добавлен новый серверный макрос `[IP_ADDRESS]` для VAST-рекламы.
+
+## Изменения в версии 1.9.3
+
+- Добавлено описание метода erid
