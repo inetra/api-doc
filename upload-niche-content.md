@@ -28,28 +28,13 @@ GET */list.json?p=1*
 
 ```
 {
-    total: 100,
-    page: 10,
-    content_list": [
+    "total": 1,
+    "page": 1,
+    "content_list": [
         {
-        	"id": "445745287",
-        	"link": "http://films.cn.ru/131-FAST/sorted/r/rio_2011.avi",
-        	"status": "awaiting"
-        },
-        {
-          	"id": "445745288",
-          	"link": "http://films.cn.ru/131-FAST/sorted/r/rio_2011.avi",
-          	"status": "awaiting"
-        },
-        {
-          	"id": "445745289",
-          	"link": "http://films.cn.ru/131-FAST/sorted/r/rio_2011.avi",
-          	"status": "awaiting"
-        },
-        {
-          	"id": "445745289",
-          	"link": "http://films.cn.ru/131-FAST/sorted/r/rio_2011.avi",
-          	"status": "awaiting"
+            "id": 477067876,
+            "encoding_status_id": 1,
+            "source_url": "magnet:?xt=urn:tree:tiger:EJRK5ILDCC3GCO7HSP675IZWKWLK6CTK2PY5DSQ&dn=sorted&xl=1534730688"
         }
     ]
 }
@@ -59,8 +44,8 @@ GET */list.json?p=1*
 - `total` — Количество элементов, ожидающих кодировки
 - `page` — Количество страниц
 - `id` — Идентификатор контента
-- `link` — Ссылка для скачивания контента
-- `status` — Статус кодировки контента
+- `source_url` — Ссылка для кодирования контента
+- `encoding_status_id` — Статус кодировки контента
 
 Параметры:
 
@@ -69,8 +54,9 @@ GET */list.json?p=1*
 `p`          |   число         | номер страницы для пагинации. Одна страница содержит 20 элементов 
 
 Замечания:
-- `status` — возможные значения:
-	- `awaiting` — Контент ожидает кодировки
+- `encoding_status_id` — возможные значения:
+	- `1` — Контент ожидает кодировки
+	
 
 #Важно 
 Если контент взят в работу - у него меняется статус и он пропадает из данного списка. 
@@ -97,6 +83,14 @@ POST */update-status.json?status=successfully&id=445745287&link=https://hls.peer
 5. status=successfully&id=445745287&link=https://hls.peers.tv/inetra-test/top_gun_maverick_2022/top_gun_maverick_2022/playlist.m3u8
 
 **Важно: Все остальные комбинации параметров являются недопустимыми (!)**
+Возможные переходы по статусам: 
+1. awaiting -> failure, awaiting->totranscoder
+2. totranscoder-> failure, totranscoder-> bytranscoder
+3. bytranscoder -> failure, bytranscoder-> inprogresing
+4. inprogresing -> failure, successfully
+5. failure -> awaiting
+**Важно: Все остальные варианты являются недопустимыми**
+
 
 ## Возвращаемый результат
 
