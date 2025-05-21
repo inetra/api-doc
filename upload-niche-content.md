@@ -62,7 +62,7 @@ GET */list.json?p=1*
 Если контент взят в работу - у него меняется статус и он пропадает из данного списка. 
 
 # Изменить статус кодировки контента [update-status]
-POST */update-status.json?status=successfully&id=445745287&link=https://hls.peers.tv/inetra-test/top_gun_maverick_2022/top_gun_maverick_2022/playlist.m3u8*
+POST */updateStatus.json?status=successfully&id=445745287&link=https://hls.peers.tv/inetra-test/top_gun_maverick_2022/top_gun_maverick_2022/playlist.m3u8*
 
 **Важно: uri-кодирование не требуется.
 
