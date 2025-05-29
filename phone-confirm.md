@@ -1,5 +1,5 @@
 title: PHONE-CONFIRM API
-status: в разработке
+status: согласован
 version: 2.0.0
 
 # Цель и смысл
