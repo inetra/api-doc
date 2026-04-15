@@ -366,6 +366,45 @@ MoneyMiner API предназначен для медиации и таргет�
 - `[REQUEST_UUID]` - идентификатор запроса рекламы
 - макросы, созданные на странице [Макросы рекламных сетей](https://peers.tv/admin/adlocator/macros/) в админ-панели, которые порождают предикаты применимости для каждой рекламной сети, у которых они определены
 
+| Макрос                  | Платформа  
+|-------------------------|------------
+|[CACHEBUSTING].          | Android, LG, Sumsung, Hisense, IOS
+|[INT_CACHEBUSTING].      | Android
+|[USER_ID]                | Android, LG, Sumsung, Hisense, IOS
+|[SESSION_ID]             | Android
+|[INSTALL_ID]             | Android, LG, Sumsung, Hisense, IOS
+|[CHANNEL_ID]             | Android, LG, Sumsung, Hisense, IOS
+|[DEVICE_MODEL]           | Android, LG, Sumsung, Hisense, IOS
+|[DEVICE_MANUFACTURER]    | Android
+|[DEVICE_BRAND]           | Android
+|[DEVICE_ID]              | Android, LG, Sumsung, Hisense, IOS
+|[WATCH_ID]               | Android
+|[AD_COUNT]               | Android
+|[PLAYER_SIZE_WIDTH]      | -
+|[PLAYER_SIZE_HEIGHT]     | -
+|[VOLUME_STATE]           | Android
+|[IS_MUTE]                | Android
+|[CONTENT_NAMESPACE]      | Android
+|[CONTENT_ID]             | Android
+|[CONTENT_TYPE]           | Android
+|[CONTENT_DURATION]       | -
+|[CONTENT_CATEGORY]       | -
+|[SESSION_DURATION]       | Android
+|[SCREEN_SIZE_WIDTH]      | Android
+|[SCREEN_SIZE_HEIGHT]     | Android
+|[SYSTEM_LANGUAGE]        | Android
+|[MAC_ADDRESS]            | -
+|[TIME_ZONE]              | Android
+|[TIME_ZONE_ID]           | Android
+|[TIME_ZONE_OFFSET]       | Android
+|[OS_NAME]                | Android
+|[OS_VERSION]             | Android
+|[APP_NAME]               | Android
+|[APP_BUNDLE]             | Android
+|[APP_VERSION]            | Android
+
+
+
 Идентификатор запроса рекламы нужен для отладки трекинга между партнером и Peers.TV. Так, в Rambler SSP можно передать идентификатор запроса в параметре eid1 или eid2, после чего сделать выгрузку сырых данных с этими значениями.
 
 Если в VAST-тэге рекламной сети есть макрос `[REQUEST_UUID]`, сервер интерпретирует его как серверный и маскирует запрос также, как он это делает с серверными макросами. Но вместо конкректного UUID запроса, он заполняет значение query-параметра `request_uuid` специальным значением `_GENERATE_UUID_`.
