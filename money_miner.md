@@ -366,42 +366,42 @@ MoneyMiner API предназначен для медиации и таргет�
 - `[REQUEST_UUID]` - идентификатор запроса рекламы
 - макросы, созданные на странице [Макросы рекламных сетей](https://peers.tv/admin/adlocator/macros/) в админ-панели, которые порождают предикаты применимости для каждой рекламной сети, у которых они определены
 
-| Макрос                  | Платформа  
+| Макрос                  | Android|IOS|LG|Sumsung|Hisense  
 |-------------------------|------------
-|[CACHEBUSTING].          | Android, LG, Sumsung, Hisense, IOS
-|[INT_CACHEBUSTING].      | Android
-|[USER_ID]                | Android, LG, Sumsung, Hisense, IOS
-|[SESSION_ID]             | Android
-|[INSTALL_ID]             | Android, LG, Sumsung, Hisense, IOS
-|[CHANNEL_ID]             | Android, LG, Sumsung, Hisense, IOS
-|[DEVICE_MODEL]           | Android, LG, Sumsung, Hisense, IOS
-|[DEVICE_MANUFACTURER]    | Android
-|[DEVICE_BRAND]           | Android
-|[DEVICE_ID]              | Android, LG, Sumsung, Hisense, IOS
-|[WATCH_ID]               | Android
-|[AD_COUNT]               | Android
+|[CACHEBUSTING].          | <7.15.8|<4.7|<11.1.8|<11.1.8|<11.1.8
+|[INT_CACHEBUSTING].      | 7.16.24|-|-|-|-
+|[USER_ID]                | <7.15.8|<4.7|<11.1.8|<11.1.8|<11.1.8
+|[SESSION_ID]             | 7.16.24|-|-|-|-
+|[INSTALL_ID]             | <7.15.8|<4.7|<11.1.8|<11.1.8|<11.1.8
+|[CHANNEL_ID]             | <7.15.8|<4.7|<11.1.8|<11.1.8|<11.1.8
+|[DEVICE_MODEL]           | <7.15.8|<4.7|<11.1.8|<11.1.8|<11.1.8
+|[DEVICE_MANUFACTURER]    | 7.16.24|-|-|-|-
+|[DEVICE_BRAND]           | 7.16.24|-|-|-|-
+|[DEVICE_ID]              | <7.15.8|<4.7|<11.1.8|<11.1.8|<11.1.8
+|[WATCH_ID]               | 7.16.24|-|-|-|-
+|[AD_COUNT]               | 7.16.24|-|-|-|-
 |[PLAYER_SIZE_WIDTH]      | -
 |[PLAYER_SIZE_HEIGHT]     | -
-|[VOLUME_STATE]           | Android
-|[IS_MUTE]                | Android
-|[CONTENT_NAMESPACE]      | Android
-|[CONTENT_ID]             | Android
-|[CONTENT_TYPE]           | Android
+|[VOLUME_STATE]           | 7.16.24|-|-|-|-
+|[IS_MUTE]                | 7.16.24|-|-|-|-
+|[CONTENT_NAMESPACE]      | 7.15.3 |-|11.2.2|11.2.2|11.2.2
+|[CONTENT_ID]             | 7.15.3 |-|11.2.2|11.2.2|11.2.2
+|[CONTENT_TYPE]           | 7.16.24|-|-|-|-
 |[CONTENT_DURATION]       | -
 |[CONTENT_CATEGORY]       | -
-|[SESSION_DURATION]       | Android
-|[SCREEN_SIZE_WIDTH]      | Android
-|[SCREEN_SIZE_HEIGHT]     | Android
-|[SYSTEM_LANGUAGE]        | Android
+|[SESSION_DURATION]       | 7.16.24|-|-|-|-
+|[SCREEN_SIZE_WIDTH]      | 7.16.24|-|-|-|-
+|[SCREEN_SIZE_HEIGHT]     | 7.16.24|-|-|-|-
+|[SYSTEM_LANGUAGE]        | 7.16.24|-|-|-|-
 |[MAC_ADDRESS]            | -
-|[TIME_ZONE]              | Android
-|[TIME_ZONE_ID]           | Android
-|[TIME_ZONE_OFFSET]       | Android
-|[OS_NAME]                | Android
-|[OS_VERSION]             | Android
-|[APP_NAME]               | Android
-|[APP_BUNDLE]             | Android
-|[APP_VERSION]            | Android
+|[TIME_ZONE]              | 7.16.24|-|-|-|-
+|[TIME_ZONE_ID]           | 7.16.24|-|-|-|-
+|[TIME_ZONE_OFFSET]       | 7.16.24|-|-|-|-
+|[OS_NAME]                | 7.16.24|-|-|-|-
+|[OS_VERSION]             | 7.16.24|-|-|-|-
+|[APP_NAME]               | 7.16.24|-|-|-|-
+|[APP_BUNDLE]             | 7.16.24|-|-|-|-
+|[APP_VERSION]            | 7.16.24|-|-|-|-
 
 
 
