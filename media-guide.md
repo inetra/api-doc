@@ -1,6 +1,6 @@
 title: Media Guide
-version: 2.14
-server-version: 2.14
+version: 2.15
+server-version: 2.15
 status: согласован
 quotes language: french
 
@@ -74,12 +74,50 @@ quotes language: french
 -----------------|------------------------------|--------------------|-----------------------
 `t`              | идентификатор территории[^1] | число              | автоматически определенная
 `c`              | идентификатор контрагента[^1]| число              | автоматически определенный
+`vitrina_timezone_name` | IANA timezone_name версии канала Vitrina[^2] | строка или список через запятую | отсутствует
+`vitrina_region` | код региона ISO 3166-2 версии канала Vitrina[^2] | строка или список через запятую | отсутствует
+`vitrina_geoname_id` | идентификатор GeoNames версии канала Vitrina[^2] | строка или список через запятую | отсутствует
 
 [^1]: из [Registry API][registry-api-ref]
+[^2]: см. [Выбор программной зоны по меткам Vitrina][vitrina-zone-selection]
 
 Замечания:
 
 1. Рекомендуется явно указывать территорию, для которой запрашивается программа передач.
+2. Параметры `vitrina_timezone_name`, `vitrina_region` и `vitrina_geoname_id` используются для выбора программной зоны по меткам Vitrina TV (см. ниже). Параметр `t` при их наличии не используется для выбора зоны.
+
+## Выбор программной зоны по меткам Vitrina [vitrina-zone-selection]
+
+Параметры позволяют выбрать программную зону канала по меткам распространения версии канала Vitrina TV:
+
+| параметр | соответствие в EPG/API Vitrina | пример |
+|----------|--------------------------------|--------|
+| `vitrina_timezone_name` | `timezone_name` (IANA Time Zone Database) | `Asia/Yekaterinburg` |
+| `vitrina_region` | `region` (ISO 3166-2) | `RU-CHE` |
+| `vitrina_geoname_id` | `geoname_id` (GeoNames) | `1486209` |
+
+Несколько значений в одном параметре передаются через запятую.
+Пустая строка означает отсутствие меток данного типа; строка без запятых — одну метку.
+
+Обратная совместимость: параметр `geo` является синонимом `vitrina_timezone_name`.
+
+Правило поиска зоны:
+
+1. Все переданные значения `vitrina_timezone_name`, `vitrina_region` и `vitrina_geoname_id` объединяются в один набор меток.
+2. Выбирается активная зона канала, в поле `geo` которой содержатся **все** переданные метки (логическое «И»).
+3. Если точной зоны нет, используется зона с меткой `World/Anywhere` (если есть).
+
+Клиент с плеером Vitrina: если Orbit отдал событие выбора версии, но все три метки пустые
+(у версии нет `target_regions`), нужно передать `vitrina_timezone_name=World/Anywhere`.
+Иначе параметры не попадут в запрос, и зона будет выбрана по территории `t`, а не по EPG Vitrina.
+
+Пример:
+
+	.../schedule.json?channel=10338229&dates=2026-07-16&vitrina_timezone_name=Asia/Yekaterinburg&vitrina_region=RU-SVE
+
+Пример для версии без региональных меток:
+
+	.../schedule.json?channel=…&dates=2026-07-16&vitrina_timezone_name=World/Anywhere
 
 ## Локализация
 
@@ -604,3 +642,10 @@ POST–запрос:
 ## Изменения в версии 2.14
 
 1. Для получения информации о передачах добавлен метод [`tvshows`][m-tvshows]
+
+## Изменения в версии 2.15
+
+1. Добавлены общие параметры `vitrina_timezone_name`, `vitrina_region`, `vitrina_geoname_id` для выбора программной зоны по меткам Vitrina TV (`timezone_name` / ISO 3166-2 / GeoNames).
+2. Поиск зоны выполняется по наличию **всех** переданных меток в поле зоны `geo`.
+3. Параметр `geo` сохранён как синоним `vitrina_timezone_name` для обратной совместимости.
+4. При пустых метках Orbit клиент передаёт `vitrina_timezone_name=World/Anywhere`, чтобы выбрать зону Vitrina без региональной привязки.
