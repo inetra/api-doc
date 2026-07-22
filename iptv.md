@@ -17,6 +17,12 @@ IPTV сервис предоставляет ссылку на список ис
 
 	Peers.TV/3.2.1 (iOS/7.1.0; iPhone/6,2; build 484) Darwin/14.0.0
 
+Для правил доступа к типам источников (в том числе по минимальной версии клиента) предпочтительно передавать заголовок `X-User-Agent` в формате `Peers.TV/<ver> ...`. Если кастомный заголовок недоступен (например, на части Smart TV), допускается query-параметр `ua` с тем же значением:
+
+	GET /iptv/2/playlist.m3u?ua=Peers.TV%2F3.2.1%20...
+
+Приоритет: `X-User-Agent`, затем `ua`, затем `User-Agent`.
+
 [rfc2616]: https://www.ietf.org/rfc/rfc2616.txt
 [m3u-extending]: m3u-extending.md
 [xspf-extending]: xspf-extending.md
