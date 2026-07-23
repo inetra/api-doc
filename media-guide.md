@@ -1,6 +1,6 @@
 title: Media Guide
-version: 2.15
-server-version: 2.15
+version: 2.16
+server-version: 2.16
 status: согласован
 quotes language: french
 
@@ -111,9 +111,17 @@ quotes language: french
 (у версии нет `target_regions`), нужно передать `vitrina_timezone_name=World/Anywhere`.
 Иначе параметры не попадут в запрос, и зона будет выбрана по территории `t`, а не по EPG Vitrina.
 
+Правило выбора зоны применяется ко всем zone-sensitive методам Media Guide:
+
+- [`schedule`][m-schedule] — расписание передач;
+- [`channels`][m-channels] — поля `currentTelecast`, `scheduledDates`, `hasSchedule`;
+- [`channel`][m-channel] — полная информация о канале (включая текущую передачу и даты).
+
 Пример:
 
 	.../schedule.json?channel=10338229&dates=2026-07-16&vitrina_timezone_name=Asia/Yekaterinburg&vitrina_region=RU-SVE
+
+	.../channels.json?channel=10338245&fields=currentTelecast&t=126&vitrina_timezone_name=Asia/Novosibirsk
 
 Пример для версии без региональных меток:
 
@@ -236,6 +244,15 @@ POST–запрос:
 
 Если параметр `channel` не задан, то должна быть возвращена информация по всем каналам.
 
+Поля `currentTelecast`, `scheduledDates` и `hasSchedule` зависят от выбранной программной зоны.
+При запросе каналов Vitrina/Orbit клиент должен передавать те же общие параметры `vitrina_*`, что и для [`schedule`][m-schedule]
+(см. [Выбор программной зоны по меткам Vitrina][vitrina-zone-selection]).
+Поле `currentTelecast` не входит в набор полей по умолчанию — его нужно явно указать в `fields`.
+
+Пример:
+
+	GET /tvguide/2/channels.json?channel=10338245&fields=currentTelecast,hasSchedule&t=126&vitrina_timezone_name=Asia/Novosibirsk&vitrina_region=&vitrina_geoname_id=
+
 Формат ответа: сообщение [`ChannelsList`][p-channelslist].
 
 ## `schedule` — получение расписания для канала [m-schedule]
@@ -244,6 +261,8 @@ POST–запрос:
 ----------|--------------|--------------
 `channel` | отсутствует  | идентификатор канала
 `dates`   | текущий день | даты, по которой выдать расписание (в формате `YYYY-MM-DD`, через запятую)
+
+Выбор программной зоны — по общим параметрам `t` / `vitrina_*` (см. [Выбор программной зоны по меткам Vitrina][vitrina-zone-selection]).
 
 Формат ответа: сообщение [`Schedule`][p-schedule].
 
@@ -649,3 +668,9 @@ POST–запрос:
 2. Поиск зоны выполняется по наличию **всех** переданных меток в поле зоны `geo`.
 3. Параметр `geo` сохранён как синоним `vitrina_timezone_name` для обратной совместимости.
 4. При пустых метках Orbit клиент передаёт `vitrina_timezone_name=World/Anywhere`, чтобы выбрать зону Vitrina без региональной привязки.
+
+## Изменения в версии 2.16
+
+1. Уточнено, что выбор программной зоны по `vitrina_*` применяется к [`channels`][m-channels] (`currentTelecast`, `scheduledDates`, `hasSchedule`) и [`channel`][m-channel], а не только к [`schedule`][m-schedule].
+2. Для `hasSchedule` при наличии `vitrina_*` учитываются geo-зоны канала (ранее учитывались только зоны без `geo`).
+3. В описание [`channels`][m-channels] добавлен пример запроса текущей передачи с параметрами Vitrina.
