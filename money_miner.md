@@ -1,5 +1,5 @@
 title: Money Miner
-version: 1.11.0
+version: 1.12.1
 status: согласован
 quotes language: french
 
@@ -11,6 +11,7 @@ MoneyMiner API предназначен для медиации и таргет�
 - отключить рекламу для определенного провайдера
 - отключить рекламу для пользователя, оформившего подписку
 - старгетировать рекламную сеть на определенную территорию (Европа)
+- получить упорядоченную цепочку мест для preroll/midroll (`breaks`)
 
 # Взаимодействие с API
 
@@ -514,6 +515,66 @@ MoneyMiner API предназначен для медиации и таргет�
 	   "request_delay":15
 	   }]
 	}
+
+## breaks — упорядоченная цепочка мест (preroll / midroll) [m-breaks]
+
+Параметры:
+
+параметр       | тип данных | значение
+---------------|------------|-----------
+`app`          | строка     | code приложения из AdLocator (обязательный)
+`content_type` | строка     | тип контента (обязательный): `live`, `catchup`, `vod`
+`break`        | строка     | тип рекламной паузы: `preroll` (по умолчанию), `midroll`
+
+Иные значения `content_type` / `break` — ответ `400`.
+
+Формат ответа: [`AdPlaceList`][p-ad-place-list] — массив `places` **в порядке показа**.
+
+Пустой массив `places` означает: мест в цепочке нет (для preroll — сразу контент; для midroll — не показывать паузу).
+
+Клиент должен последовательно показать каждое место из списка; при no-fill переходить к следующему месту (не прерывать цепочку).
+
+Разные платформы / форм-факторы (mobile vs STB и т.п.) — разные приложения AdLocator (`app`), не отдельные параметры запроса.
+
+### Пример успешного взаимодействия
+
+*Запрос*
+
+	GET /money_miner/1/breaks.json?app=smarttv_tizen&content_type=live&break=preroll
+	Authorization: Bearer 18dasd81230dah12032
+	Host: api.peers.tv
+
+*Ответ*
+
+	HTTP/1.1 200 OK
+	Content-Type: application/json
+
+	{
+	   "places": [{
+	      "place_id":"Xi7EVQE7",
+	      "ad_systems": [{
+	          "type":1,
+	          "name":"Адривер",
+	          "id":370223,
+	          "price":200,
+	          "banner_type":3,
+	          "params": [{
+	             "key":"vast_ad_tag",
+	             "value":"http://ad.adriver.ru/cgi-bin/erle.cgi?sid=170878&sz=test&bn=322&target=top&bt=61&pz=1&rnd=[CACHEBUSTING]"
+	          }]
+	       }],
+	      "request_delay":15
+	   }, {
+	      "place_id":"3R5FEfv7",
+	      "ad_systems": [],
+	      "request_delay":15
+	   }]
+	}
+
+*Запрос midroll*
+
+	GET /money_miner/1/breaks.json?app=android_mobile&content_type=vod&break=midroll
+
 
 # Описание ответов в формате Google Protocol Buffers
 
