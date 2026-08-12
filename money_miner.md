@@ -686,7 +686,7 @@ MoneyMiner API предназначен для медиации и таргет�
 
 *Запрос*
 
-	GET /money_miner/1/erid.json?network_id=2&place_id=nncD2og3
+	POST /money_miner/1/erid.json?network_id=2&place_id=nncD2og3
 	Authorization: Bearer 18dasd81230dah12032
 	Host: api.peers.tv
 	Content-Type: application/xml
@@ -726,7 +726,8 @@ MoneyMiner API предназначен для медиации и таргет�
 
 Замечания:
 
-- `erid_external_id` — id способа передачи erid. На текущий момент доступны: 1 - videocontact, 2 - no erid (erid не передается)
+- при не-null `erid` объект всегда содержит полный набор полей с типами как в примере выше; `id` — id записи default ERID сети (`m_adnetworkerid_network2erid`) либо id привязки места к сети (`m_adlinks_place2network`) при link-level override
+- `erid_external_id` — id способа передачи erid: 1 — videocontact, 2 — no erid (ответ `{ "erid": null }`), 3 — DigitalAlliance, 4 — GPM
 - `percent_erid_top` — Месторасположение левого верхнего угла ERID сверху (в процентах, а не пикселях) 
 - `percent_erid_left` — Месторасположение левого верхнего угла ERID слева (в процентах, а не пикселях) 
 - `font_size_erid` — Размер шрифта надписи ERID в пунктах(в пикселях)
@@ -864,4 +865,8 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.11.0
 
 - Для выдачи рекламы принимается просроченный, но криптографически валидный access token; 401 за expiry не отдаётся.
+
+## Изменения в версии 1.11.1
+
+- Метод `erid`: пример запроса исправлен на POST; задокументированы режимы DigitalAlliance (3) и GPM (4); при не-null `erid` гарантирован полный набор полей, включая `id`.
 
