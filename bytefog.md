@@ -1,6 +1,8 @@
+---
 title: ByteFog API
 version: 1.1
 status: согласован
+---
 
 # Введение
 

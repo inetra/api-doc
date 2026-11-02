@@ -1,7 +1,9 @@
+---
 title: PromoBlock API
 quotes language: french
 version: 1.0
 status: согласован
+---
 
 # Введение
 
@@ -56,7 +58,7 @@ status: согласован
 
 # Форматы сообщений
 
-## CreativeList --- список креативов для показа в промоблоке [p-creative-list]
+## CreativeList --- список креативов для показа в промоблоке <a id="p-creative-list"></a>
 
     message CreativeList {
         repeated Creative items = 1;
@@ -82,7 +84,7 @@ status: согласован
 - `images` - список картинок в разных профилях, клиент может игнорировать креатив, если подходящая картинка отсутствует
 - `contentItem` - контент, связанный с креативом - предполагается, что креатив ведёт на страницу этого контента
 
-## CreativeImage --- картинка креатива в одном профиле [p-creative-image]
+## CreativeImage --- картинка креатива в одном профиле <a id="p-creative-image"></a>
 
     message CreativeImage {
         required string url = 1;
@@ -143,3 +145,6 @@ status: согласован
 (PTVRND-2464)
 
 - добавлена поддержка нишевого контента.
+
+[p-creative-image]: #p-creative-image
+[p-creative-list]: #p-creative-list

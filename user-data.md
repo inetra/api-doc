@@ -1,8 +1,10 @@
+---
 title: User Data API
 quotes language: french
 version: 1.13.4
 server-version: 1.13
 status: согласован
+---
 
 # Общее описание
 
@@ -63,7 +65,7 @@ status: согласован
 
 [Unix-time]: https://ru.wikipedia.org/wiki/UNIX-время
 
-## Фильтр элементов [filter-syntax]
+## Фильтр элементов <a id="filter-syntax"></a>
 
 При выборке элементов используется понятие фильтра элементов. Фильтр — это выражение, определяющее критерии отбора элементов. Если фильтр не указан, в выборку попадают все элементы.
 
@@ -85,7 +87,7 @@ status: согласован
 
 Оператор равенства для единичных атрибутов позволяет сокращать запись для огранизации множественных выборок, указывая имя атрибута один раз (ср. с оператором `IN` в SQL)
 
-### Операторы над множественными атрибутами [multivalue-operators] ##
+### Операторы над множественными атрибутами <a id="multivalue-operators"></a> ##
 
 Для множественных атрибутов операции равносильны работе со множествами, при этом правый операнд трактуется как множество, состоящее из перечисленных через запятую элементов.
 
@@ -224,7 +226,7 @@ status: согласован
 
 Для ограничений можно провести аналогию с хранением данных в файловой системе.  Допустим, в файловой системе создан отдельный логический раздел D, который ограничен объемом хранения данных в 10Гб. Пользователь может заполнить все свободное место на логическом разделе D, но не сможет превысить ограничение, несмотря на то, что логический раздел D представляет только часть физического диска, суммарный объем которого может быть значительно больше 10Гб.
 
-## Алгоритм слияния элементов [merge-data]
+## Алгоритм слияния элементов <a id="merge-data"></a>
 
 При объединении учетных записей необходимо также произвести слияние элементов пользовательских данных. Для слияния элементов используется следующий алгоритм:
 
@@ -458,7 +460,7 @@ API работает по протоколу HTTPS (передаваемые д�
 - `201` — элемент создан;
 - `489` — превышено ограничение по использованию ресурсов.
 
-## delete — удаление дочерних элементов [m-delete]
+## delete — удаление дочерних элементов <a id="m-delete"></a>
 
 Дополнительные параметры:
 
@@ -749,7 +751,7 @@ API работает по протоколу HTTPS (передаваемые д�
 	  optional int64 mtime = 5 [(mandatory) = true, (read_only) = true];
 	}
 
-## device — устройство [class-device]
+## device — устройство <a id="class-device"></a>
 
 	message DeviceClass {
 	  option (class_name) = "device";
@@ -782,7 +784,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-devices] использования класса
 
-## application — приложение [class-application]
+## application — приложение <a id="class-application"></a>
 
 	message ApplicationClass {
 	  option (class_name) = "application";
@@ -799,7 +801,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-application] использования класса
 
-## catalogue_item — элемент каталога [class-catalogue-item]
+## catalogue_item — элемент каталога <a id="class-catalogue-item"></a>
 
 	message CatalogueItemClass {
 	  option (class_name) = "catalogue_item";
@@ -812,7 +814,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-catalogue_item] использования класса
 
-## action — действие [class-action]
+## action — действие <a id="class-action"></a>
 
 	message ActionClass {
 	  option (class_name) = "action";
@@ -823,7 +825,7 @@ Eltex NV100/101   | 6
 	  optional string application_id = 109;
 	}
 
-## time_limited_playback — воспроизведение медиа, ограниченного во времени [class-time-limited-playback]
+## time_limited_playback — воспроизведение медиа, ограниченного во времени <a id="class-time-limited-playback"></a>
 
 	message TimeLimitedPlaybackClass {
 	  option (class_name) = "time_limited_playback";
@@ -834,7 +836,7 @@ Eltex NV100/101   | 6
 	  optional bool playback_stopped = 111 [(mandatory) = true];
 	}
 
-## bookmark — закладка [class-bookmark]
+## bookmark — закладка <a id="class-bookmark"></a>
 
 	message Bookmark {
 	  option (class_name) = "bookmark";
@@ -847,7 +849,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-bookmark] использования класса
 
-## location — геолокация [class-location]
+## location — геолокация <a id="class-location"></a>
 
 	message Location {
 	  option (class_name) = "location";
@@ -864,7 +866,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-location] использования класса
 
-## subscription — подписка [class-subscription]
+## subscription — подписка <a id="class-subscription"></a>
 
 	enum EventType {
 	  // Событие от редакции
@@ -881,7 +883,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-subscription] использования класса
 
-## storage_constraint — политика хранения элемента [class-storage-constraint]
+## storage_constraint — политика хранения элемента <a id="class-storage-constraint"></a>
 
 	message StorageConstraint {
 	  option (class_name) = "storage_constraint";
@@ -891,7 +893,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-storage-constraint] использования класса
 
-## credential — секретная фраза: PIN–код, пароль, токен [class-credential]
+## credential — секретная фраза: PIN–код, пароль, токен <a id="class-credential"></a>
 
 	message Credential {
 	  option (class_name) = "credential";
@@ -901,7 +903,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-credential] использования класса
 
-## application_reference — ссылка на установку приложения [class-application-reference]
+## application_reference — ссылка на установку приложения <a id="class-application-reference"></a>
 
 	message ApplicationReference {
 	  option (class_name) = "application_reference";
@@ -911,7 +913,7 @@ Eltex NV100/101   | 6
 
 [Пример][usage-credential] использования класса
 
-## purchase — покупка пользователя [class-purchase]
+## purchase — покупка пользователя <a id="class-purchase"></a>
 
 	message Purchase {
 	  option (class_name) = "purchase";
@@ -984,7 +986,7 @@ Eltex NV100/101   | 6
 
 **ВАЖНО**: использование объявленных классов и рекомендуемой иерархии не по назначению может иметь негативные последствия при объединении данных пользователя. Если сценарий использования класса (-ов), не описан в данной документации, то необходимо обратиться к инженеру, сопровождающему документацию.
 
-## /devices [usage-devices]
+## /devices <a id="usage-devices"></a>
 
 Хранит устройства пользователя. Может использоваться для организации проталкивающих уведомлений на устройства пользователя.
 
@@ -992,7 +994,7 @@ Eltex NV100/101   | 6
 
 В качестве идентификаторов элементов выступают идентификаторы устройств.
 
-## /applications [usage-application]
+## /applications <a id="usage-application"></a>
 
 Хранит приложения пользователя для указания их, например, в списке истории просмотра фильмов.
 
@@ -1000,7 +1002,7 @@ Eltex NV100/101   | 6
 
 В качестве идентификаторов элементов выступают идентификаторы экземпляра инсталляции программы.
 
-## /history/playback/rips [usage-catalogue_item]
+## /history/playback/rips <a id="usage-catalogue_item"></a>
 
 Хранит историю воспроизведения рипов фильмов. Используется для удобства продолжения просмотра.
 
@@ -1028,7 +1030,7 @@ Eltex NV100/101   | 6
 
 [media-guide-ref]: media-guide.md
 
-## /history/locations [usage-location]
+## /history/locations <a id="usage-location"></a>
 
 Хранит историю определения геолокации пользователя.
 
@@ -1036,7 +1038,7 @@ Eltex NV100/101   | 6
 
 Используется сервером для таргетирования проталкивающих уведомлений по абонентам операторов и территориям. Создание идентификаторов элементов следует производить на стороне сервера.
 
-## /history/playback/telecasts [usage-history-telecasts]
+## /history/playback/telecasts <a id="usage-history-telecasts"></a>
 
 Хранит историю просмотров выпусков передач. Используется для удобства продолжения просмотра.
 
@@ -1059,7 +1061,7 @@ Eltex NV100/101   | 6
 
 Если для канала с названием удалось определить идентификатор, то необходимо удалить существующий элемент и добавить новый с определенным идентификатором.
 
-## /bookmarks/playlists [usage-bookmark]
+## /bookmarks/playlists <a id="usage-bookmark"></a>
 
 Хранит закладки на пользовательские списки воспроизведения.
 
@@ -1067,7 +1069,7 @@ Eltex NV100/101   | 6
 
 Создание идентификаторов элементов следует производить на стороне сервера.
 
-## /subscriptions/catalogue [usage-subscription]
+## /subscriptions/catalogue <a id="usage-subscription"></a>
 
 Хранит подписки пользователя на события медийного каталога.
 
@@ -1083,7 +1085,7 @@ Eltex NV100/101   | 6
 
 Отказ от подписки осуществляется удалением элемента с описанием подписки.
 
-## /cloud/telecasts [usage-storage-constraint]
+## /cloud/telecasts <a id="usage-storage-constraint"></a>
 
 Хранит список выпусков телепередач из личного архива пользователя.
 
@@ -1100,7 +1102,7 @@ Eltex NV100/101   | 6
 - трансляция выпуска передачи завершилась, отсутствует запись для данного выпуска
 - не ведется запись на канале, на котором выходит выпуск телепередачи
 
-## /credentials/parental_control [usage-credential]
+## /credentials/parental_control <a id="usage-credential"></a>
 
 Хранит список PIN–кодов родительского контроля.
 
@@ -1121,7 +1123,7 @@ Eltex NV100/101   | 6
 
 Рекомендуется хранить не более одного PIN–кода, привязанного к конкретной установке, т.е. при добавлении нового PIN–кода необходимо удалить старый.
 
-## /purchases [usage-purchases]
+## /purchases <a id="usage-purchases"></a>
 
 Хранит информацию о покупках, выполненных пользователем во внешних платежных системах.
 
@@ -1289,3 +1291,29 @@ Eltex NV100/101   | 6
 ## Изменения в версии 1.13.4
 
 - Уточнен формат времени для атрибутов `ctime`, `mtime`
+
+[class-action]: #class-action
+[class-application]: #class-application
+[class-application-reference]: #class-application-reference
+[class-bookmark]: #class-bookmark
+[class-catalogue-item]: #class-catalogue-item
+[class-credential]: #class-credential
+[class-device]: #class-device
+[class-location]: #class-location
+[class-purchase]: #class-purchase
+[class-storage-constraint]: #class-storage-constraint
+[class-subscription]: #class-subscription
+[class-time-limited-playback]: #class-time-limited-playback
+[filter-syntax]: #filter-syntax
+[m-delete]: #m-delete
+[multivalue-operators]: #multivalue-operators
+[usage-application]: #usage-application
+[usage-bookmark]: #usage-bookmark
+[usage-catalogue_item]: #usage-catalogue_item
+[usage-credential]: #usage-credential
+[usage-devices]: #usage-devices
+[usage-history-telecasts]: #usage-history-telecasts
+[usage-location]: #usage-location
+[usage-purchases]: #usage-purchases
+[usage-storage-constraint]: #usage-storage-constraint
+[usage-subscription]: #usage-subscription

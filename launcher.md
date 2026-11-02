@@ -1,7 +1,9 @@
+---
 title: Launcher API
 quotes language: french
 version: 1.3
 status: 
+---
 
 # Введение
 
@@ -72,13 +74,13 @@ status:
 * Методам можно передать GET параметр `time_travel` со значением timestamp, в этом случае API вернет данные на ближайший момент времени к указанному параметру, если таковой слепок существует. Работает только при положительном значении параметра `statistics`. Это параметр **не должен** использоваться в публичной версии приложений.
 
 # Форматы сообщений
-## PosterList — вывод списка афиш лаунчера [posters-list-message]
+## PosterList — вывод списка афиш лаунчера <a id="posters-list-message"></a>
 
 	message PosterList {
       repeated Poster posters = 1;
 	}	
 	
-## Poster — информация об афише лаунчера [poster-message]	
+## Poster — информация об афише лаунчера <a id="poster-message"></a>	
 	message Poster {
       enum PosterType {
 	    FILM = 0;
@@ -138,7 +140,7 @@ status:
 - `related_posters` — вывод связанных афиш;
 - `statistics` — вывод статистических данных.
 
-## LauncherImg — информация об иллюстрации афиши лаунчера  [launcherImg-message]
+## LauncherImg — информация об иллюстрации афиши лаунчера <a id="launcherimg-message"></a>
 
 	message LauncherImg {
       optional string url = 1;
@@ -154,7 +156,7 @@ status:
 - `height` - высота иллюстрации
 - `profile` - тип профиля иллюстрации (может быть 'vertical', 'horizontal', либо 'promo')
 
-## Statistics — информация о статистике событий афиши  [Statistics-message]
+## Statistics — информация о статистике событий афиши <a id="statistics-message"></a>
 
 	message Statistics {
       optional uint32 count_daily = 1;
@@ -193,3 +195,7 @@ status:
 ## Версия 1.4
 
 - добавлена возможность получать статистические данные по афишам с форматом сообщений [`Statistics`][Statistics-message].
+
+[poster-message]: #poster-message
+[posters-list-message]: #posters-list-message
+[Statistics-message]: #statistics-message

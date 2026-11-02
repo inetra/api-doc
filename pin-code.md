@@ -1,7 +1,9 @@
+---
 title: PIN-CODE API
 status: в работе
 version: 1.0.0
 quotes language: french
+---
 
 # Цель и смысл
 

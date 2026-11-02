@@ -1,7 +1,9 @@
+---
 title: Upload niche content
 quotes language: french
 version: 1.0.0
 status:  в разработке
+---
 
 # Общая информация
 
@@ -19,7 +21,7 @@ HTTP заголовок x-api-key;
 
 Методы Upload niche content API: list, update-status
 
-# Получить список контента для кодировки [list]
+# Получить список контента для кодировки <a id="list"></a>
 GET */list.json?p=1*
 
 Ответ содержит список фильмов, которые необходимо закодировать: 
@@ -58,10 +60,10 @@ GET */list.json?p=1*
 	- `1` — Контент ожидает кодировки
 	
 
-#Важно 
+# Важно
 Если контент взят в работу - у него меняется статус и он пропадает из данного списка. 
 
-# Изменить статус кодировки контента [update-status]
+# Изменить статус кодировки контента <a id="update-status"></a>
 POST */updateStatus.json?status=successfully&id=445745287&link=https://hls.peers.tv/inetra-test/top_gun_maverick_2022/top_gun_maverick_2022/playlist.m3u8*
 
 **Важно: uri-кодирование не требуется.

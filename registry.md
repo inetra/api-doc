@@ -1,8 +1,10 @@
+---
 title: Registry API
 quotes language: french
 version: 2.35.1
 server-version: 2.35.1
 status: согласован
+---
 
 # Общая информация
 
@@ -39,7 +41,7 @@ API возвращает результат работы в HTTP–коде и �
 `400` | В запросе отсутствует обязательные параметры
 `501` | Метод не реализован
 
-## Сервисы контрагентов [services-anchor]
+## Сервисы контрагентов <a id="services-anchor"></a>
 
 Каждый контрагент имеет список сервисов, которые предоставляются им на определенном множестве территорий. Виды сервисов, которые можно найти с помощью Регистратуры перечислены в таблице ниже. Сервис может иметь несколько способов доставки. К примеру, IP–телевидение может поставляться как с помощью multicast, так и с помощью других средств, вроде HTTP Live Streaming или RTSP.
 
@@ -59,7 +61,7 @@ API возвращает результат работы в HTTP–коде и �
 `11` | `pinger`          | HTTP pinger | Кто угодно | HTTP | С помощью данного API контрагент может определять активность приложений в своей сети. Приложение периодически отправляет запросы на адрес, указанный в `location`.
 `12` | `radio`           | Радио   | Инетра и партнеры | [Radio] | Предоставляет список источников вещания каналов радио.
 `13` | `catalogue`       | Медиа Каталог | Инетра | [Catalogue API] | Предоставляет информацию о коллекциях медийных элементов.
-`14` | `promo`           | Промо   | Инетра | [Promo API] | <span style="color:#f00">устарело с версии 2.28</span>
+`14` | `promo`           | Промо   | Инетра | Promo API | <span style="color:#f00">устарело с версии 2.28</span>
 `15` | `bytefog`         | ByteFog | Инетра | [ByteFog API] | Предоставляет узлам сети ByteFog поиск точек входа для получения потокового вещания.
 `16` | `portchecker`     | PortChecker | Кто угодно | [PortChecker API] | Предоставляет проверку возможности получения входящих соединений.
 `17` | `internet`        | Доступ к сети Интернет | Кто угодно | отсутствует | Описывает услугу "Доступ к сети Интернет"
@@ -84,10 +86,9 @@ API возвращает результат работы в HTTP–коде и �
 [Notifications API]: notifications.md
 [Tracking API]: tracking.md
 [User Data API]: user-data.md
-[User Data Merge API]: user-data-merge.md
+[User Data Merge API]: user-data.md#merge-data
 [Media Locator API]: media-locator.md
 [Catalogue API]: catalogue.md
-[Promo API]: promo.md
 [ByteFog API]: bytefog.md
 [PortChecker API]: portchecker.md
 [Money Miner API]: money_miner.md
@@ -96,7 +97,7 @@ API возвращает результат работы в HTTP–коде и �
 [PromoBlock API]: promo-block.md
 [Gismeteo API]: https://www.gismeteo.ru/api/
 
-## Версионирование сервисов [anchor-versions]
+## Версионирование сервисов <a id="anchor-versions"></a>
 
 Каждый сервис, выданный Регистратурой, может поддерживать одну или несколько версий протоколов взаимдействия.
 
@@ -104,7 +105,7 @@ API возвращает результат работы в HTTP–коде и �
 
 Для информационных сервисов допускается поддерживать только актуальную версию, для сервисов контрагентов–партнеров (IPTV, MediaLocator, Auth, Radio) *рекомендуется* поддерживать все существующие версии (на момент выпуска клиента).
 
-## Резервирование сервисов [service-reserve]
+## Резервирование сервисов <a id="service-reserve"></a>
 
 В целях резервирования сервисов метод [`whereami`][m-whereami] может выдать несколько альтернативных описаний для каждой версии сервиса, упорядоченные в рамках версии по топологической и/или географической близости;
 
@@ -154,7 +155,7 @@ API возвращает результат работы в HTTP–коде и �
 
 В данном случае для сервиса "[Данные пользователя][User Data API]" выдано 3 описания версии с номером `1`. При выполнении запроса к сервису клиент *должен* выбрать первое описание версии, которое соответствует размещению сервиса в Московском датацентре. При возникновении критической ошибки клиент *должен* переключиться на следующее описание версии сервиса и повторить запрос.
 
-### Резервирование Регистратуры [reserve-registry]
+### Резервирование Регистратуры <a id="reserve-registry"></a>
 
 Для резервирования корневого сервиса "[Регистратура][Registry API]" предусмотрена выдача описания сервиса в методе [`whereami`][m-whereami]. К данному сервису применимы описанные выше принципы резервирования сервисов.
 
@@ -166,7 +167,7 @@ API возвращает результат работы в HTTP–коде и �
 
 # Методы
 
-## whereAmI — где я [m-whereami]
+## whereAmI — где я <a id="m-whereami"></a>
 
  параметр    | значение по умолчанию      | значение
 -------------|----------------------------|----------
@@ -285,7 +286,7 @@ API возвращает результат работы в HTTP–коде и �
 
 # Форматы сообщений
 
-## WhereAmI — Где я [whereami-message]
+## WhereAmI — Где я <a id="whereami-message"></a>
 
 	message WhereAmI {
 	  optional ContractorInfo contractor = 1;
@@ -366,7 +367,7 @@ API возвращает результат работы в HTTP–коде и �
 	- `Service.pingInterval` - интервал времени между двумя запросами (заполняется только для сервиса `PINGER`)
 - `WhereAmI.ipAddress` — строковое представление IP адреса клиента, IPv4 или IPv6
 
-## ContractorInfo, ContractorList — информация о контрагенте [contractorinfo-message]
+## ContractorInfo, ContractorList — информация о контрагенте <a id="contractorinfo-message"></a>
 
 	message ContractorInfo {
 	  message ContractorImage {
@@ -434,7 +435,7 @@ API возвращает результат работы в HTTP–коде и �
 	- `LAUNCHER_VERTICAL` - вертикальный логотип для приставки;
 	- `LAUNCHER_VERTICAL_KIDS` - вертикальный логотип для приставки в детском режиме.
 
-## TerritoryInfo, TerritoryList — информация о территории [territoryinfo-message]
+## TerritoryInfo, TerritoryList — информация о территории <a id="territoryinfo-message"></a>
 
 	message TerritoryInfo {
 	  optional uint32 territoryId = 1;
@@ -460,7 +461,7 @@ API возвращает результат работы в HTTP–коде и �
 
 Замечание: для часового пояса не учитывается переход на зимнее/летнее время, а также в некоторых случаях значение может отсутствовать, например, когда для территории может быть определено более одного часового пояса (пример: Россия, СФО).
 
-## Area, AreaList — список ареалов [area-message]
+## Area, AreaList — список ареалов <a id="area-message"></a>
 
 	message AreaList {
 	  repeated Area areas = 1;
@@ -478,7 +479,7 @@ API возвращает результат работы в HTTP–коде и �
 - `Area.name` — имя ареала
 - `Area.cost` — стоимость обмена информацией с ареалом (на 22.11.2012 указывается только для Новотелекома). Информация о стоимости является условной: за 0 принимаются те контрагенты, у которых с данным контрагентом установлен пиринг, в наличии высокая скорость обмена информацией. Клиент при скачивании данных в первую очередь соединяется с теми источниками, чья стоимость ниже
 
-## Hub, HubList — список хабов [hub-message]
+## Hub, HubList — список хабов <a id="hub-message"></a>
 
 	message Hub {
 	  optional string name = 1;
@@ -502,7 +503,7 @@ API возвращает результат работы в HTTP–коде и �
 - `Hub.addresses` — адреса хаба для DC++–клиентов
 - `Hub.nodeAddress` — сетевой адрес ноды хаба для соединения в кластер
 
-## HubIsolation, HubIsolationList — изоляция между хабами [hubisolation-message]
+## HubIsolation, HubIsolationList — изоляция между хабами <a id="hubisolation-message"></a>
 
 	message HubIsolationList {
 	  message HubIsolation {
@@ -527,7 +528,7 @@ API возвращает результат работы в HTTP–коде и �
 - Задают диаграмму связей хаба (от хаба с именем `fromHub` к хабу с именем `toHub`)
 - Значения параметров `tthSearch`, `textSearch` и `u2u` соответствуют таковым конфигурации ноды кластера
 
-## Prefix, PrefixList — список IP–префиксов [prefixlist-message]
+## Prefix, PrefixList — список IP–префиксов <a id="prefixlist-message"></a>
 
 	message PrefixList {
 	  message Prefix {
@@ -549,7 +550,7 @@ API возвращает результат работы в HTTP–коде и �
 - `contractor` — информация о контрагенте префикса. Гарантируется передача только идентификатора контрагента
 - `territories` — территории, за которыми закреплен префикс. Гарантируется передача только идентификатора территории. Если за префиксом не закреплена территория, возвращается список территорий контрагента
 
-## KnownInfo — информация от пользователя [knowninfo-message]
+## KnownInfo — информация от пользователя <a id="knowninfo-message"></a>
 
 	message KnownInfo {
 	  optional uint32 contractorId = 1;
@@ -809,3 +810,15 @@ API возвращает результат работы в HTTP–коде и �
 ## Изменения в версии 2.35.1
 
 - Добавлены новые типы профилей изображений `LAUNCHER_VERTICAL` и `LAUNCHER_VERTICAL_KIDS` в сообщениях `ContractorImage`
+
+[area-message]: #area-message
+[contractorinfo-message]: #contractorinfo-message
+[hub-message]: #hub-message
+[hubisolation-message]: #hubisolation-message
+[knowninfo-message]: #knowninfo-message
+[m-whereami]: #m-whereami
+[prefixlist-message]: #prefixlist-message
+[reserve-registry]: #reserve-registry
+[service-reserve]: #service-reserve
+[territoryinfo-message]: #territoryinfo-message
+[whereami-message]: #whereami-message

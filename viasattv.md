@@ -1,7 +1,9 @@
-title: Purchases
+---
+title: ViasatTV API
 quotes language: french
 version: 1.0.1
 status:  согласован
+---
 
 # Общая информация
 
@@ -16,7 +18,7 @@ status:  согласован
 
 Документация на "ViPPlay Partner API": https://api-partner.vipplay.ru/
 
-## Список ТВ-каналов [channels.json]
+## Список ТВ-каналов <a id="channels.json"></a>
 
 Запрос списка телеканалов, доступных для Партнера ООО "Инетра".
 
@@ -63,7 +65,7 @@ status:  согласован
 - title - название
 - logo_url - ссылка на логотип канала
 
-## Получение источника вещания канала [stream.url]
+## Получение источника вещания канала <a id="stream.url"></a>
 
 Запроса адаптивного стрима телеканала для партнерского пользователя.
 
