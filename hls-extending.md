@@ -1,7 +1,9 @@
+---
 title: Расширения протокола Http Live Streaming
 quotes language: french
 version: 0.2
 status: draft
+---
 
 # Общая информация
 

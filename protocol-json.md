@@ -1,5 +1,7 @@
+---
 title: Конвертация из Google Protocol Buffers в JSON
 status: черновик
+---
 
 # Введение
 

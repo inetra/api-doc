@@ -1,8 +1,10 @@
+---
 title: OTT API
 version: 1.7
 server-version: 1.7
 status: не согласован
 quotes language: french
+---
 
 # Общая информация
 
@@ -27,13 +29,13 @@ OTT API - специальный API для конфигурирования HLS
 
 ### Формат ответа
 
-#### Сообщение ChannelList [m-channellist]
+#### Сообщение ChannelList <a id="m-channellist"></a>
 
  параметр    | формат |     статус     | описание
 -------------|--------|----------------|----------
  `title`     | строка |  обязательный  | при генерации списка каналов будет использовано в качестве названия (title)
  `channels`  | список |  обязательный  | список каналов: набор полей из сообщения [Channel][p-channel] через запятую
- `categories`| список | необязательный | список категорий: набор полей из сообщения [Category][p-category] через запятую
+ `categories`| список | необязательный | список категорий: набор полей из сообщения [Category](#m-category) через запятую
  
 Замечания:
 * Порядок, в котором каналы перечисляются в категориях, будет использован при генерации плейлистов;
@@ -41,7 +43,7 @@ OTT API - специальный API для конфигурирования HLS
 
 Подробнее: [Protocol Buffers][p-channellist]
  
-#### Сообщение Channel [m-channel]
+#### Сообщение Channel <a id="m-channel"></a>
 
  параметр         | формат |     статус     | описание
 ------------------|--------|----------------|----------
@@ -56,7 +58,7 @@ OTT API - специальный API для конфигурирования HLS
 
 Подробнее: [Protocol Buffers][p-channel]
 
-#### Сообщение StreamSource [m-streamsource]
+#### Сообщение StreamSource <a id="m-streamsource"></a>
 
  параметр         | формат |     статус     | описание
 ------------------|--------|----------------|----------
@@ -83,27 +85,27 @@ OTT API - специальный API для конфигурирования HLS
 
 Подробнее: [Protocol Buffers][p-streamsource]
 
-#### Сообщение UserAgentRegexps [m-useragentregexps]
+#### Сообщение UserAgentRegexps <a id="m-useragentregexps"></a>
 
  параметр         | формат |     статус     | описание
 ------------------|--------|----------------|----------
  `regexp_list`    | список |  обязательный  | Регулярное выражение, поддерживаемое стандартным Python'овским модулем re: https://docs.python.org/2/library/re.html
  `type`           | число  |  обязательный  | Тип: INCLUDE (0) - отдавать только для указанных User-Agent'ов, EXCLUDE (1) - отдавать источник всем, кроме указанных User-Agent'ов
 
-Подробнее: [Protocol Buffers][p-useragentregexps]
+Подробнее: [Protocol Buffers](#m-useragentregexps)
 
-#### Сообщение Category [m-category]
+#### Сообщение Category <a id="m-category"></a>
 
  параметр    | формат |     статус     | описание
 -------------|--------|----------------|----------
  `title`     | строка |  обязательный  | при генерации списка каналов будет использовано в качестве названия категории
  `channels`  | список |  обязательный  | список идентификторов каналов, входящих в данную категорию
  
-Подробнее: [Protocol Buffers][p-category]
+Подробнее: [Protocol Buffers](#m-category)
 
 # Описания форматов способом Google Protocol Buffers
 
-# ChannelList - список каналов и категорий [p-channellist]
+# ChannelList - список каналов и категорий <a id="p-channellist"></a>
 
     message ChannelList {
         required string title = 1;                     // Человекочитаемое название плейлиста
@@ -112,7 +114,7 @@ OTT API - специальный API для конфигурирования HLS
         repeated Settings settings = 4;
     }
 
-# Channel - описание канала [p-channel]
+# Channel - описание канала <a id="p-channel"></a>
 
     message Channel {
         // Порядок сортировки каналов в выводе API будет использован для позиционирования части каналов, не попавших ни в одну категорию, в списке.
@@ -133,7 +135,7 @@ OTT API - специальный API для конфигурирования HLS
         optional ChannelStatus status = 8;            // Статус канала: тестовое / боевое вещание
     }
 
-# StreamSource - описание источника [p-streamsource]
+# StreamSource - описание источника <a id="p-streamsource"></a>
 
     message StreamSource {
         required uint32 id = 1;                       // Постоянный идентификатор (например, порядковый номер) потока в рамках канала
@@ -161,7 +163,7 @@ OTT API - специальный API для конфигурирования HLS
         optional string resolution = 7;               // Согласно стандарту HLS
         optional string codecs = 8;                   // Согласно стандарту HLS
         optional string audio = 9;                    // Согласно стандарту HLS
-        optional string name = 10;                    // Опциональный хак: LQ | MQ | HQ, подробнее: http://drug/iwiki/pages/viewpage.action?pageId=13567356
+        optional string name = 10;                    // Опциональный хак: LQ | MQ | HQ, подробнее: https://wiki.inetra.ru/pages/viewpage.action?pageId=13567356
      
         // Регулярные выражения должны поддерживаться стандартным Python'овским модулем re: https://docs.python.org/2/library/re.html
         optional UserAgentRegexps user_agents = 11;   // Список User-Agent'ов, которым можно/нельзя отдавать источник
@@ -287,3 +289,8 @@ OTT API - специальный API для конфигурирования HLS
             }
         ]
     }
+
+[m-streamsource]: #m-streamsource
+[p-channel]: #p-channel
+[p-channellist]: #p-channellist
+[p-streamsource]: #p-streamsource

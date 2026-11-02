@@ -1,8 +1,10 @@
+---
 title: Media Guide
 version: 2.16
 server-version: 2.16
 status: согласован
 quotes language: french
+---
 
 # Цель и смысл
 
@@ -86,7 +88,7 @@ quotes language: french
 1. Рекомендуется явно указывать территорию, для которой запрашивается программа передач.
 2. Параметры `vitrina_timezone_name`, `vitrina_region` и `vitrina_geoname_id` используются для выбора программной зоны по меткам Vitrina TV (см. ниже). Параметр `t` при их наличии не используется для выбора зоны.
 
-## Выбор программной зоны по меткам Vitrina [vitrina-zone-selection]
+## Выбор программной зоны по меткам Vitrina <a id="vitrina-zone-selection"></a>
 
 Параметры позволяют выбрать программную зону канала по меткам распространения версии канала Vitrina TV:
 
@@ -133,9 +135,9 @@ quotes language: french
 
 [about-accept-language]: about.md#localization
 
-# Методы Media Guide API [methods-tv-guide]
+# Методы Media Guide API <a id="methods-tv-guide"></a>
 
-## `idbytitle` — получение списка идентификаторов каналов по их именам [m-idbytitle]
+## `idbytitle` — получение списка идентификаторов каналов по их именам <a id="m-idbytitle"></a>
 
 Запрос идентификаторов каналов, для которых в списке каналов провайдера (службы [IPTV][IPTV-doc], [Радио][Radio-doc]) не указан числовой идентификатор канала.
 
@@ -223,7 +225,7 @@ POST–запрос:
 	  ]
 	}
 
-## `channels` — получение информации о каналах [m-channels]
+## `channels` — получение информации о каналах <a id="m-channels"></a>
 
 Дополнительные параметры:
 
@@ -255,7 +257,7 @@ POST–запрос:
 
 Формат ответа: сообщение [`ChannelsList`][p-channelslist].
 
-## `schedule` — получение расписания для канала [m-schedule]
+## `schedule` — получение расписания для канала <a id="m-schedule"></a>
 
  параметр | по умолчанию | значение
 ----------|--------------|--------------
@@ -268,7 +270,7 @@ POST–запрос:
 
 Вне зависимости от порядка запрошенных дат расписание вернется в хронологическом порядке без повторов.
 
-## `telecastInfo` — получение информации о выпуске передачи по его идентификатору [m-telecastinfo]
+## `telecastInfo` — получение информации о выпуске передачи по его идентификатору <a id="m-telecastinfo"></a>
 
  параметр  | значение
 -----------|----------
@@ -276,7 +278,7 @@ POST–запрос:
 
 Формат ответа: сообщение [`Schedule`][p-schedule].
 
-## `tvshows` — получение информации о передачах [m-tvshows]
+## `tvshows` — получение информации о передачах <a id="m-tvshows"></a>
 
  параметр  | значение
 -----------|----------
@@ -285,9 +287,9 @@ POST–запрос:
 Формат ответа: сообщение [`TVShowList`][p-tvshow].
 
 
-# Устаревшие методы [methods-deprecated]
+# Устаревшие методы <a id="methods-deprecated"></a>
 
-## `channel` — получение информации о канале по его идентификатору (<span style="color:#f00">устарел с версии 2.7</span>) [m-channel]
+## `channel` — получение информации о канале по его идентификатору (<span style="color:#f00">устарел с версии 2.7</span>) <a id="m-channel"></a>
 
  параметр | значение
 ----------|----------
@@ -297,7 +299,7 @@ POST–запрос:
 
 # Описания форматов способом Google Protocol Buffers
 
-## DateTime — Описание даты и времени [p-datetime]
+## DateTime — Описание даты и времени <a id="p-datetime"></a>
 
 	message DateTime {
 	  optional uint32 year = 1;
@@ -315,7 +317,7 @@ POST–запрос:
 
 - `timezone` задается в секундах относительно GMT.
 
-## TVShow — Передача [p-tvshow]
+## TVShow — Передача <a id="p-tvshow"></a>
 
 	message TVShow {
 	  optional uint32 id = 1;
@@ -340,7 +342,7 @@ POST–запрос:
 - `ageRestriction` — возрастное ограничение передачи
 - `URL` — адрес страницы передачи на сайте сервиса
 
-## TelecastImage — снимки выпуска передачи [p-telecastimage]
+## TelecastImage — снимки выпуска передачи <a id="p-telecastimage"></a>
 
 	  message TelecastImage {
 	    enum Profile {
@@ -355,7 +357,7 @@ POST–запрос:
 	    optional string location = 4;
 	  }
 
-## Telecast — Описание фрагмента [p-telecast]
+## Telecast — Описание фрагмента <a id="p-telecast"></a>
 
 	message Telecast {
 	  optional uint64 id = 1;
@@ -399,7 +401,7 @@ POST–запрос:
 - `ad_tags` — список идентификаторов рекламных тэгов
 - `alias` — строковый идентификатор передачи
 
-## Category — Категория аудиовизуального материала [p-category]
+## Category — Категория аудиовизуального материала <a id="p-category"></a>
 
 	enum CategoryType {
 	  option (allow_alias) = true;
@@ -425,7 +427,7 @@ POST–запрос:
 - `type` — фиксированный тип категории, описывающий семантику использования;
 - `title` — человекочитаемое название категории.
 
-## Channel — Описание канала [p-channel]
+## Channel — Описание канала <a id="p-channel"></a>
 
 	message Channel {
 	  enum ChannelType {
@@ -472,7 +474,7 @@ POST–запрос:
 - `categories` — категории передач, вещаемых на канале (<span style="color:#0f0">новое в 2.9</span>).
 - `rubrics` — рубрики, в которые входит канал (<span style="color:#0f0">новое в 2.13</span>).
 
-## Rubric - Рубрика канала [p-rubric]
+## Rubric - Рубрика канала <a id="p-rubric"></a>
 
 	message Rubric {
 	  optional int64 id;
@@ -483,7 +485,7 @@ POST–запрос:
 - `id` — идентификатор рубрики;
 - `title` — человекочитаемое название категории.
 
-## Schedule — Расписание для канала [p-schedule]
+## Schedule — Расписание для канала <a id="p-schedule"></a>
 
 	message Schedule {
 	  optional string channelId = 1 [deprecated = true];
@@ -498,7 +500,7 @@ POST–запрос:
 - `items_skipped` — количество пропущенных выпусков передач в выдаче
 - `total_count` — общее количество выпусков передач, подпавших под действие фильтра
 
-## ChannelsList — Список каналов [p-channelslist]
+## ChannelsList — Список каналов <a id="p-channelslist"></a>
 
 	message ChannelsList {
 	  optional string title = 1;
@@ -506,7 +508,7 @@ POST–запрос:
 	  repeated Channel channels = 2;  
 	}
 
-## TitlesRequest — список названий каналов [p-titlesrequest]
+## TitlesRequest — список названий каналов <a id="p-titlesrequest"></a>
 
 	message TitlesRequest {
 	  repeated string titles = 1;
@@ -674,3 +676,15 @@ POST–запрос:
 1. Уточнено, что выбор программной зоны по `vitrina_*` применяется к [`channels`][m-channels] (`currentTelecast`, `scheduledDates`, `hasSchedule`) и [`channel`][m-channel], а не только к [`schedule`][m-schedule].
 2. Для `hasSchedule` при наличии `vitrina_*` учитываются geo-зоны канала (ранее учитывались только зоны без `geo`).
 3. В описание [`channels`][m-channels] добавлен пример запроса текущей передачи с параметрами Vitrina.
+
+[m-channel]: #m-channel
+[m-channels]: #m-channels
+[m-schedule]: #m-schedule
+[m-tvshows]: #m-tvshows
+[p-channel]: #p-channel
+[p-channelslist]: #p-channelslist
+[p-schedule]: #p-schedule
+[p-telecast]: #p-telecast
+[p-titlesrequest]: #p-titlesrequest
+[p-tvshow]: #p-tvshow
+[vitrina-zone-selection]: #vitrina-zone-selection

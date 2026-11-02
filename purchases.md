@@ -1,7 +1,9 @@
+---
 title: Purchases
 quotes language: french
 version: 1.0.0
 status:  согласован
+---
 
 # Общая информация
 
@@ -17,7 +19,7 @@ status:  согласован
 
 Подробности в документации по Auth API.
 
-## Список активных покупок [list]
+## Список активных покупок <a id="list"></a>
 
 */purchases/1/list.json*
 

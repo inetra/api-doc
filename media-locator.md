@@ -1,7 +1,9 @@
+---
 title: Media Locator API
 quotes language: french
 version: 1.10.0
 status: согласован
+---
 
 # Введение
 
@@ -52,7 +54,7 @@ API подразумевает доступ только аутентифици�
 [auth-api-doc]: auth.md
 [rfc6750]: http://tools.ietf.org/html/rfc6750
 
-## Интерпретация прав доступа [access-interpretation]
+## Интерпретация прав доступа <a id="access-interpretation"></a>
 
 При получении информации о местах расположения контента из медийных каталогов в сообщении [`Rip`][rip-message] могут быть переданы условия доступа:
 
@@ -175,7 +177,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
     ]
 }
 
-## `timeshift` — получение ссылки на источник вещания со смещением от эфирного [m-timeshift]
+## `timeshift` — получение ссылки на источник вещания со смещением от эфирного <a id="m-timeshift"></a>
 
 Параметр    | по умолчанию | описание
 ------------|--------------|--------------
@@ -268,7 +270,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 	- `stream_url` - ссылка для получения контента клиентом, в запросе используется токен из ответа на запрос  **auth_url** (для Megogo)
 
 
-## Rip — информация о рипе [rip-message]
+## Rip — информация о рипе <a id="rip-message"></a>
 
 	enum RipDefinition {
 	  SD = 0;
@@ -413,7 +415,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 - `usage_weight` — вес источника вещания, используется клиентом для определения вероятности использования источника вещания. Вероятность использования указанного URI равна весу источника, деленного на сумму всех источников вещания
 Например, имеются следующие источники вещания с весами 0, 1, 2, 3 и 4, то вероятность использования каждого из них будет 0, 0.1, 0.2, 0.3 и 0.4 соответственно.
 
-## TimeshiftReply [p-timeshift]
+## TimeshiftReply <a id="p-timeshift"></a>
 
 	message TimeshiftReply {
 	   optional string uri = 1;
@@ -506,4 +508,7 @@ HTTP заголовок `Client-Capabilities` задается граммати�
 
 - Добавлена поддержка нишевого контента
 
-
+[access-interpretation]: #access-interpretation
+[m-timeshift]: #m-timeshift
+[p-timeshift]: #p-timeshift
+[rip-message]: #rip-message

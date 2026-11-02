@@ -1,7 +1,9 @@
+---
 title: Appconfig API
 quotes language: french
 version: 1.0
 status: 
+---
 
 # Введение
 

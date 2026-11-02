@@ -1,7 +1,9 @@
+---
 title: Money Miner
 version: 1.12.6
 status: согласован
 quotes language: french
+---
 
 # Введение
 
@@ -278,7 +280,7 @@ MoneyMiner API предназначен для медиации и таргет�
 
 [money_miner_predicates_example]: examples/money_miner_predicates.py
 
-# Требования по реализации [implementation-requirements]
+# Требования по реализации <a id="implementation-requirements"></a>
 
 Для корректной работы системы приложение *должно*:
 
@@ -477,7 +479,7 @@ MoneyMiner API предназначен для медиации и таргет�
 
 # Методы
 
-## places — получение информации по местам баннеров [m-places]
+## places — получение информации по местам баннеров <a id="m-places"></a>
 
 Параметры:
 
@@ -520,7 +522,7 @@ MoneyMiner API предназначен для медиации и таргет�
 	   }]
 	}
 
-## breaks — упорядоченная цепочка мест (preroll / midroll) [m-breaks]
+## breaks — упорядоченная цепочка мест (preroll / midroll) <a id="m-breaks"></a>
 
 Параметры:
 
@@ -582,7 +584,7 @@ MoneyMiner API предназначен для медиации и таргет�
 
 # Описание ответов в формате Google Protocol Buffers
 
-## AdPlaceList, AdPlace — рекламной место [p-ad-place-list]
+## AdPlaceList, AdPlace — рекламной место <a id="p-ad-place-list"></a>
 
 	message AdPlaceList {
 	  repeated AdPlace places = 1;
@@ -600,7 +602,7 @@ MoneyMiner API предназначен для медиации и таргет�
 - `ad_systems` — упорядоченный список рекламных сетей
 - `request_delay` — минимальная задержка между показами рекламы для рекламного места (в секундах)
 
-## AdSystem, AdSystemParam — описание рекламной сети [p-ad-system]
+## AdSystem, AdSystemParam — описание рекламной сети <a id="p-ad-system"></a>
 
 	message AdSystem {
 	  message AdSystemParam {
@@ -889,3 +891,7 @@ MoneyMiner API предназначен для медиации и таргет�
 ## Изменения в версии 1.12.6 (PTV-3323)
 
 - Таблица поддержки: `[UNKNOWN_CHANNEL_NAME]` на Android — с версии 26.10.0 (в 7.19.2 изменений PTV-3323 нет).
+
+[m-places]: #m-places
+[p-ad-place-list]: #p-ad-place-list
+[p-ad-system]: #p-ad-system
